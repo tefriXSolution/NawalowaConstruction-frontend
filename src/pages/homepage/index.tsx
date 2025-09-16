@@ -1,6 +1,6 @@
 
 import { NavigationBar } from '@/components/navbar'
-import { HeroSection } from './HeroSection'
+import { HeroSection } from '@/features'
 
 export const HomePage = () => {
   return (
