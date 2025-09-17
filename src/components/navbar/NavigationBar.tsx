@@ -1,13 +1,13 @@
 import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
 import Logo from "@/assets/img/logo.png"
 import { navbarStyle } from "@/styles";
+import { NavBarLink } from "@/types";
 
-interface NavBarLink{
-  linkName: string;
-  onClick: () => void;
-};
+interface Props {
+  navLinks : NavBarLink[]
+}
 
-const NavigationBar = () => {
+const NavigationBar = ({navLinks}:Props) => {
   return (
   <Navbar fluid theme={navbarStyle} className="!bg-mainTheme-color">
       <NavbarBrand href="https://flowbite-react.com">
@@ -15,17 +15,17 @@ const NavigationBar = () => {
         <span className="self-center whitespace-nowrap text-2xl font-semibold text-mainText-color italic">NawalowaConstruction</span>
       </NavbarBrand>
       <div className="flex md:order-2">
-        <Button className="!bg-gray-300 text-mainTheme-color transition-transform duration-300 hover:scale-110">Login</Button>
+        <Button className="!bg-gray-300 text-mainTheme-color transition-transform duration-300 hover:scale-110">
+          Login
+        </Button>
         <NavbarToggle />
       </div>
       <NavbarCollapse>
-        <NavbarLink href="#" active>
-          Home
-        </NavbarLink>
-        <NavbarLink href="#">About</NavbarLink>
-        <NavbarLink href="#">Services</NavbarLink>
-        <NavbarLink href="#">Pricing</NavbarLink>
-        <NavbarLink href="#">Contact</NavbarLink>
+        {navLinks?.map((navLink) => (
+          <NavbarLink href={navLink.linkUrl} onClick={navLink.onClick}>
+            {navLink.linkName}
+          </NavbarLink>
+        ))}
       </NavbarCollapse>
     </Navbar>
   )
