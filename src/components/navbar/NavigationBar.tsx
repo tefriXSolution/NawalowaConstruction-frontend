@@ -1,7 +1,11 @@
 import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
-import type{ NavBarLink } from "@/types";
 import Logo from "@/assets/img/logo.png"
 import { navbarStyle } from "@/styles";
+
+interface NavBarLink{
+  linkName: string;
+  onClick: () => void;
+};
 
 const NavigationBar = () => {
   return (

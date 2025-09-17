@@ -4,13 +4,21 @@
 
 @theme {
   --color-mainTheme-color: #001f3e; 
+  --color-mainTheme-hover-color: #0a3866; 
+
   --color-mainText-color: #dee0e2;
   --color-mainText-hover-color: #7e8993;
+
   --color-serviceBtn-color: #001f3e;
   --color-serviceBtn-hover-color: #18528d;
+
+  --color-rentBtn-color: #a79f07;
+  --color-rentBtn-hover-color: #e9df20;
+
+  --color-serviceCardTheme-color:#e9ebe2;
+  --color-serviceCardSubText-color:#8c8e7d;
 }
 
-:root {
-  --color-main-color-blue: #dee0e2;
+.section-title{
+  @apply text-4xl align-middle flex justify-center mb-5
 }
-

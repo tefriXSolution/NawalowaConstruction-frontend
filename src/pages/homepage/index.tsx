@@ -1,12 +1,18 @@
 
 import { NavigationBar } from '@/components/navbar'
-import { HeroSection } from '@/features'
+import { HeroSection } from './heroSection/HeroSection'
+import { OurServices } from './ourServices'
 
 export const HomePage = () => {
   return (
     <>
-      <NavigationBar />
-      <HeroSection />
+      <section>
+        <NavigationBar />
+        <HeroSection />
+      </section>
+      <section>
+        <OurServices />
+      </section>
     </>
   )
 }
