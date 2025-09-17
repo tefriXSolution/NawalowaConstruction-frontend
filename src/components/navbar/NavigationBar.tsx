@@ -11,7 +11,7 @@ const NavigationBar = ({navLinks}:Props) => {
   return (
   <Navbar fluid theme={navbarStyle} className="!bg-mainTheme-color">
       <NavbarBrand href="https://flowbite-react.com">
-        <img src={Logo}  className="mr-3 h-15 transition-transform duration-300 hover:scale-125" alt="Flowbite React Logo" />
+        <img src={Logo}  className="mr-3 h-15 transition-transform duration-300 scale-125 hover:scale-140" alt="Flowbite React Logo" />
         <span className="self-center whitespace-nowrap text-2xl font-semibold text-mainText-color italic">NawalowaConstruction</span>
       </NavbarBrand>
       <div className="flex md:order-2">
