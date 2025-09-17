@@ -1,3 +1,29 @@
 @import "tailwindcss";
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
+
+@theme {
+  --color-mainTheme-color: #001f3e; 
+  --color-mainTheme-hover-color: #0a3866; 
+
+  --color-mainText-color: #dee0e2;
+  --color-mainText-hover-color: #7e8993;
+
+  --color-serviceBtn-color: #001f3e;
+  --color-serviceBtn-hover-color: #18528d;
+
+  --color-rentBtn-color: #a79f07;
+  --color-rentBtn-hover-color: #e9df20;
+  --color-rentCardTheme-color:#b5ad0f27;
+
+  --color-serviceCardTheme-color:#e9ebe2;
+  --color-serviceCardSubText-color:#482cc8;
+}
+
+.section-title{
+  @apply text-4xl align-middle flex justify-center mb-5
+}
+
+/* :root{
+    --color-serviceCardSubText-color:#482cc8;
+} */
