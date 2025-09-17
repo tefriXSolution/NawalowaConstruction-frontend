@@ -14,11 +14,16 @@
 
   --color-rentBtn-color: #a79f07;
   --color-rentBtn-hover-color: #e9df20;
+  --color-rentCardTheme-color:#b5ad0f27;
 
   --color-serviceCardTheme-color:#e9ebe2;
-  --color-serviceCardSubText-color:#8c8e7d;
+  --color-serviceCardSubText-color:#482cc8;
 }
 
 .section-title{
   @apply text-4xl align-middle flex justify-center mb-5
 }
+
+/* :root{
+    --color-serviceCardSubText-color:#482cc8;
+} */
