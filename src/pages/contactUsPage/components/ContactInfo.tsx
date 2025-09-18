@@ -45,7 +45,7 @@ const ContactInfo: React.FC = () => {
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15820.746719312252!2d80.46576424161269!3d7.554613379344867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae349ca14a3258f%3A0xde3c3da93d47eb84!2sKirindigalla!5e0!3m2!1sen!2slk!4v1758205101042!5m2!1sen!2slk"
           width="100%"
-          height="450"
+          height="100%"
           style={{ border: 0, borderRadius: '8px' }}
           allowFullScreen={true}
           loading="lazy"
