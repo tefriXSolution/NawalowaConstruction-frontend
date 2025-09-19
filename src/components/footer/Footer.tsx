@@ -25,7 +25,7 @@ export const Footer = ({footerLinks}:Props) => {
                 </ul>
             </div>
             <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-            <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© {new Date().getFullYear()} <a href="https://tefrix.com/" className="hover:underline">Develop By TefriX Solution</a> | All Rights Reserved.</span>
+            <span className="block text-sm sm:text-center text-gray-400">© {new Date().getFullYear()} <a target="_blank" href="https://tefrix.com/" className="hover:underline">Develop By TefriX Solution</a> | All Rights Reserved.</span>
         </div>
 </footer>
 

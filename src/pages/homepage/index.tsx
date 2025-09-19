@@ -2,10 +2,9 @@
 import { NavigationBar } from '@/components/navbar'
 import { HeroSection } from './heroSection/HeroSection'
 import { OurServices } from './ourServices'
-import { NavBarLink } from '@/types'
+import { NavBarLink, FooterLink } from '@/types'
 import { RentSection } from './rentSection'
 import { Footer } from '@/components/footer'
-import { FooterLink } from '@/types'
 
 export const HomePage = () => {
 
