@@ -28,7 +28,7 @@ export const ContactForm: React.FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Form data submitted:', formData);
-        // Add your API call or other submission logic here
+        // TODO: Implement API call or other form submission logic here.
     };
 
     return (
