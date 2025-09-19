@@ -1,5 +1,4 @@
-import adminLogin from './loginpage/adminLogin'
-
-export {HomePage} from '@/pages/homepage'
-export {AboutUsPage} from '@/pages/aboutUsPage'
-export { default as adminLogin } from '@/pages/loginpage/adminLogin'
+export { HomePage } from '@/pages/homepage'
+export { AboutUsPage } from '@/pages/aboutUsPage'
+export { ContactUsPage } from '@/pages/contactUsPage'
+export { LoginPage } from '@/pages/AdminLogin'
