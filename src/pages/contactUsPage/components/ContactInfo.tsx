@@ -1,4 +1,4 @@
-// src/components/ContactInfo.tsx
+// src/pages/contactUsPage/components/ContactInfo.tsx
 
 import React from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
