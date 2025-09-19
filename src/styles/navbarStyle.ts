@@ -1,4 +1,6 @@
-export const navbarStyle = {
+import { createTheme } from "flowbite-react";
+
+export const navbarStyle = createTheme({
   "root": {
     "base": "px-2 py-1 sm:px-4",
     "rounded": {
@@ -31,7 +33,7 @@ export const navbarStyle = {
   "link": {
     "base": "block py-2 pl-3 pr-4 md:p-0",
     "active": {
-      "on": "bg-primary-700 text-white md:bg-transparent md:text-primary-700 text-white",
+      "on": "bg-primary-700 md:bg-transparent md:text-primary-700 text-white",
       "off": "border-b border-gray-100 text-gray-700 hover:bg-gray-50 md:border-0 md:hover:bg-transparent md:hover:text-primary-700"
     },
     "disabled": {
@@ -44,4 +46,4 @@ export const navbarStyle = {
     "icon": "h-6 w-6 shrink-0",
     "title": "sr-only"
   }
-}
+})
