@@ -1,5 +1,6 @@
 import logo from '@/assets/img/logo.png'
 
+
 const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
