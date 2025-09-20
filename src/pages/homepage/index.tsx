@@ -1,10 +1,8 @@
-
-import { NavigationBar } from '@/components/navbar'
+import { NavigationBar, Footer } from '@/components'
 import { HeroSection } from './heroSection/HeroSection'
 import { OurServices } from './ourServices'
 import { NavBarLink, FooterLink } from '@/types'
 import { RentSection } from './rentSection'
-import { Footer } from '@/components/footer'
 
 export const HomePage = () => {
 

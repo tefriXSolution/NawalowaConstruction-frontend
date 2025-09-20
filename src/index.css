@@ -6,6 +6,11 @@
   --color-mainTheme-color: #001f3e; 
   --color-mainTheme-hover-color: #0a3866; 
 
+  --color-mainSidebar-color: #dee0e2;
+  --color-mainSidebar-link-hover-color: #0a3866;
+  --color-mainSidebar-linkText-hover-color: #dee0e2;
+  --color-mainSidebar-linkText-color: #001f3e;
+
   --color-mainText-color: #dee0e2;
   --color-mainText-hover-color: #7e8993;
 

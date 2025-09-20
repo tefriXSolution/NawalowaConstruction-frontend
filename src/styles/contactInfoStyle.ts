@@ -1,5 +1,3 @@
-// src/styles/contactInfoStyle.ts
-
 import { CSSProperties } from 'react';
 
 interface ContactInfoStyles {

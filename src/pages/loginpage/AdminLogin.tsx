@@ -1,5 +1,5 @@
-import logo from "../../assets/img/logo.png"
-import React from 'react';
+import logo from '@/assets/img/logo.png'
+
 
 const AdminLogin = () => {
   return (
