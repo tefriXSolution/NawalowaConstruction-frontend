@@ -20,7 +20,7 @@ export const dashboardTheme = createTheme({
       "base": "flex-1 whitespace-nowrap px-3"
     },
     "icon": {
-      "base": "h-6 w-6 shrink-0 transition duration-75 g !text-mainSidebar-link-hover-color group-hover:!text-mainSidebar-linkText-hover-color",
+      "base": "h-6 w-6 shrink-0 transition duration-75 !text-mainSidebar-link-hover-color group-hover:!text-mainSidebar-linkText-hover-color",
       "active": "text-gray-700 dark:text-gray-100"
     },
     "label": "",
