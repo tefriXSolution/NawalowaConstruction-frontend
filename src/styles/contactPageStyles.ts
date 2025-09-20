@@ -1,5 +1,3 @@
-// src/styles/contactPageStyles.ts
-
 import { CSSProperties } from 'react';
 
 export const contactPageStyles: {

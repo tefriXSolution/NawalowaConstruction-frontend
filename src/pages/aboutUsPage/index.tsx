@@ -1,4 +1,4 @@
-import { NavigationBar } from '@/components/navbar'
+import { NavigationBar, Footer } from '@/components'
 import { FooterLink, NavBarLink, OurStory, CoreValue } from '@/types'
 import testImg from "@/assets/img/testCard.jpg"
 import { StoryBlock } from './components/StoryBlock'
@@ -8,7 +8,6 @@ import { FiUsers } from "react-icons/fi";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { FaRegHandshake } from "react-icons/fa";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { Footer } from '@/components/footer'
 
 const navLinks:NavBarLink[]=[
     {

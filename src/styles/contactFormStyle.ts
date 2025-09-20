@@ -1,5 +1,3 @@
-// src/styles/contactFormStyle.ts
-
 import { CSSProperties } from 'react';
 
 // Define the type for the style object
