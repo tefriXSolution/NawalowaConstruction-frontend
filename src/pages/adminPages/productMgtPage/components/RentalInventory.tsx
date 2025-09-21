@@ -93,8 +93,7 @@ export const RentalInventory = () => {
           {/* Table Body */}
           <div className="divide-y divide-gray-200">
             {equipment.map((item) => (
-            //   <div key={item.id} className="px-6 py-4">
-                <div className="grid grid-cols-12 gap-4 items-center">
+                <div key={item.id} className="grid grid-cols-12 gap-4 items-center">
                   {/* Checkbox */}
                   <div className="col-span-1">
                     <input
