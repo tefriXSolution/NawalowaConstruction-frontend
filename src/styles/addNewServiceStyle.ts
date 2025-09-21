@@ -1,4 +1,4 @@
-// src/styles/serviceManagementStyle.ts
+// src/styles/addNewServiceStyle.ts
 
 import { CSSProperties } from 'react';
 
