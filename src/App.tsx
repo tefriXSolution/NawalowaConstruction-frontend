@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import './App.css'
-import { 
+import {
   AboutUsPage,
-
   HomePage, 
   LoginPage, 
-  ProductMgtPage, 
-  
+  ProductMgtPage
 } from './pages'
 
 function App() {
@@ -15,7 +13,6 @@ function App() {
       {/* <HomePage/> */}
       {/* <AboutUsPage /> */}
       {/* <LoginPage /> */}
-       {/* <AddProduct />  */}
       <ProductMgtPage />
     </>
   )
