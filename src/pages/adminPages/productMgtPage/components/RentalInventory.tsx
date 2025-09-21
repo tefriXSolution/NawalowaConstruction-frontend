@@ -5,69 +5,17 @@ export const RentalInventory = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false); // Set to false to show the main content
+  const [loading, setLoading] = useState(false); 
+ 
+  
 
-  // Sample data for demonstration
-  const sampleEquipment = [
-    {
-      id: 1,
-      name: "Concrete Mixer 250L",
-      description: "Robust 250-liter capacity mixer for medium-sized construction projects.",
-      image: "/api/placeholder/60/60",
-      availability: "Available",
-      status: "available"
-    },
-    {
-      id: 2,
-      name: "Scaffolding Set (5m)",
-      description: "Modular 5-meter scaffolding system for safe elevated work.",
-      image: "/api/placeholder/60/60",
-      availability: "Rented",
-      status: "rented"
-    }
-  ];
+  
 
-  useEffect(() => {
-    // Simulate loading data
-    // setEquipment(sampleEquipment);
-    setTotalPages(1);
-  }, []);
+  
 
-  const handleSelectAll = () => {
-    if (selectedItems.length === equipment.length) {
-      setSelectedItems([]);
-    } else {
-    //   setSelectedItems(equipment.map(item => item.id));
-    }
-  };
 
-//   const handleSelectItem = (itemId) => {
-//     setSelectedItems(prev => {
-//       if (prev.includes(itemId)) {
-//         return prev.filter(id => id !== itemId);
-//       } else {
-//         return [...prev, itemId];
-//       }
-//     });
-//   };
 
-//   const handleEdit = (itemId) => {
-//     console.log('Edit item:', itemId);
-//   };
-
-//   const handleToggleStatus = (itemId) => {
-//     setEquipment(prev => prev.map(item => 
-//       item.id === itemId 
-//         ? { 
-//             ...item, 
-//             status: item.status === 'available' ? 'rented' : 'available',
-//             availability: item.status === 'available' ? 'Rented' : 'Available'
-//           }
-//         : item
-//     ));
-//   };
-
-  if (loading) {
+  {
     return (
       <div className="min-h-screen bg-gray-50 p-6">
         <div className="max-w-7xl mx-auto">
@@ -116,10 +64,14 @@ export const RentalInventory = () => {
                 <input
                   type="checkbox"
                   checked={selectedItems.length === equipment.length && equipment.length > 0}
-                  onChange={handleSelectAll}
+                //   onChange={handleSelectAll}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                 />
               </div>
+
+
+              
+
               <div className="col-span-2">
                 <span className="text-sm font-medium text-gray-700">Product Image</span>
               </div>
@@ -141,8 +93,7 @@ export const RentalInventory = () => {
           {/* Table Body */}
           <div className="divide-y divide-gray-200">
             {equipment.map((item) => (
-            //   <div key={item.id} className="px-6 py-4">
-                <div className="grid grid-cols-12 gap-4 items-center">
+                <div key={item.id} className="grid grid-cols-12 gap-4 items-center">
                   {/* Checkbox */}
                   <div className="col-span-1">
                     <input
@@ -155,14 +106,23 @@ export const RentalInventory = () => {
 
                   {/* Product Image */}
                   <div className="col-span-2">
-                    <img
-                    //   src={item.image}
-                    //   alt={item.name}
-                    //   className="w-16 h-16 object-cover rounded-lg border border-gray-200"
-                    //   onError={(e) => {
-                    //     e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMS4zMzMzIDQyLjY2NjdMMzIgMzJMMzguNjY2NyAzOC42NjY3TDQyLjY2NjcgMzQuNjY2N0w0Mi42NjY3IDIxLjMzMzNIMjEuMzMzM1Y0Mi42NjY3WiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K';
-                    //   }}
-                    />
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name ? item.name : "Product image"}
+                        className="w-16 h-16 object-cover rounded-lg border border-gray-200"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMS4zMzMzIDQyLjY2NjdMMzIgMzJMMzguNjY2NyAzOC42NjY3TDQyLjY2NjcgMzQuNjY2N0w0Mi42NjY3IDIxLjMzMzNIMjEuMzMzM1Y0Mi42NjY3WiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K';
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="w-16 h-16 flex items-center justify-center bg-gray-200 rounded-lg border border-gray-200 text-gray-500 text-xs"
+                        aria-label="No product image available"
+                      >
+                        No Image
+                      </div>
+                    )}
                   </div>
 
                   {/* Product Name */}
