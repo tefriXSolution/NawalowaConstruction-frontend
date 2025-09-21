@@ -5,69 +5,17 @@ export const RentalInventory = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false); // Set to false to show the main content
+  const [loading, setLoading] = useState(false); 
+ 
+  
 
-  // Sample data for demonstration
-  const sampleEquipment = [
-    {
-      id: 1,
-      name: "Concrete Mixer 250L",
-      description: "Robust 250-liter capacity mixer for medium-sized construction projects.",
-      image: "/api/placeholder/60/60",
-      availability: "Available",
-      status: "available"
-    },
-    {
-      id: 2,
-      name: "Scaffolding Set (5m)",
-      description: "Modular 5-meter scaffolding system for safe elevated work.",
-      image: "/api/placeholder/60/60",
-      availability: "Rented",
-      status: "rented"
-    }
-  ];
+  
 
-  useEffect(() => {
-    // Simulate loading data
-    // setEquipment(sampleEquipment);
-    setTotalPages(1);
-  }, []);
+  
 
-  const handleSelectAll = () => {
-    if (selectedItems.length === equipment.length) {
-      setSelectedItems([]);
-    } else {
-    //   setSelectedItems(equipment.map(item => item.id));
-    }
-  };
 
-//   const handleSelectItem = (itemId) => {
-//     setSelectedItems(prev => {
-//       if (prev.includes(itemId)) {
-//         return prev.filter(id => id !== itemId);
-//       } else {
-//         return [...prev, itemId];
-//       }
-//     });
-//   };
 
-//   const handleEdit = (itemId) => {
-//     console.log('Edit item:', itemId);
-//   };
-
-//   const handleToggleStatus = (itemId) => {
-//     setEquipment(prev => prev.map(item => 
-//       item.id === itemId 
-//         ? { 
-//             ...item, 
-//             status: item.status === 'available' ? 'rented' : 'available',
-//             availability: item.status === 'available' ? 'Rented' : 'Available'
-//           }
-//         : item
-//     ));
-//   };
-
-  if (loading) {
+  {
     return (
       <div className="min-h-screen bg-gray-50 p-6">
         <div className="max-w-7xl mx-auto">
@@ -116,10 +64,14 @@ export const RentalInventory = () => {
                 <input
                   type="checkbox"
                   checked={selectedItems.length === equipment.length && equipment.length > 0}
-                  onChange={handleSelectAll}
+                //   onChange={handleSelectAll}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                 />
               </div>
+
+
+              
+
               <div className="col-span-2">
                 <span className="text-sm font-medium text-gray-700">Product Image</span>
               </div>

@@ -4,10 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { 
   AboutUsPage,
-  AddProduct,
+
   HomePage, 
   LoginPage, 
-  RentalInventory
+  ProductMgtPage, 
+  
 } from './pages'
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
       {/* <AboutUsPage /> */}
       {/* <LoginPage /> */}
        {/* <AddProduct />  */}
-      <RentalInventory />
+      <ProductMgtPage />
     </>
   )
 }
