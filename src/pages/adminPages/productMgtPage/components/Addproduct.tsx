@@ -71,9 +71,6 @@ export const AddProduct = () => {
             </div>
           </div>
 
-          
-              
-              
             </div>
           </div>
         </div>
