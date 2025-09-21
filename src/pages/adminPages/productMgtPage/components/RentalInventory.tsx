@@ -106,14 +106,23 @@ export const RentalInventory = () => {
 
                   {/* Product Image */}
                   <div className="col-span-2">
-                    <img
-                    //   src={item.image}
-                    //   alt={item.name}
-                    //   className="w-16 h-16 object-cover rounded-lg border border-gray-200"
-                    //   onError={(e) => {
-                    //     e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMS4zMzMzIDQyLjY2NjdMMzIgMzJMMzguNjY2NyAzOC42NjY3TDQyLjY2NjcgMzQuNjY2N0w0Mi42NjY3IDIxLjMzMzNIMjEuMzMzM1Y0Mi42NjY3WiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K';
-                    //   }}
-                    />
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name ? item.name : "Product image"}
+                        className="w-16 h-16 object-cover rounded-lg border border-gray-200"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMS4zMzMzIDQyLjY2NjdMMzIgMzJMMzguNjY2NyAzOC42NjY3TDQyLjY2NjcgMzQuNjY2N0w0Mi42NjY3IDIxLjMzMzNIMjEuMzMzM1Y0Mi42NjY3WiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4K';
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="w-16 h-16 flex items-center justify-center bg-gray-200 rounded-lg border border-gray-200 text-gray-500 text-xs"
+                        aria-label="No product image available"
+                      >
+                        No Image
+                      </div>
+                    )}
                   </div>
 
                   {/* Product Name */}
