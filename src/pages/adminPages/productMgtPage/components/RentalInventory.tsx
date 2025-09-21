@@ -167,7 +167,6 @@ export const RentalInventory = () => {
                     </div>
                   </div>
                 </div>
-            //   </div>
             ))}
           </div>
         </div>
