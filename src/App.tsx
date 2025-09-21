@@ -1,18 +1,24 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
-import { AboutUsPage, ContactUsPage, HomePage } from '@/pages';
-import { AdminDashboardLayout } from '@/layouts';
-import { RouterProvider } from 'react-router';
-import { router } from './routes/routes';
+import { useState } from 'react'
+import './App.css'
+import { 
+  AboutUsPage,
+
+  HomePage, 
+  LoginPage, 
+  ProductMgtPage, 
+  
+} from './pages'
 
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      {/* <HomePage/> */}
+      {/* <AboutUsPage /> */}
+      {/* <LoginPage /> */}
+       {/* <AddProduct />  */}
+      <ProductMgtPage />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
