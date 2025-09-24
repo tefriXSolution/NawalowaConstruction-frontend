@@ -14,11 +14,11 @@ import { VscSettingsGear } from "react-icons/vsc";
 import { IoLogOutOutline } from "react-icons/io5";
 
 const sidebarMenu = [
-  { label: "Home", href: "#", icon: HiHome },
-  { label: "Service Management", href: "#", icon: LuNotebookText },
-  { label: "Rental Item Management", href: "#", icon: LuNotebookText },
-  { label: "Settings", href: "#", icon: VscSettingsGear },
-  { label: "Log out", href: "#", icon: IoLogOutOutline },
+  { label: "Home", href: "/", icon: HiHome },
+  { label: "Service Management", href: "/dashboard/service", icon: LuNotebookText },
+  { label: "Rental Item Management", href: "/dashboard/rentItem", icon: LuNotebookText },
+  { label: "Settings", href: "/dashboard/settings", icon: VscSettingsGear },
+  { label: "Log out", href: "/dashboard/logout", icon: IoLogOutOutline },
 ];
 
 export const SideBar = () => {
