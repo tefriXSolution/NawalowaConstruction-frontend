@@ -9,23 +9,23 @@ export const HomePage = () => {
   const navLinks:NavBarLink[] = [
     {
       linkName:"Home",
-      linkUrl:"",
+      linkUrl:"/",
     },
     {
       linkName:"Services",
-      linkUrl:"",
+      linkUrl:"/services",
     },
     {
       linkName:"Equipment Rentals",
-      linkUrl:"",
+      linkUrl:"/rentals",
     },
     {
       linkName:"About Us",
-      linkUrl:"",
+      linkUrl:"/about",
     },
     {
       linkName:"Contact Us",
-      linkUrl:"",
+      linkUrl:"/contactUs",
     }
   ]
 

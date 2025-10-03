@@ -1,3 +1,7 @@
+import './App.css';
+import { AdminDashboardLayout } from '@/layouts';
+import { RouterProvider } from 'react-router';
+import { router } from './routes/routes';
 import { useState } from 'react'
 import './App.css'
 import {
@@ -10,12 +14,9 @@ import {
 function App() {
   return (
     <>
-      {/* <HomePage/> */}
-      {/* <AboutUsPage /> */}
-      {/* <LoginPage /> */}
-      <ProductMgtPage />
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
