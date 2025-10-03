@@ -1,15 +1,7 @@
 import './App.css';
-import { AdminDashboardLayout } from '@/layouts';
 import { RouterProvider } from 'react-router';
-import { router } from './routes/routes';
-import { useState } from 'react'
 import './App.css'
-import {
-  AboutUsPage,
-  HomePage, 
-  LoginPage, 
-  ProductMgtPage
-} from './pages'
+import { router } from '@/routes';
 
 function App() {
   return (

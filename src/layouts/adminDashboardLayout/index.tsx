@@ -5,42 +5,50 @@ import { FooterLink, NavBarLink } from "@/types";
 
 export const AdminDashboardLayout = () => {
 
-   const navLinks:NavBarLink[]=[
-          {
-              linkName:"Home",
-              linkUrl:"",
-          },
-          {
-              linkName:"Services",
-              linkUrl:"",
-          },
-          {
-              linkName:"Equipment Rentals",
-              linkUrl:"",
-          },
-          {
-              linkName:"Contact Us",
-              linkUrl:"",
-          },
-      ]
+   const navLinks:NavBarLink[] = [
+        {
+            linkName:"Home",
+            linkUrl:"/",
+        },
+        {
+            linkName:"Services",
+            linkUrl:"/services",
+        },
+        {
+            linkName:"Equipment Rentals",
+            linkUrl:"/rentals",
+        },
+        {
+            linkName:"About Us",
+            linkUrl:"/about",
+        },
+        {
+            linkName:"Contact Us",
+            linkUrl:"/contactUs",
+        }
+    ]
     const footerLinks:FooterLink[]=[
-          {
-              linkName:"Home",
-              linkUrl:"",
-          },
-          {
-              linkName:"Services",
-              linkUrl:"",
-          },
-          {
-              linkName:"Equipment Rentals",
-              linkUrl:"",
-          },
-          {
-              linkName:"Contact Us",
-              linkUrl:"",
-          },
-      ]
+        {
+            linkName:"Home",
+            linkUrl:"/",
+        },
+        {
+            linkName:"Services",
+            linkUrl:"/services",
+        },
+        {
+            linkName:"Equipment Rentals",
+            linkUrl:"/rentals",
+        },
+        {
+            linkName:"About Us",
+            linkUrl:"/about",
+        },
+        {
+            linkName:"Contact Us",
+            linkUrl:"/contactUs",
+        }
+    ]
 
   return (
     <div className="h-full flex flex-col">
