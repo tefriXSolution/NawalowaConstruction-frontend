@@ -3,7 +3,8 @@ import {
     HomePage,
     AboutUsPage,
     ContactUsPage,
-    SettingsPage
+    SettingsPage,
+    
 } from '@/pages'
 
 import {AdminDashboardLayout} from '@/layouts/index'
@@ -12,6 +13,8 @@ export const router = createBrowserRouter([
   { path: "/", Component: HomePage },
   { path: "about", Component: AboutUsPage },
   { path: "contactUs", Component: ContactUsPage },
+  { path: "services", Component: ContactUsPage },
+  { path: "rentals", Component: ContactUsPage },
   { path: "dashboard", Component: AdminDashboardLayout,
     children:[
         { index: true, Component: HomePage },

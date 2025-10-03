@@ -18,11 +18,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
-      {/* <HomePage/> */}
-      {/* <AboutUsPage /> */}
-      {/* <LoginPage /> */}
-       {/* <AddProduct />  */}
-      <RentalInventory />
     </>
   );
 }
