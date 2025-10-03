@@ -32,26 +32,26 @@ export const SideBar = () => {
         >
           {sidebarMenu.map((item) => (
             <SidebarItem
-  key={item.label}
-  theme={dashboardTheme.item}
-  icon={() => (
-    <item.icon
-      className={`h-6 w-6 transition duration-75 ${
-        location.pathname === item.href
-          ? "text-mainSidebar-color"
-          : "text-mainSidebar-link-hover-color group-hover:text-mainSidebar-linkText-hover-color"
-      }`}
-    />
-  )}
-  onClick={() => navigate(item.href)}
-  className={`cursor-pointer ${
-    location.pathname === item.href
-      ? "!bg-mainSidebar-link-hover-color !text-mainSidebar-color font-semibold"
-      : ""
-  }`}
->
-  {item.label}
-</SidebarItem>
+              key={item.label}
+              theme={dashboardTheme.item}
+              icon={() => (
+                <item.icon
+                  className={`h-6 w-6 transition duration-75 ${
+                    location.pathname === item.href
+                      ? "text-mainSidebar-color"
+                      : "text-mainSidebar-link-hover-color group-hover:text-mainSidebar-linkText-hover-color"
+                  }`}
+                />
+              )}
+              onClick={() => navigate(item.href)}
+              className={`cursor-pointer ${
+                location.pathname === item.href
+                  ? "!bg-mainSidebar-link-hover-color !text-mainSidebar-color font-semibold"
+                  : ""
+              }`}
+            >
+              {item.label}
+            </SidebarItem>
 
           ))}
         </SidebarItemGroup>
