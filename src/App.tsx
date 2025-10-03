@@ -1,6 +1,8 @@
+import './App.css';
+import { AdminDashboardLayout } from '@/layouts';
+import { RouterProvider } from 'react-router';
+import { router } from './routes/routes';
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { 
   AboutUsPage,
@@ -15,13 +17,14 @@ function App() {
 
   return (
     <>
+      <RouterProvider router={router} />
       {/* <HomePage/> */}
       {/* <AboutUsPage /> */}
       {/* <LoginPage /> */}
        {/* <AddProduct />  */}
       <RentalInventory />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
