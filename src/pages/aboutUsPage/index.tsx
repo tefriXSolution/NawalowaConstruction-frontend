@@ -1,5 +1,4 @@
-import { NavigationBar, Footer } from '@/components'
-import { FooterLink, NavBarLink, OurStory, CoreValue } from '@/types'
+import { OurStory, CoreValue } from '@/types'
 import testImg from "@/assets/img/testCard.jpg"
 import { StoryBlock } from './components/StoryBlock'
 import { CoreValueCard } from './components/CoreValueCard'
@@ -9,42 +8,6 @@ import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { FaRegHandshake } from "react-icons/fa";
 import { MdOutlineLocationOn } from "react-icons/md";
 
-const navLinks:NavBarLink[]=[
-    {
-        linkName:"Home",
-        linkUrl:"",
-    },
-    {
-        linkName:"Services",
-        linkUrl:"",
-    },
-    {
-        linkName:"Equipment Rentals",
-        linkUrl:"",
-    },
-    {
-        linkName:"Contact Us",
-        linkUrl:"",
-    },
-]
-const footerLinks:FooterLink[]=[
-    {
-        linkName:"Home",
-        linkUrl:"",
-    },
-    {
-        linkName:"Services",
-        linkUrl:"",
-    },
-    {
-        linkName:"Equipment Rentals",
-        linkUrl:"",
-    },
-    {
-        linkName:"Contact Us",
-        linkUrl:"",
-    },
-]
 
 const OurStories:OurStory[]=[
     {
@@ -97,12 +60,6 @@ const coreValues:CoreValue[]=[
 export const AboutUsPage = () => {
   return (
     <>
-        <div>
-            <NavigationBar 
-                navLinks={navLinks}
-            />
-        </div>
-
         {/* Landing Section */}
         <div className='grid md:grid-cols-2 sm:grid-cols-1 p-5 m-5 gap-10'>
             <div className='flex justify-center flex-col'>
@@ -152,13 +109,6 @@ export const AboutUsPage = () => {
                 />
                 ))}
             </div>
-        </div>
-
-        {/* footer */}
-        <div>
-                <Footer
-                    footerLinks={footerLinks}
-                />
         </div>
     </>
   )

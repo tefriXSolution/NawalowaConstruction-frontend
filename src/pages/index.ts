@@ -1,7 +1,11 @@
 export { HomePage } from '@/pages/homepage';
 export { AboutUsPage } from '@/pages/aboutUsPage';
-export { SettingsPage } from '@/pages/adminPages/settingsPage';
 export { ContactUsPage } from '@/pages/contactUsPage';
-export { ServiceManagementPage } from '@/pages/adminPages/serviceManagementPage';
+export { RentalItemsPage } from '@/pages/rentalItemsPage';
 export { LoginPage } from '@/pages/loginpage';
-export {ProductMgtPage} from '@/pages/adminPages/productMgtPage'
+export {
+  ProductMgtPage,
+  ServiceManagementPage,
+  SettingsPage,
+} from '@/pages/adminPages';
+// export { NotFoundPage } from '@/pages/notFoundPage';

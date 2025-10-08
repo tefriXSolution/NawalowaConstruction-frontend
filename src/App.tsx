@@ -1,21 +1,14 @@
-import { useState } from 'react'
+import './App.css';
+import { RouterProvider } from 'react-router';
 import './App.css'
-import {
-  AboutUsPage,
-  HomePage, 
-  LoginPage, 
-  ProductMgtPage
-} from './pages'
+import { router } from '@/routes';
 
 function App() {
   return (
     <>
-      {/* <HomePage/> */}
-      {/* <AboutUsPage /> */}
-      {/* <LoginPage /> */}
-      <ProductMgtPage />
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

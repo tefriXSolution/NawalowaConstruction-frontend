@@ -1,11 +1,9 @@
 import { Footer, NavigationBar } from "@/components";
-import { SideBar } from "./components/SideBar";
-import { Outlet } from "react-router-dom";
 import { FooterLink, NavBarLink } from "@/types";
+import { Outlet } from "react-router-dom";
 
-export const AdminDashboardLayout = () => {
-
-   const navLinks:NavBarLink[] = [
+export const MainLayout = () => {
+    const navLinks:NavBarLink[] = [
         {
             linkName:"Home",
             linkUrl:"/",
@@ -49,13 +47,11 @@ export const AdminDashboardLayout = () => {
             linkUrl:"/contactUs",
         }
     ]
-
   return (
     <div className="h-full flex flex-col">
       <NavigationBar navLinks={navLinks} />
       <div className="flex flex-1 min-h-screen">
-        <SideBar />
-        <main className="flex-1 p-6 max-h-screen overflow-scroll">
+        <main className="flex-1">
           <Outlet />
         </main>
       </div>
