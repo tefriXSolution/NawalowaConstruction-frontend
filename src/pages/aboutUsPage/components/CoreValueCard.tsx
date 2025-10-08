@@ -13,7 +13,7 @@ export const CoreValueCard: React.FC<CoreValueCardProps> = ({
   Icon,
 }) => {
   return (
-    <div className="bg-blue-50 shadow-md rounded-lg p-6 flex flex-col items-center cursor-pointer text-center hover:shadow-xl transition duration-300">
+    <div className="bg-blue-50 shadow-md rounded-lg h-full p-6 flex flex-col items-center cursor-pointer text-center hover:shadow-xl transition duration-300">
        <Icon className="text-4xl text-blue-700 mb-4" />
       <h2 className="text-xl font-semibold mb-2">{title}</h2>
       <p className="text-gray-600">{description}</p>
