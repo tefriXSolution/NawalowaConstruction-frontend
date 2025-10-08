@@ -40,7 +40,7 @@ const NavigationBar = ({ navLinks }: Props) => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              navigate(navLink.linkUrl??"/");
+              navigate(navLink.linkUrl ?? "/");
               if (navLink.onClick) navLink.onClick();
             }}
             className={`${
