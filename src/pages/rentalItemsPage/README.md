@@ -27,13 +27,7 @@ Create a `.env` file in the project root with:
 REACT_APP_API_BASE_URL=http://localhost:3001/api
 
 # Development Settings
-REACT_APP_USE_MOCK_DATA=true
-```
-
-### Development vs Production
-
-- **Development**: Set `REACT_APP_USE_MOCK_DATA=true` to use static data
-- **Production**: Set `REACT_APP_USE_MOCK_DATA=false` to use real API
+VITE_USE_MOCK_DATA=true
 
 ## API Endpoints Expected
 
