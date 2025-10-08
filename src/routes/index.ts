@@ -8,9 +8,9 @@ import { mainRoutes } from "./mainRoutes";
 
 export const router = createBrowserRouter([
   { path: "/", Component: MainLayout,
-    children:mainRoutes
+    children: mainRoutes
    },
   { path: "dashboard", Component: AdminDashboardLayout,
-    children:dashboardRoutes
+    children: dashboardRoutes
    },
 ]);
