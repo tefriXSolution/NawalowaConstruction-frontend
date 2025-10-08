@@ -52,7 +52,6 @@ export const SideBar = () => {
             >
               {item.label}
             </SidebarItem>
-
           ))}
         </SidebarItemGroup>
       </SidebarItems>
