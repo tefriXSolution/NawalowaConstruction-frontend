@@ -1,31 +1,76 @@
-interface Props{
-    cardTitle:string;
-    CardSubTitle:string;
-    buttonLabel:string;
-    imgUrl:string;
-    rentPerDay:number
-    onClickBtn?:()=>void;
+interface Props {
+  cardTitle: string;
+  CardSubTitle: string;
+  buttonLabel: string;
+  imgUrl: string;
+  rentPerDay: number;
+  onClickBtn?: () => void;
 }
 export const RentItemCard = ({
-    cardTitle, 
-    CardSubTitle, 
-    buttonLabel, 
-    imgUrl,
-    rentPerDay,
-    onClickBtn=()=>{console.log("Press Card Button")}}:Props) => {
-  return (   
-    <div className="flex md:flex-col sm:flex-row md:max-w-sm sm:max-w-xl bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:">
-        <div className="w-sm">
-            <img className="rounded-t-lg h-full object-cover" src={imgUrl} alt="" />
+  cardTitle,
+  CardSubTitle,
+  buttonLabel,
+  imgUrl,
+  rentPerDay,
+  onClickBtn = () => {
+    console.log('Press Card Button');
+  },
+}: Props) => {
+  return (
+    <article
+      className='flex flex-col w-full max-w-sm mx-auto bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 focus-within:ring-2 focus-within:ring-mainTheme-color'
+      itemScope
+      itemType='https://schema.org/Product'
+    >
+      <div className='w-full h-48 sm:h-56 lg:h-60 overflow-hidden rounded-t-lg'>
+        <img
+          className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
+          src={imgUrl}
+          alt={`${cardTitle} - Professional equipment rental`}
+          itemProp='image'
+          loading='lazy'
+          width='300'
+          height='200'
+        />
+      </div>
+      <div className='p-4 sm:p-5 lg:p-6 flex flex-col flex-grow'>
+        <h3
+          className='mb-2 text-lg sm:text-xl lg:text-2xl font-bold tracking-tight text-center text-mainTheme-color line-clamp-2 hover:text-opacity-80 transition-colors'
+          itemProp='name'
+        >
+          {cardTitle}
+        </h3>
+        <p
+          className='mb-3 text-sm sm:text-base font-normal text-serviceCardSubText-color flex-grow line-clamp-3 leading-relaxed'
+          itemProp='description'
+        >
+          {CardSubTitle}
+        </p>
+        <div className='mt-auto'>
+          <div
+            className='mb-3 font-bold text-lg sm:text-xl text-mainTheme-color'
+            itemProp='offers'
+            itemScope
+            itemType='https://schema.org/Offer'
+          >
+            <span itemProp='price'>Rs.{rentPerDay}</span>
+            <span itemProp='priceCurrency' content='LKR'>
+              /day
+            </span>
+            <meta
+              itemProp='availability'
+              content='https://schema.org/InStock'
+            />
+          </div>
+          <button
+            onClick={onClickBtn}
+            className='inline-flex w-full items-center justify-center px-3 py-2.5 sm:py-3 text-sm sm:text-base font-medium text-center text-mainText-color hover:text-mainTheme-color bg-rentBtn-color rounded-lg hover:bg-rentBtn-hover-color focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all transform hover:scale-105 active:scale-95'
+            aria-label={`Rent ${cardTitle} for Rs.${rentPerDay} per day`}
+          >
+            {buttonLabel}
+          </button>
         </div>
-        <div className="p-5">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight flex justify-center text-mainTheme-color">{cardTitle}</h5>
-            <p className="mb-3 font-normal text-serviceCardSubText-color">{CardSubTitle}</p>
-            <p className="mb-3 font-bold text-xl text-mainTheme-color">Rs.{rentPerDay}/day</p>
-            <button onClick={onClickBtn} className="inline-flex w-full items-center justify-center px-3 py-2 text-sm font-medium text-center text-mainText-color hover:text-mainTheme-color bg-rentBtn-color rounded-lg hover:bg-rentBtn-hover-color focus:ring-4 focus:outline-none focus:ring-blue-300 transition-all">
-                {buttonLabel}
-            </button>
-        </div>
-    </div>
-  )
-}
+      </div>
+    </article>
+  );
+};
