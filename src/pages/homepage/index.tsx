@@ -5,7 +5,7 @@ import { RentSection } from './rentSection'
 export const HomePage = () => {
 
   return (
-    <>
+    <div className='z-0'>
       <section>
         <HeroSection />
       </section>
@@ -17,6 +17,6 @@ export const HomePage = () => {
       <section className='mt-10'>
         <RentSection />
       </section>
-    </>
+    </div>
   )
 }
