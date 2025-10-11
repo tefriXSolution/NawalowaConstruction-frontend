@@ -1,4 +1,4 @@
-// src/styles/addNewCategoryStyle.ts
+// src/styles/addNewServiceCategoryStyle.ts
 
 import { CSSProperties } from 'react';
 
