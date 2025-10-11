@@ -14,6 +14,7 @@ import { useNavigate, useLocation } from "react-router";
 const sidebarMenu = [
   { label: "Home", href: "/", icon: HiHome },
   { label: "Service Management", href: "/dashboard/service-manage", icon: LuNotebookText },
+  { label: "Contacts", href: "/dashboard/contacts", icon: LuNotebookText },
   { label: "Rental Item Management", href: "/dashboard/product-manage", icon: LuNotebookText },
   { label: "Settings", href: "/dashboard/settings", icon: VscSettingsGear },
   { label: "Log out", href: "/dashboard/logout", icon: IoLogOutOutline },

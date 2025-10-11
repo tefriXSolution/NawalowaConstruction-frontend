@@ -7,5 +7,6 @@ export {
   ProductMgtPage,
   ServiceManagementPage,
   SettingsPage,
+  ManageContactsPage,
 } from '@/pages/adminPages';
 // export { NotFoundPage } from '@/pages/notFoundPage';

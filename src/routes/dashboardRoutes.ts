@@ -1,7 +1,8 @@
 import { 
     ProductMgtPage, 
     SettingsPage, 
-    ServiceManagementPage,  
+    ServiceManagementPage,
+    ManageContactsPage  
 } from '@/pages'
 import { RouteObject } from 'react-router';
 
@@ -10,4 +11,5 @@ export const dashboardRoutes :RouteObject[] = [
   { path: "settings", Component: SettingsPage },
   { path: "product-manage", Component: ServiceManagementPage },
   { path: "service-manage", Component: ServiceManagementPage },
+  { path: "contacts", Component: ManageContactsPage },
 ];  
