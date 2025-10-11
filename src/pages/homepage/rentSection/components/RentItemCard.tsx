@@ -19,7 +19,7 @@ export const RentItemCard = ({
 }: Props) => {
   return (
     <article
-      className='flex flex-col w-full max-w-sm mx-auto !bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 focus-within:ring-2 focus-within:ring-mainTheme-color relative md:bg-transparent'
+      className='flex flex-col w-full max-w-sm mx-auto bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 focus-within:ring-2 focus-within:ring-mainTheme-color relative md:bg-transparent'
       itemScope
       itemType='https://schema.org/Product'
     >
