@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
 @theme {
-  --color-mainTheme-color: #001f3e; 
-  --color-mainTheme-hover-color: #0a3866; 
+  --color-mainTheme-color: #001f3e;
+  --color-mainTheme-hover-color: #0a3866;
 
   --color-mainSidebar-color: #dee0e2;
   --color-mainSidebar-link-hover-color: #0a3866;
@@ -19,16 +19,22 @@
 
   --color-rentBtn-color: #a79f07;
   --color-rentBtn-hover-color: #e9df20;
-  --color-rentCardTheme-color:#b5ad0f27;
+  --color-rentCardTheme-color: #b5ad0f27;
 
-  --color-serviceCardTheme-color:#e9ebe2;
-  --color-serviceCardSubText-color:#482cc8;
+  --color-serviceCardTheme-color: #e9ebe2;
+  --color-serviceCardSubText-color: #482cc8;
+
+  /* Additional custom colors for rental page */
+  --color-secondary-text: #6b7280;
+  --color-muted-text: #9ca3af;
+  --color-light-gray: #f3f4f6;
+  --color-border-gray: #d1d5db;
+  --color-disabled-bg: #e5e7eb;
+  --color-disabled-text: #9ca3af;
+  --color-white: #ffffff;
+  --color-focus-ring: #fbbf24;
 }
 
-.section-title{
-  @apply text-4xl align-middle flex justify-center mb-5
+.section-title {
+  @apply text-4xl align-middle flex justify-center mb-5;
 }
-
-/* :root{
-    --color-serviceCardSubText-color:#482cc8;
-} */

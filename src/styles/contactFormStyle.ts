@@ -51,7 +51,7 @@ export const contactFormStyles: ContactFormStyles = {
     padding: '0.75rem',
     border: '1px solid #ccc',
     borderBottom: '1px solid #ccc',
-    borderRadius: '0', // No rounded corners for the bottom line
+    borderRadius: '4px 4px 0 0', // Only top corners rounded, bottom corners square for bottom line style
     fontSize: '1rem',
   },
   textarea: {

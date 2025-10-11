@@ -1,0 +1,1 @@
+export { rentalApiService } from './rentalApiService';
