@@ -15,9 +15,9 @@ export const ManageContacts: React.FC = () => {
                 setError(null);
                 const res = await contactApiService.getContacts();
                 if (!mounted) return;
-                // Support both ApiResponse<Contact[]> and raw Contact[] just in case
-                const data = Array.isArray((res as any)) ? (res as any as Contact[]) : (res as any).data;
-                setContacts(data || []);
+                // Use the declared return type: ApiResponse<Contact[]>
+                const data = Array.isArray(res.data) ? res.data : [];
+                setContacts(data);
             } catch (e: any) {
                 if (!mounted) return;
                 setError(e?.message || 'Failed to load contacts');
