@@ -31,7 +31,7 @@ class ContactApiService {
         return {
             data: raw.contactMessages ?? [],
             message: raw.message ?? 'OK',
-            success: raw.error === false,
+            success: !raw.error,
         } as ApiResponse<Contact[]>;
     }
 
