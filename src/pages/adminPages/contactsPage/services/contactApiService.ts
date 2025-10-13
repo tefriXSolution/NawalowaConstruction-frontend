@@ -41,10 +41,9 @@ class ContactApiService {
     }
 
     async markAsRead(id: string | number): Promise<ApiResponse<{ id: string | number }>> {
-        // Backend route provided: '/api/contact/message/:id/read' (note: this includes '/api')
-        // Since we normalized API_BASE_URL to strip trailing '/api', construct full path manually.
-        const fullPath = `/api/contact/message/${id}/read`;
-        const res = await this.makeRequest<{ message?: string; error?: boolean }>(fullPath, {
+        // Use the same pattern as other methods: rely on API_BASE_URL for base path.
+        const endpoint = `/contact/message/${id}/read`;
+        const res = await this.makeRequest<{ message?: string; error?: boolean }>(endpoint, {
             method: 'POST',
         });
         return {
