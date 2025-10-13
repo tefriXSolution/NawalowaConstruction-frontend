@@ -128,14 +128,15 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4'>
+    <div className='fixed inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center z-50 p-4'>
       <div className='bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto'>
         {/* Header */}
-        <div className='bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-lg'>
+        <div className='bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-t-lg'>
           <div className='flex justify-between items-center'>
             <div>
-              <h2 className='text-xl font-bold'>Request Service</h2>
-              <p className='text-blue-100 text-sm mt-1'>{serviceName}</p>
+              <h2 className='text-xl font-bold'>
+                Request {serviceName} Service
+              </h2>
             </div>
             <button
               onClick={handleClose}
@@ -286,8 +287,8 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
 
           {/* Info Text */}
           <div className='mt-4 p-3 bg-blue-50 rounded-lg'>
-            <p className='text-xs text-blue-700'>
-              📱 Your request will be sent via WhatsApp to our business team. We
+            <p className='text-xs text-blue-700 text-center'>
+              Your request will be sent via WhatsApp to our business team. We
               typically respond within 2-4 business hours.
             </p>
           </div>
