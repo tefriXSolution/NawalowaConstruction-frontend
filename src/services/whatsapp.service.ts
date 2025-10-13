@@ -1,9 +1,11 @@
 import {
   WhatsAppConfig,
   ServiceRequest,
+  RentalRequest,
   WhatsAppMessage,
   WhatsAppResponse,
   ServiceType,
+  RentalType,
   MessageTemplate,
   WhatsAppBusinessInfo,
 } from '@/types/whatsappTypes';
@@ -254,6 +256,185 @@ ${MESSAGE_TEMPLATES.COMPANY_FOOTER}`;
     serviceType: ServiceType | string,
   ): Promise<WhatsAppResponse> {
     return this.sendServiceRequest(serviceType);
+  }
+
+  /**
+   * Create professional message template for rental requests
+   */
+  private createRentalRequestMessage(rentalRequest: RentalRequest): string {
+    const {
+      rentalType,
+      itemName,
+      dailyRate,
+      customerName,
+      customerPhone,
+      customerEmail,
+      rentalDuration,
+      requestId,
+    } = rentalRequest;
+
+    const greeting = `*${this.businessInfo.companyName}* - Equipment Rental Request`;
+
+    const rentalDetails = `
+*Equipment Requested:* ${itemName}
+*Category:* ${rentalType}
+*Daily Rate:* Rs.${dailyRate}/day
+*Request ID:* ${requestId}
+*Date:* ${new Date().toLocaleDateString()}
+*Time:* ${new Date().toLocaleTimeString()}${
+      rentalDuration ? `\n*Estimated Duration:* ${rentalDuration}` : ''
+    }`;
+
+    const customerInfo =
+      customerName || customerPhone || customerEmail
+        ? `
+
+*Customer Information:*
+${customerName ? `• Name: ${customerName}` : ''}
+${customerPhone ? `• Phone: ${customerPhone}` : ''}
+${customerEmail ? `• Email: ${customerEmail}` : ''}`
+        : '';
+
+    const rentalDescription = this.getRentalDescription(itemName, dailyRate);
+
+    const contactInfo = `
+
+*Next Steps:*
+Our rental team will contact you within 2-4 business hours to confirm:
+• Equipment availability
+• Rental duration and pickup/delivery
+• Payment terms and deposit
+• Operating instructions and safety briefing
+
+*Business Hours:*
+${this.businessInfo.workingHours}
+
+*Email:* ${this.businessInfo.email}
+*Website:* ${this.businessInfo.website}`;
+
+    const footer = `
+─────────────────────
+*${this.businessInfo.companyName}*
+Professional Equipment Rental Services
+Quality Equipment | Competitive Rates | Expert Support`;
+
+    return [
+      greeting,
+      rentalDetails,
+      customerInfo,
+      rentalDescription,
+      contactInfo,
+      footer,
+    ]
+      .filter((section) => section.trim())
+      .join('\n');
+  }
+
+  /**
+   * Get rental description for equipment
+   */
+  private getRentalDescription(itemName: string, dailyRate: number): string {
+    return `
+🚧 *${itemName} Rental Details:*
+• Professional-grade equipment
+• Regular maintenance and safety checks
+• Operating instructions provided
+• Technical support available
+• Flexible rental periods
+• Competitive daily rate: Rs.${dailyRate}`;
+  }
+
+  /**
+   * Send rental request via WhatsApp
+   */
+  public async sendRentalRequest(
+    rentalType: RentalType | string,
+    itemName: string,
+    dailyRate: number,
+    customerInfo?: {
+      name?: string;
+      phone?: string;
+      email?: string;
+      rentalDuration?: string;
+      additionalMessage?: string;
+    },
+  ): Promise<WhatsAppResponse> {
+    try {
+      const requestId = this.generateRequestId();
+
+      const rentalRequest: RentalRequest = {
+        rentalType,
+        itemName,
+        dailyRate,
+        customerName: customerInfo?.name,
+        customerPhone: customerInfo?.phone,
+        customerEmail: customerInfo?.email,
+        rentalDuration: customerInfo?.rentalDuration,
+        message: customerInfo?.additionalMessage,
+        timestamp: new Date(),
+        requestId,
+      };
+
+      const message = this.createRentalRequestMessage(rentalRequest);
+      const phoneNumber = this.formatPhoneNumber(
+        this.config.businessPhoneNumber,
+      );
+
+      // Generate WhatsApp Web URL
+      const whatsappUrl = this.generateWhatsAppWebUrl(phoneNumber, message);
+
+      // Log the request for analytics/tracking
+      this.logRentalRequest(rentalRequest);
+
+      // Open WhatsApp Web
+      window.open(whatsappUrl, '_blank');
+
+      return {
+        success: true,
+        messageId: requestId,
+      };
+    } catch (error) {
+      console.error('WhatsApp rental service error:', error);
+      return {
+        success: false,
+        error:
+          error instanceof Error ? error.message : 'Unknown error occurred',
+      };
+    }
+  }
+
+  /**
+   * Log rental request for analytics and tracking
+   */
+  private logRentalRequest(rentalRequest: RentalRequest): void {
+    console.log('Rental Request Logged:', {
+      requestId: rentalRequest.requestId,
+      rentalType: rentalRequest.rentalType,
+      itemName: rentalRequest.itemName,
+      dailyRate: rentalRequest.dailyRate,
+      timestamp: rentalRequest.timestamp,
+      customerInfo: {
+        hasName: !!rentalRequest.customerName,
+        hasPhone: !!rentalRequest.customerPhone,
+        hasEmail: !!rentalRequest.customerEmail,
+      },
+    });
+
+    // Store in localStorage for session tracking
+    const requests = JSON.parse(
+      localStorage.getItem('whatsapp_rental_requests') || '[]',
+    );
+    requests.push({
+      requestId: rentalRequest.requestId,
+      rentalType: rentalRequest.rentalType,
+      itemName: rentalRequest.itemName,
+      dailyRate: rentalRequest.dailyRate,
+      timestamp: rentalRequest.timestamp.toISOString(),
+    });
+    localStorage.setItem(
+      'whatsapp_rental_requests',
+      JSON.stringify(requests.slice(-10)),
+    );
   }
 
   /**

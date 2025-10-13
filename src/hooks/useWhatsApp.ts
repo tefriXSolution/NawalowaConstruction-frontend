@@ -1,6 +1,10 @@
 import { useState, useCallback } from 'react';
 import { whatsappService } from '@/services/whatsapp.service';
-import { ServiceType, WhatsAppResponse } from '@/types/whatsappTypes';
+import {
+  ServiceType,
+  RentalType,
+  WhatsAppResponse,
+} from '@/types/whatsappTypes';
 
 interface UseWhatsAppReturn {
   isLoading: boolean;
@@ -12,6 +16,18 @@ interface UseWhatsAppReturn {
       name?: string;
       phone?: string;
       email?: string;
+      additionalMessage?: string;
+    },
+  ) => Promise<WhatsAppResponse>;
+  sendRentalRequest: (
+    rentalType: RentalType | string,
+    itemName: string,
+    dailyRate: number,
+    customerInfo?: {
+      name?: string;
+      phone?: string;
+      email?: string;
+      rentalDuration?: string;
       additionalMessage?: string;
     },
   ) => Promise<WhatsAppResponse>;
@@ -79,6 +95,57 @@ export const useWhatsApp = (): UseWhatsAppReturn => {
     [],
   );
 
+  const sendRentalRequest = useCallback(
+    async (
+      rentalType: RentalType | string,
+      itemName: string,
+      dailyRate: number,
+      customerInfo?: {
+        name?: string;
+        phone?: string;
+        email?: string;
+        rentalDuration?: string;
+        additionalMessage?: string;
+      },
+    ): Promise<WhatsAppResponse> => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const response = await whatsappService.sendRentalRequest(
+          rentalType,
+          itemName,
+          dailyRate,
+          customerInfo,
+        );
+        setLastResponse(response);
+
+        if (!response.success && response.error) {
+          setError(response.error);
+        }
+
+        return response;
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : 'Failed to send WhatsApp rental request';
+        setError(errorMessage);
+
+        const errorResponse: WhatsAppResponse = {
+          success: false,
+          error: errorMessage,
+        };
+
+        setLastResponse(errorResponse);
+        return errorResponse;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [],
+  );
+
   const sendQuickRequest = useCallback(
     async (serviceType: ServiceType | string): Promise<WhatsAppResponse> => {
       return sendServiceRequest(serviceType);
@@ -99,6 +166,7 @@ export const useWhatsApp = (): UseWhatsAppReturn => {
     error,
     lastResponse,
     sendServiceRequest,
+    sendRentalRequest,
     sendQuickRequest,
     clearError,
     getBusinessInfo,

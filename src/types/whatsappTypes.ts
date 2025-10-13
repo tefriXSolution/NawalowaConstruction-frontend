@@ -38,6 +38,29 @@ export enum ServiceType {
   CUSTOM_SERVICE = 'Custom Service',
 }
 
+// Rental types for equipment
+export enum RentalType {
+  PAINTING_MACHINE = 'Painting Machine',
+  SAND_BLASTING_EQUIPMENT = 'Sand Blasting Equipment',
+  SCAFFOLDING = 'Scaffolding',
+  CONCRETE_MIXER = 'Concrete Mixer',
+  POWER_TOOLS = 'Power Tools',
+  CUSTOM_EQUIPMENT = 'Custom Equipment',
+}
+
+export interface RentalRequest {
+  rentalType: string;
+  itemName: string;
+  dailyRate: number;
+  customerName?: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  rentalDuration?: string;
+  message?: string;
+  timestamp: Date;
+  requestId: string;
+}
+
 // Message templates for different services
 export interface MessageTemplate {
   greeting: string;
