@@ -17,3 +17,19 @@ export const loginUser = createAsyncThunk<
     return thunkAPI.rejectWithValue(err.message);
   }
 });
+
+export const logOutUser = createAsyncThunk<
+    LoginResponse,
+    Credentials,
+    { rejectValue: string }
+>("auth/loginUser", async (credentials, thunkAPI) => {
+  try {
+    const response = await loginService(credentials.email, credentials.password);
+    if (response.error) {
+      return thunkAPI.rejectWithValue(response.message);
+    }
+    return response;
+  } catch (err: any) {
+    return thunkAPI.rejectWithValue(err.message);
+  }
+});

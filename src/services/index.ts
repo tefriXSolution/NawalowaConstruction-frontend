@@ -1,3 +1,4 @@
 export {
-    loginService
+    loginService,
+    logOutService
 } from '@/services/user.service'

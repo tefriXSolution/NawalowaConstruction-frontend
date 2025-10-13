@@ -12,5 +12,6 @@ export type{
     Role,
     LoginResponse,
     LoginAPIResponse,
+    LogOutResponse
 } from '@/types/userTypes'
 

@@ -1,53 +1,65 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginResponse } from "@/types";
-import { loginUser } from "../thunks/user.thunk";
+import { LoginResponse, User } from "@/types";
+import { loginUser, logOutUser } from "../thunks/user.thunk";
 
-// Define the initial state
 interface AuthState {
-  user: any | null;
+  user: User | null;
   token: string | null;
+  refreshToken: string | null;
   loading: boolean;
-  error: string | null;
+  error: boolean;
+  message:string;
 }
 
 const initialState: AuthState = {
   user: null,
   token: null,
+  refreshToken: null,
   loading: false,
-  error: null,
+  error: false,
+  message:"",
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
-        state.error = null;
+        state.error = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
+        state.error = false;
         const user = localStorage.getItem("user");
         const token = localStorage.getItem("token");
+        const refreshToken = localStorage.getItem("refreshToken");
         state.user = user ? JSON.parse(user) : null;
         state.token = token;
+        state.token = refreshToken;
+        state.message=action.payload.message
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload || "Login failed";
-      });
+        state.error = true;
+      })
+      .addCase(logOutUser.pending, (state)=>{
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(logOutUser.fulfilled, (state, action)=>{
+        state.loading = false;
+        state.error = false;
+        state.user = null;
+        state.token = null;
+        state.refreshToken = null;
+      })
+      .addCase(logOutUser.rejected, (state)=>{
+        state.loading = false;
+        state.error = true;
+      })
   },
 });
-
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;
