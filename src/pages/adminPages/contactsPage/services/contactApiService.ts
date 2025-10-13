@@ -27,7 +27,7 @@ class ContactApiService {
 
     async getContacts(): Promise<ApiResponse<Contact[]>> {
         // Backend returns: { contactMessages: Contact[], message: string, error: boolean }
-        const raw = await this.makeRequest<{ contactMessages: Contact[]; message?: string; error?: boolean }>('/contacts');
+        const raw = await this.makeRequest<{ contactMessages: Contact[]; message?: string; error?: boolean }>('/contact');
         return {
             data: raw.contactMessages ?? [],
             message: raw.message ?? 'OK',
@@ -37,8 +37,22 @@ class ContactApiService {
 
     async getContactsPaginated(page = 1, limit = 10): Promise<PaginatedResponse<Contact>> {
         const params = new URLSearchParams({ page: String(page), limit: String(limit) });
-        return this.makeRequest<PaginatedResponse<Contact>>(`/contacts?${params}`);
+        return this.makeRequest<PaginatedResponse<Contact>>(`/contact?${params}`);
     }
+
+        async markAsRead(id: string | number): Promise<ApiResponse<{ id: string | number }>> {
+            // Backend route provided: '/api/contact/message/:id/read' (note: this includes '/api')
+            // Since we normalized API_BASE_URL to strip trailing '/api', construct full path manually.
+            const fullPath = `/api/contact/message/${id}/read`;
+            const res = await this.makeRequest<{ message?: string; error?: boolean }>(fullPath, {
+                method: 'POST',
+            });
+            return {
+                data: { id },
+                message: res.message ?? 'Marked as read',
+                success: res.error === false || res.error === undefined,
+            };
+        }
 }
 
 export const contactApiService = new ContactApiService();
