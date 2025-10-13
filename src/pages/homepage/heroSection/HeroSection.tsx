@@ -31,7 +31,7 @@ export const HeroSection = () => {
 
           <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-6 mt-8 sm:mt-12'>
             <a
-              href='#'
+              href='/rentals'
               className='relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white bg-blue-600 border border-transparent rounded-xl font-pj transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-lg hover:shadow-xl w-full sm:w-auto'
             >
               Rent Equipments
@@ -39,7 +39,7 @@ export const HeroSection = () => {
             </a>
 
             <a
-              href='#'
+              href='/contactUs'
               className='relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white bg-transparent border-2 border-white rounded-xl font-pj transition-all duration-300 hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white w-full sm:w-auto'
             >
               Contact Us Now
