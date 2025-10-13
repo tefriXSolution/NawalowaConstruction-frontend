@@ -7,8 +7,8 @@ export const RentSection = () => {
 
   const handleBrowseMoreClick = () => {
     // Navigate to rentals page and pass state to indicate scroll to top
-    navigate('/rentals', { 
-      state: { scrollToTop: true } 
+    navigate('/rentals', {
+      state: { scrollToTop: true },
     });
   };
 

@@ -2,6 +2,7 @@ export { HomePage } from '@/pages/homepage';
 export { AboutUsPage } from '@/pages/aboutUsPage';
 export { ContactUsPage } from '@/pages/contactUsPage';
 export { RentalItemsPage } from '@/pages/rentalItemsPage';
+export { ServicesPage } from '@/pages/servicesPage';
 export { LoginPage } from '@/pages/loginpage';
 export {
   ProductMgtPage,
