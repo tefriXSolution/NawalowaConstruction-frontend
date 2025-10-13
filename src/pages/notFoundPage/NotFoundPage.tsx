@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '@/assets/img/logo.png';
 import styles from './NotFoundPage.module.css';
+import { FaHome } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 
 export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
@@ -43,12 +45,20 @@ export const NotFoundPage: React.FC = () => {
 
         {/* Navigation Buttons */}
         <div className={styles.buttonContainer}>
-          <button onClick={handleGoHome} className={styles.primaryButton}>
-            🏠 Go to Homepage
+          <button
+            onClick={handleGoHome}
+            className={`${styles.primaryButton} ${styles.iconButton}`}
+          >
+            <FaHome className={styles.icon} />
+            <span>Go to Homepage</span>
           </button>
 
-          <button onClick={handleGoBack} className={styles.secondaryButton}>
-            ← Go Back
+          <button
+            onClick={handleGoBack}
+            className={`${styles.secondaryButton} ${styles.iconButton}`}
+          >
+            <FaArrowLeft className={styles.icon} />
+            <span>Go Back</span>
           </button>
         </div>
 
