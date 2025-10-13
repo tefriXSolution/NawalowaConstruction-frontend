@@ -9,4 +9,4 @@ export {
   SettingsPage,
   ManageContactsPage,
 } from '@/pages/adminPages';
-// export { NotFoundPage } from '@/pages/notFoundPage';
+export { NotFoundPage } from '@/pages/notFoundPage';
