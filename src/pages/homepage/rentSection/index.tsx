@@ -1,7 +1,17 @@
 import { RentItemCard } from './components/RentItemCard';
 import testImg from '@/assets/img/testCard.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export const RentSection = () => {
+  const navigate = useNavigate();
+
+  const handleBrowseMoreClick = () => {
+    // Navigate to rentals page and pass state to indicate scroll to top
+    navigate('/rentals', { 
+      state: { scrollToTop: true } 
+    });
+  };
+
   return (
     <section className='w-full px-4 sm:px-6 lg:px-8 py-10'>
       {/* Section Title */}
@@ -49,7 +59,9 @@ export const RentSection = () => {
       <div className='flex justify-center md:justify-end mt-10'>
         <button
           type='button'
-          className='text-rentBtn-color hover:text-white border border-rentBtn-hover-color hover:bg-rentBtn-hover-color focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-300'
+          onClick={handleBrowseMoreClick}
+          className='text-rentBtn-color hover:text-white border border-rentBtn-hover-color hover:bg-rentBtn-hover-color focus:ring-4 focus:outline-none focus:ring-focus-ring font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-300'
+          aria-label='Browse all rental equipment'
         >
           Browse More...
         </button>

@@ -17,8 +17,8 @@
   --color-serviceBtn-color: #001f3e;
   --color-serviceBtn-hover-color: #18528d;
 
-  --color-rentBtn-color: #a79f07;
-  --color-rentBtn-hover-color: #e9df20;
+  --color-rentBtn-color: #001f3e;
+  --color-rentBtn-hover-color: #0a3866;
   --color-rentCardTheme-color: #b5ad0f27;
 
   --color-serviceCardTheme-color: #e9ebe2;
@@ -32,7 +32,7 @@
   --color-disabled-bg: #e5e7eb;
   --color-disabled-text: #9ca3af;
   --color-white: #ffffff;
-  --color-focus-ring: #fbbf24;
+  --color-focus-ring: #18528d;
 
   --color-secondary-text-hover: #18528d;
 
