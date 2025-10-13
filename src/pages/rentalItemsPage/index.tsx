@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useRentalPage } from '@/pages/rentalItemsPage/hooks/useRentalPage';
 import {
   PageHeader,
@@ -11,6 +13,7 @@ import {
 } from '@/pages/rentalItemsPage/components';
 
 export const RentalItemsPage = () => {
+  const location = useLocation();
   const {
     selectedCategory,
     currentPage,
@@ -26,6 +29,13 @@ export const RentalItemsPage = () => {
     refreshData,
     scrollToTop,
   } = useRentalPage();
+
+  // Scroll to top when navigated from home page
+  useEffect(() => {
+    if (location.state?.scrollToTop) {
+      scrollToTop();
+    }
+  }, [location.state, scrollToTop]);
 
   return (
     <main className='min-h-screen bg-light-gray'>
