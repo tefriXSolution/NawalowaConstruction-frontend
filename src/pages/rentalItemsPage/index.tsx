@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRentalPage } from '@/pages/rentalItemsPage/hooks/useRentalPage';
 import {
@@ -11,9 +11,16 @@ import {
   LoadingGrid,
   ErrorMessage,
 } from '@/pages/rentalItemsPage/components';
+import { RentalRequestModal } from '@/components/RentalRequestModal';
+import { RentalType } from '@/types/whatsappTypes';
+import { RentalItem } from '@/pages/rentalItemsPage/types';
 
 export const RentalItemsPage = () => {
   const location = useLocation();
+  const [selectedRentalItem, setSelectedRentalItem] =
+    useState<RentalItem | null>(null);
+  const [isRentalModalOpen, setIsRentalModalOpen] = useState(false);
+
   const {
     selectedCategory,
     currentPage,
@@ -25,10 +32,46 @@ export const RentalItemsPage = () => {
     error,
     handleCategoryChange,
     handlePageChange,
-    handleRentItem,
+    handleRentItem: originalHandleRentItem,
     refreshData,
     scrollToTop,
   } = useRentalPage();
+
+  // Map rental item titles to RentalType enum
+  const getRentalType = (title: string): RentalType => {
+    const titleLower = title.toLowerCase();
+
+    if (titleLower.includes('painting') || titleLower.includes('paint')) {
+      return RentalType.PAINTING_MACHINE;
+    } else if (titleLower.includes('sand') || titleLower.includes('blast')) {
+      return RentalType.SAND_BLASTING_EQUIPMENT;
+    } else if (titleLower.includes('scaffold')) {
+      return RentalType.SCAFFOLDING;
+    } else if (
+      titleLower.includes('concrete') ||
+      titleLower.includes('mixer')
+    ) {
+      return RentalType.CONCRETE_MIXER;
+    } else if (titleLower.includes('power') || titleLower.includes('tool')) {
+      return RentalType.POWER_TOOLS;
+    } else {
+      return RentalType.CUSTOM_EQUIPMENT;
+    }
+  };
+
+  // New WhatsApp-enabled rent item handler
+  const handleRentItem = (itemId: number) => {
+    const item = displayedItems.find((item) => item.id === itemId);
+    if (item) {
+      setSelectedRentalItem(item);
+      setIsRentalModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsRentalModalOpen(false);
+    setSelectedRentalItem(null);
+  };
 
   // Scroll to top when navigated from home page
   useEffect(() => {
@@ -87,6 +130,17 @@ export const RentalItemsPage = () => {
 
         <BackToTopButton onClick={scrollToTop} />
       </div>
+
+      {/* Rental Request Modal */}
+      {selectedRentalItem && (
+        <RentalRequestModal
+          isOpen={isRentalModalOpen}
+          onClose={handleCloseModal}
+          rentalType={getRentalType(selectedRentalItem.title)}
+          itemName={selectedRentalItem.title}
+          dailyRate={selectedRentalItem.pricePerDay}
+        />
+      )}
     </main>
   );
 };
