@@ -55,8 +55,6 @@ export const authSlice = createSlice({
         state.loading = false;
         state.error = true;
         state.message = action.payload?.message || "Login failed";
-        console.log("first")
-        console.log(action.payload)
         state.user = null;
         state.token = null;
         state.refreshToken = null;
