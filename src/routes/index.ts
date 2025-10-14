@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     Component: AdminDashboardLayout,
     children: dashboardRoutes,
-    loader: protectedLoader(["ADMIN", "SUPERADMIN"]), // only admin allowed
+    loader: protectedLoader(["ADMIN", "SUPERADMIN"]),
   },
   { path: "*", Component: NotFoundPage },
 ]);
