@@ -1,1 +1,4 @@
-export {loginApi} from '@/api/user.api';
+export {
+    loginApi,
+    logOutApi,
+} from '@/api/user.api';

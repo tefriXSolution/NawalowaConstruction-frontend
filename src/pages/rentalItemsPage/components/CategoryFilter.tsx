@@ -15,7 +15,7 @@ export const CategoryFilter = ({
             onClick={() => onCategoryChange(category)}
             className={`px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm lg:text-base font-medium transition-all duration-300 min-w-0 whitespace-nowrap ${
               selectedCategory === category
-                ? 'bg-rentBtn-hover-color text-mainTheme-color shadow-lg transform scale-105'
+                ? 'bg-rentBtn-hover-color text-white shadow-lg transform scale-105'
                 : 'bg-white text-secondary-text border border-border-gray hover:bg-rentBtn-color hover:text-white hover:scale-105 active:scale-95'
             }`}
             aria-pressed={selectedCategory === category}

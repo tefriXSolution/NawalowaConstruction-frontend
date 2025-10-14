@@ -24,7 +24,7 @@ export const AdminDashboardLayout = () => {
         },
         {
             linkName: "Contacts",
-            linkUrl: "/contacts",
+            linkUrl: "/contact",
         }
     ]
     const footerLinks: FooterLink[] = [

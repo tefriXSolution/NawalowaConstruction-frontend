@@ -2,6 +2,7 @@ export { HomePage } from '@/pages/homepage';
 export { AboutUsPage } from '@/pages/aboutUsPage';
 export { ContactUsPage } from '@/pages/contactUsPage';
 export { RentalItemsPage } from '@/pages/rentalItemsPage';
+export { ServicesPage } from '@/pages/servicesPage';
 export { LoginPage } from '@/pages/loginpage';
 export {
   ProductMgtPage,
@@ -9,4 +10,4 @@ export {
   SettingsPage,
   ManageContactsPage,
 } from '@/pages/adminPages';
-// export { NotFoundPage } from '@/pages/notFoundPage';
+export { NotFoundPage } from '@/pages/notFoundPage';
