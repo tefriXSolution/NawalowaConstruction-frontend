@@ -5,6 +5,7 @@ import { LoginHeader, LoginForm, ForgotPasswordModal } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/types';
 import { loginUser } from '@/redux/thunks/user.thunk';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const { loading, token, message, error } = useSelector((state: RootState) => state.auth);
+  const { loading, message, error, refreshToken } = useSelector((state: RootState) => state.auth);
 
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
@@ -22,16 +23,15 @@ const AdminLogin = () => {
   const [forgotPasswordSuccess, setForgotPasswordSuccess] = useState(false);
   const [forgotPasswordError, setForgotPasswordError] = useState('');
 
-  useEffect(() => {
-    if (token) {
-      navigate('/dashboard');
-      window.location.reload();
-    }
-  }, [token, navigate]);
-
   const isFormValid = Boolean(email.trim() && password.trim());
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   const isForgotEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail.trim());
+
+   useEffect(() => {
+    if (refreshToken) {
+      navigate('/dashboard');
+    }
+  }, [refreshToken, navigate]);
 
   const handleLogin = async () => {
     if (!isEmailValid) {
@@ -45,9 +45,14 @@ const AdminLogin = () => {
     setErrorMsg('');
     try {
       const credentials: Credentials = { email: email.trim(), password };
-      await dispatch(loginUser(credentials));
-      if(error){
-         setErrorMsg(message);
+      const resultAction = await dispatch(loginUser(credentials));
+      unwrapResult(resultAction);
+      navigate('/dashboard');
+      if (!error) {
+        navigate('/dashboard');
+        window.location.reload();
+      }else{
+        setErrorMsg(message);
       }
     } catch (rejectedValue) {
       const errorMessage = (rejectedValue as { message?: string })?.message || 'Login failed. Please try again.';

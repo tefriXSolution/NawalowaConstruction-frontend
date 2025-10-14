@@ -9,7 +9,6 @@ import { validateToken } from "@/utils";
 import { useEffect, useMemo } from "react";
 import { logOutUser } from "@/redux/thunks/user.thunk";
 import { persistor } from "@/redux/store";
-import { initFlowbite } from "flowbite";
 
 interface Props {
   navLinks: NavBarLink[];
@@ -98,12 +97,12 @@ const NavigationBar = ({ navLinks }: Props) => {
               </div>
               <ul className="py-2 text-gray-700 dark:text-gray-200" aria-labelledby="user-menu-button">
                 <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  <button
+                    onClick={()=>navigate('/dashboard')}
+                    className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Dashboard
-                  </a>
+                  </button>
                 </li>
                 <li>
                   <button
@@ -131,7 +130,7 @@ const NavigationBar = ({ navLinks }: Props) => {
             }}
             className={`block w-full text-base sm:text-lg md:text-base lg:text-lg px-4 md:px-2 lg:px-4 py-2 md:py-0 text-center md:text-left transition-colors duration-200 ${
               currentPath === navLink.linkUrl
-                ? "!text-mainText-color md:scale-110 bg-mainSidebar-link-hover-color"
+                ? "!text-mainText-color md:scale-110 bg-mainSidebar-link-hover-color rounded-2xl"
                 : "hover:bg-mainSidebar-link-hover-color"
             }`}
           >
