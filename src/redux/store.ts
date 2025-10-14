@@ -11,20 +11,19 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import userReducer from '@/redux/slices/user.slice';
+import authReducer from '@/redux/slices/user.slice'; // ✅ make sure this file doesn’t import from store
 
 const persistConfig = {
-  key: 'root',
+  key: 'auth',
   storage,
-  whitelist: ['user'], 
+  whitelist: ['user', 'token', 'refreshToken'],
 };
 
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
-    user: persistedUserReducer,
-    // add other reducers here
+    auth: persistedAuthReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -34,10 +33,9 @@ export const store = configureStore({
     }),
 });
 
+export const persistor = persistStore(store);
+
+// Types
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-// Custom hook for typed dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>();
-
-export const persistor = persistStore(store);

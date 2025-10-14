@@ -1,6 +1,11 @@
+import { store } from '@/redux/store';
+
 export type { NavBarLink } from '@/types/navBarTypes';
 export type { FooterLink } from '@/types/footerTypes';
 export type { OurStory, CoreValue } from '@/types/aboutUsTypes';
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export type{
     Credentials,
@@ -9,7 +14,7 @@ export type{
     Role,
     LoginResponse,
     LoginAPIResponse,
-    LogOutResponse
+    LogOutResponse,
 } from '@/types/userTypes'
 
 export type {

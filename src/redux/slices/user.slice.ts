@@ -37,17 +37,29 @@ export const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.error = false;
-        const user = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
-        const refreshToken = localStorage.getItem("refreshToken");
-        state.user = user ? JSON.parse(user) : null;
-        state.token = token;
-        state.token = refreshToken;
-        state.message=action.payload.message
+
+        state.user = action.payload.data?.user??null;
+        state.token = action.payload.data?.token??null;
+        state.refreshToken = action.payload.data?.refreshToken??null;
+        state.message = action.payload.message;
+        
+        if (action.payload.data?.user && action.payload.data?.token) {
+          localStorage.setItem("user", JSON.stringify(action.payload.data?.user));
+          localStorage.setItem("token", action.payload.data?.token);
+          if (action.payload.data?.refreshToken) {
+            localStorage.setItem("refreshToken", action.payload.data?.refreshToken);
+          }
+        }
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
+        state.message = action.payload?.message || "Login failed";
+        console.log("first")
+        console.log(action.payload)
+        state.user = null;
+        state.token = null;
+        state.refreshToken = null;
       })
       .addCase(logOutUser.pending, (state)=>{
         state.loading = true;

@@ -33,9 +33,10 @@ export interface LoginAPIResponse {
 export interface LoginResponse {
     message:string;
     error:boolean;
+    data:LoginAPIResponse | null;
 }
 
 export interface LogOutResponse {
-    message:string;
-    error:boolean;
+  message: string;
+  error: boolean;
 }
