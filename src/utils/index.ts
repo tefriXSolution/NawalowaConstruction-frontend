@@ -1,6 +1,11 @@
-export { validateToken } from '@/utils/jwtTokenUtil';
 
 export {
+    validateToken,
+    checkAndRefreshToken,
+    extractTokenDetails,
+} from '@/utils/jwtTokenUtil'
+
+export{
   sendGeneralInquiry,
   sendQuoteRequest,
   sendEmergencyRequest,
