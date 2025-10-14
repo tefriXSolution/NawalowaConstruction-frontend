@@ -11,6 +11,5 @@ export const router = createBrowserRouter([
     Component: AdminDashboardLayout,
     children: dashboardRoutes,
   },
-  // Catch-all route for 404 - this should be last
   { path: '*', Component: NotFoundPage },
 ]);
