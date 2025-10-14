@@ -28,8 +28,15 @@ export interface LoginAPIResponse {
     error:boolean;
     user:User | null;
     token:string | null;
+    refreshToken:string | null;
 }
 export interface LoginResponse {
     message:string;
     error:boolean;
+    data:LoginAPIResponse | null;
+}
+
+export interface LogOutResponse {
+  message: string;
+  error: boolean;
 }

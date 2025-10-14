@@ -29,7 +29,7 @@ export const Pagination = ({
           onClick={() => onPageChange(page)}
           className={`px-4 py-2 rounded-lg ${
             currentPage === page
-              ? 'bg-rentBtn-hover-color text-mainTheme-color'
+              ? 'bg-rentBtn-hover-color text-white'
               : 'bg-white text-secondary-text border border-border-gray hover:bg-rentBtn-color hover:text-white'
           } transition-all duration-300`}
         >
