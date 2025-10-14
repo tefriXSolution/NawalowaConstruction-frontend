@@ -5,7 +5,7 @@ import { ManageContacts } from './components/ManageContacts';
 export const ManageContactsPage: React.FC = () => {
     return (
         <div style={serviceManagementPageStyles.pageContainer}>
-            <h1 style={serviceManagementPageStyles.mainHeading}>Manage Contacts</h1>
+            
             <div style={serviceManagementPageStyles.contentContainer}>
                 <div style={serviceManagementPageStyles.addNewServiceWrapper}>
                     <ManageContacts />
