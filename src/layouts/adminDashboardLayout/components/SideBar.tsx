@@ -10,6 +10,10 @@ import { LuNotebookText } from "react-icons/lu";
 import { VscSettingsGear } from "react-icons/vsc";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate, useLocation } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/types";
+import { logOutUser } from "@/redux/thunks/user.thunk";
+import { persistor } from "@/redux/store";
 
 const sidebarMenu = [
   { label: "Home", href: "/", icon: HiHome },
@@ -17,12 +21,21 @@ const sidebarMenu = [
   { label: "Contacts", href: "/dashboard/contacts", icon: LuNotebookText },
   { label: "Rental Item Management", href: "/dashboard/product-manage", icon: LuNotebookText },
   { label: "Settings", href: "/dashboard/settings", icon: VscSettingsGear },
-  { label: "Log out", href: "/dashboard/logout", icon: IoLogOutOutline },
+  { label: "Log out", href: "/", icon: IoLogOutOutline },
 ];
 
 export const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>()
+  const {user} = useSelector((state:RootState)=>state.auth);
+
+  const handleSignOut = () => {
+      dispatch(logOutUser({ email: user?.email ?? "" }));
+      persistor.purge();
+      navigate('/');
+      window.location.reload();
+    };
 
   return (
     <Sidebar aria-label="Admin Dashboard Sidebar" theme={dashboardTheme}>
@@ -44,7 +57,7 @@ export const SideBar = () => {
                   }`}
                 />
               )}
-              onClick={() => navigate(item.href)}
+              onClick={item.label == "Log out"?() => handleSignOut():() => navigate(item.href)}
               className={`cursor-pointer ${
                 location.pathname === item.href
                   ? "!bg-mainSidebar-link-hover-color !text-mainSidebar-color font-semibold"
