@@ -11,8 +11,6 @@ export const loginService = async(email: string, password: string):Promise<Login
         }
         return {message: result.message, error: false, data:result};
     }
-    console.log("result")
-    console.log(result)
     return {message: result.message, error: true, data:null};
 }
 export const logOutService = async(email: string):Promise<LogOutResponse> => {
