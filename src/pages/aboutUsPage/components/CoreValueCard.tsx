@@ -1,11 +1,14 @@
 import React from 'react';
 import { IconType } from 'react-icons';
+import { WavyBackground } from './sections/wavy-background';
 
 type CoreValueCardProps = {
   title: string;
   description: string;
   Icon: IconType;
 };
+
+
 
 export const CoreValueCard: React.FC<CoreValueCardProps> = ({
   title,
