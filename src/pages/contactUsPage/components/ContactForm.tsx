@@ -68,7 +68,7 @@ export const ContactForm: React.FC = () => {
                         type="tel"
                         id="phone"
                         name="phone"
-                        placeholder="+1 (555) 987-6543"
+                        placeholder="+94 77 1234 567"
                         value={formData.phone}
                         onChange={handleChange}
                     />
