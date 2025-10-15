@@ -2,7 +2,14 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
+
 @theme {
+  /* Font families */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Oswald', sans-serif;
+
+
   --color-mainTheme-color: #001f3e;
   --color-mainTheme-hover-color: #0a3866;
 

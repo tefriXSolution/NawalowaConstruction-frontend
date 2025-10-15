@@ -23,7 +23,7 @@ export const CallToActionSection = () => {
   return (
     <section className={ctaStyles.section}>
       <div className={ctaStyles.container}>
-        <h2 className={ctaStyles.title}>Ready to Start Your Next Project?</h2>
+        <h2 className={ctaStyles.title}>Get a Quote for Your Blasting & Painting Project</h2>
         <p className={ctaStyles.description}>
           Let's bring your vision to life with our expertise and commitment to
           excellence.
