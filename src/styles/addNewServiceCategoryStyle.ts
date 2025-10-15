@@ -10,7 +10,7 @@ export const addNewServiceCategoryStyles: { [key: string]: CSSProperties } = {
         padding: '2rem',
         maxWidth: '500px',
         margin: '2rem auto',
-        fontFamily: 'Arial, sans-serif',
+        fontFamily: 'Arial, sans-serif,oswald',
     },
     heading: {
         fontSize: '1.5rem',
