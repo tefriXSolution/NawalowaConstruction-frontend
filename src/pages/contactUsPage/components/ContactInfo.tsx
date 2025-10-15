@@ -9,7 +9,8 @@ const ContactInfo: React.FC = () => {
     // Replace with your WhatsApp number and message
     const whatsappNumber = '+94 77 1234 567';
     const message = 'Hello, I would like to chat with you.';
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    const sanitizedNumber = whatsappNumber.replace(/\D/g, '');
+    window.open(`https://wa.me/${sanitizedNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
