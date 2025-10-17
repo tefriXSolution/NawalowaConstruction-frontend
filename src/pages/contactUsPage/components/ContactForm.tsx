@@ -56,30 +56,38 @@ export const ContactForm: React.FC = () => {
     return (
         <div style={contactFormStyles.container}>
             <h2 style={contactFormStyles.heading}>Send us a Message</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} aria-busy={submitting}>
                 {submitError && (
-                    <div style={{
-                        marginBottom: '1rem',
-                        padding: '0.75rem',
-                        borderRadius: 8,
-                        border: '1px solid #fecaca',
-                        background: '#fef2f2',
-                        color: '#b91c1c',
-                        fontSize: 14,
-                    }}>
+                    <div
+                        role="alert"
+                        aria-live="assertive"
+                        style={{
+                            marginBottom: '1rem',
+                            padding: '0.75rem',
+                            borderRadius: 8,
+                            border: '1px solid #fecaca',
+                            background: '#fef2f2',
+                            color: '#b91c1c',
+                            fontSize: 14,
+                        }}
+                    >
                         {submitError}
                     </div>
                 )}
                 {submitSuccess && (
-                    <div style={{
-                        marginBottom: '1rem',
-                        padding: '0.75rem',
-                        borderRadius: 8,
-                        border: '1px solid #bbf7d0',
-                        background: '#f0fdf4',
-                        color: '#166534',
-                        fontSize: 14,
-                    }}>
+                    <div
+                        role="alert"
+                        aria-live="polite"
+                        style={{
+                            marginBottom: '1rem',
+                            padding: '0.75rem',
+                            borderRadius: 8,
+                            border: '1px solid #bbf7d0',
+                            background: '#f0fdf4',
+                            color: '#166534',
+                            fontSize: 14,
+                        }}
+                    >
                         {submitSuccess}
                     </div>
                 )}
