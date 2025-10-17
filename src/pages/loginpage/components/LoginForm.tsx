@@ -45,7 +45,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
               : ''
             }`}
           placeholder='admin@example.com'
-          autoComplete='username email'
+          autoComplete='username'
           disabled={isLoading}
           required
         />
