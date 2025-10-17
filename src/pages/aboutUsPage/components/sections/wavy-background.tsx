@@ -94,7 +94,11 @@ export const WavyBackground = ({
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
         const y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5);
+        if (x === 0) {
+          ctx.moveTo(x, y + h * 0.5);
+        } else {
+          ctx.lineTo(x, y + h * 0.5);
+        }
       }
       ctx.stroke();
       ctx.closePath();
