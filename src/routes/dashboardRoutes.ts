@@ -1,13 +1,13 @@
-import { 
-  ProductMgtPage, 
-  SettingsPage, 
+import {
+  ProductMgtPage,
+  SettingsPage,
   ServiceManagementPage,
   ManageContactsPage,
-  DashboardPage,  
+  DashboardPage,
 } from '@/pages'
 import { RouteObject } from 'react-router';
 
-export const dashboardRoutes :RouteObject[] = [
+export const dashboardRoutes: RouteObject[] = [
   { index: true, Component: DashboardPage },
   { path: "settings", Component: SettingsPage },
   { path: "product-manage", Component: ServiceManagementPage },
