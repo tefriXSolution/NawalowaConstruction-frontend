@@ -50,23 +50,33 @@ export const DashboardPage: React.FC = () => {
 
                 let rentals: Array<{ availability?: boolean }> = [];
                 let lastStatus: number | undefined;
-                for (const p of paths) {
-                    try {
-                        const res = await fetch(`${base}${p}`, {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                ...(token ? { Authorization: `Bearer ${token}` } : {}),
-                            },
-                        });
-                        lastStatus = res.status;
-                        if (!res.ok) continue;
-                        const json = await res.json();
-                        // Support both { data: [...] } and raw array
-                        const arr = Array.isArray(json) ? json : Array.isArray(json?.data) ? json.data : [];
-                        rentals = arr as Array<{ availability?: boolean }>;
-                        break;
-                    } catch {
-                        // continue trying next path
+                // Probe all endpoints in parallel and use the first successful response
+                const fetchPromises = paths.map((p) =>
+                    fetch(`${base}${p}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                        },
+                    })
+                        .then(async (res) => {
+                            if (!res.ok) {
+                                throw { status: res.status };
+                            }
+                            const json = await res.json();
+                            // Support both { data: [...] } and raw array
+                            const arr = Array.isArray(json) ? json : Array.isArray(json?.data) ? json.data : [];
+                            return { rentals: arr as Array<{ availability?: boolean }>, status: res.status };
+                        })
+                );
+                try {
+                    const result = await Promise.any(fetchPromises);
+                    rentals = result.rentals;
+                    lastStatus = result.status;
+                } catch (aggregateError) {
+                    // All requests failed; get last status if available
+                    if (aggregateError && aggregateError.errors && aggregateError.errors.length > 0) {
+                        const lastErr = aggregateError.errors[aggregateError.errors.length - 1];
+                        lastStatus = lastErr.status;
                     }
                 }
                 if (!rentals.length && lastStatus && lastStatus >= 400) {
