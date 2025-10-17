@@ -7,11 +7,20 @@ export interface CreateContactMessagePayload {
     message: string;
 }
 
+export interface ContactMessage {
+    id?: string;
+    name: string;
+    email: string;
+    phone?: string;
+    message: string;
+    createdAt?: string;
+}
+
 export interface CreateContactMessageResponse {
     message: string;
     error: boolean;
     errorMessage?: string;
-    contactMessage?: any;
+    contactMessage?: ContactMessage;
 }
 
 export const createContactMessageApi = async (
