@@ -9,5 +9,6 @@ export {
   ServiceManagementPage,
   SettingsPage,
   ManageContactsPage,
+  DashboardPage,
 } from '@/pages/adminPages';
 export { NotFoundPage } from '@/pages/notFoundPage';

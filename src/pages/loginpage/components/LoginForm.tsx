@@ -46,6 +46,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
               : ''
           }`}
           placeholder='admin@example.com'
+          autoComplete='username email'
           disabled={isLoading}
           required
         />
@@ -68,6 +69,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             errorMsg && !password.trim() ? 'login-input-error' : ''
           }`}
           placeholder='••••••••'
+          autoComplete='current-password'
           disabled={isLoading}
           required
           minLength={6}

@@ -44,10 +44,10 @@ class ContactApiService {
     }
 
     async markAsRead(id: string | number): Promise<ApiResponse<{ id: string | number }>> {
-        // Use the same pattern as other methods: rely on API_BASE_URL for base path.
+        // Backend route: PUT /contact/message/:id/read (admin)
         const endpoint = `/contact/message/${id}/read`;
         const res = await this.makeRequest<{ message?: string; error?: boolean }>(endpoint, {
-            method: 'POST',
+            method: 'PUT',
         });
         return {
             data: { id },

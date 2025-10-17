@@ -21,7 +21,7 @@ const ContactInfo: React.FC = () => {
         <FaMapMarkerAlt style={contactInfoStyles.icon} />
         <div style={contactInfoStyles.textContainer}>
           <p style={contactInfoStyles.label}>Address</p>
-          <p style={contactInfoStyles.text}>105, Desiland watta,kirindigalla,Ibbagamuwa</p>
+          <p style={contactInfoStyles.text}>105, Desiland watta, kirindigalla, Ibbagamuwa</p>
         </div>
       </div>
 
