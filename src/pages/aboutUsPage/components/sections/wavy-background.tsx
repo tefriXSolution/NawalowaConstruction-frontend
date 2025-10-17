@@ -64,14 +64,24 @@ export const WavyBackground = ({
     ctx = canvas.getContext("2d");
     if (!ctx) return;
     
-    w = ctx.canvas.width = canvas.offsetWidth;
-    h = ctx.canvas.height = canvas.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    w = ctx.canvas.width = Math.floor(canvas.offsetWidth * dpr);
+    h = ctx.canvas.height = Math.floor(canvas.offsetHeight * dpr);
+    canvas.style.width = `${canvas.offsetWidth}px`;
+    canvas.style.height = `${canvas.offsetHeight}px`;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
+    ctx.scale(dpr, dpr);
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
       if (!canvas || !ctx) return;
-      w = ctx.canvas.width = canvas.offsetWidth;
-      h = ctx.canvas.height = canvas.offsetHeight;
+      const dpr = window.devicePixelRatio || 1;
+      w = ctx.canvas.width = Math.floor(canvas.offsetWidth * dpr);
+      h = ctx.canvas.height = Math.floor(canvas.offsetHeight * dpr);
+      canvas.style.width = `${canvas.offsetWidth}px`;
+      canvas.style.height = `${canvas.offsetHeight}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
+      ctx.scale(dpr, dpr);
       ctx.filter = `blur(${blur}px)`;
     };
     render();
