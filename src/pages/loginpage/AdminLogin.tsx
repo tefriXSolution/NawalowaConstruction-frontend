@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import { Credentials } from '@/types';
 import { LoginHeader, LoginForm, ForgotPasswordModal } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/types';
 import { loginUser } from '@/redux/thunks/user.thunk';
 import { unwrapResult } from '@reduxjs/toolkit';
+import {apiClient} from "@/api/apis.config";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -27,11 +28,20 @@ const AdminLogin = () => {
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   const isForgotEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail.trim());
 
+  const [searchParams] = useSearchParams();
+
    useEffect(() => {
     if (refreshToken) {
       navigate('/dashboard');
     }
   }, [refreshToken, navigate]);
+
+    useEffect(() => {
+        const status = searchParams.get("s");
+        if(status=="1"){
+            setErrorMsg("Check your Email inbox")
+        }
+    }, [searchParams]);
 
   const handleLogin = async () => {
     if (!isEmailValid) {
@@ -79,10 +89,17 @@ const AdminLogin = () => {
     setForgotPasswordLoading(true);
     setForgotPasswordError('');
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await apiClient.post('/users/forgot-password', {email:forgotEmail});
+
+      console.log(response);
       setForgotPasswordSuccess(true);
     } catch (error) {
-      setForgotPasswordError('Failed to send reset email. Please try again.');
+        console.log(error);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+        setForgotPasswordError(error.response?.data?.message);
+      // setForgotPasswordError('Failed to send reset email. Please try again.');
     } finally {
       setForgotPasswordLoading(false);
     }
