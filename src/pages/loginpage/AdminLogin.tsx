@@ -38,7 +38,7 @@ const AdminLogin = () => {
 
     useEffect(() => {
         const status = searchParams.get("s");
-        if(status=="1"){
+        if(status === "1"){
             setErrorMsg("Check your Email inbox")
         }
     }, [searchParams]);
