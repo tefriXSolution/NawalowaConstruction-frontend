@@ -7,7 +7,7 @@ interface Props {
 
 export const Footer = ({ footerLinks }: Props) => {
   return (
-    <footer className="shadow-sm bg-mainTheme-color">
+    <footer className="shadow-sm bg-navbar-gradient">
       <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-6 md:py-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
           <a
@@ -48,7 +48,7 @@ export const Footer = ({ footerLinks }: Props) => {
             href="https://tefrix.com/"
             className="hover:underline text-mainText-color"
           >
-            Develop By TefriX Solution
+            Developed By TefriX Solutions
           </a>{" "}
           | All Rights Reserved.
         </span>

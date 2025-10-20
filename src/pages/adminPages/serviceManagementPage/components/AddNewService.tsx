@@ -83,7 +83,7 @@ export const AddNewService: React.FC = () => {
               type="text"
               id="price"
               name="price"
-              placeholder="$ 0.00"
+              placeholder="LKR 0.00"
               value={formData.price}
               onChange={handleChange}
               required

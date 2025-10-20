@@ -2,9 +2,21 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
+
 @theme {
-  --color-mainTheme-color: #001f3e;
-  --color-mainTheme-hover-color: #0a3866;
+  /* Font families */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Oswald', sans-serif;
+
+  --color-mainTheme-color:  #1a2b58;
+  
+  --color-mainTheme-hover-color: #0a3866; 
+
+ 
+
+
+
 
   --color-mainSidebar-color: #dee0e2;
   --color-mainSidebar-link-hover-color: #0a3866;
@@ -159,4 +171,11 @@
 
 .success-icon {
   color: #16a34a;
+}
+
+.bg-navbar-gradient {
+/* background: linear-gradient(to right, #020d28 0%, #241b6f 50%, #020d28 100%);
+ */
+ background: linear-gradient(to right, #101c3b 0%, #2b3a75 50%, #101c3b 100%);
+
 }

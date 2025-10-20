@@ -40,12 +40,12 @@ const LoginForm: React.FC<LoginFormProps> = ({
           type='email'
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
-          className={`w-full px-3 py-2 border rounded-lg login-input transition-all text-sm ${
-            errorMsg && (!email.trim() || !isEmailValid)
+          className={`w-full px-3 py-2 border rounded-lg login-input transition-all text-sm ${errorMsg && (!email.trim() || !isEmailValid)
               ? 'login-input-error'
               : ''
-          }`}
+            }`}
           placeholder='admin@example.com'
+          autoComplete='username'
           disabled={isLoading}
           required
         />
@@ -64,10 +64,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
           type='password'
           value={password}
           onChange={(e) => onPasswordChange(e.target.value)}
-          className={`w-full px-3 py-2 border rounded-lg login-input transition-all text-sm ${
-            errorMsg && !password.trim() ? 'login-input-error' : ''
-          }`}
+          className={`w-full px-3 py-2 border rounded-lg login-input transition-all text-sm ${errorMsg && !password.trim() ? 'login-input-error' : ''
+            }`}
           placeholder='••••••••'
+          autoComplete='current-password'
           disabled={isLoading}
           required
           minLength={6}
@@ -94,11 +94,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <button
           type='submit'
           disabled={!isFormValid || isLoading}
-          className={`w-full py-2 text-sm font-medium rounded-lg focus:outline-none transition-all transform login-button-primary ${
-            !isFormValid || isLoading
+          className={`w-full py-2 text-sm font-medium rounded-lg focus:outline-none transition-all transform login-button-primary ${!isFormValid || isLoading
               ? ''
               : 'hover:scale-[1.02] active:scale-[0.98]'
-          }`}
+            }`}
         >
           {isLoading ? (
             <div className='flex items-center justify-center'>

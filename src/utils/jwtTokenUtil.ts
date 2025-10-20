@@ -15,7 +15,7 @@ const backendUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const validateToken = (token: string): { message: string; error: boolean } => {
   try {
-    if(token==""){
+    if(token === ""){
       return { message: "Token is empty", error: true };
     }
 

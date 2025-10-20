@@ -1,5 +1,6 @@
 // src/pages/contactUsPage/components/ContactForm.tsx
 import React, { useState } from 'react';
+import { createContactMessageApi } from '@/api';
 import { contactFormStyles } from '@/styles/contactFormStyle';
 
 interface FormData {
@@ -16,6 +17,9 @@ export const ContactForm: React.FC = () => {
         phone: '',
         message: '',
     });
+    const [submitting, setSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -25,16 +29,68 @@ export const ContactForm: React.FC = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
-        // TODO: Implement API call or other form submission logic here.
+        setSubmitting(true);
+        setSubmitError(null);
+        setSubmitSuccess(null);
+        try {
+            const res = await createContactMessageApi({
+                name: formData.name.trim(),
+                email: formData.email.trim(),
+                phone: formData.phone.trim() || undefined,
+                message: formData.message.trim(),
+            });
+            if (res.error) {
+                throw new Error(res.errorMessage || res.message || 'Failed to send message');
+            }
+            setSubmitSuccess(res.message || 'Message sent successfully');
+            setFormData({ name: '', email: '', phone: '', message: '' });
+        } catch (err: any) {
+            setSubmitError(err?.message || 'Failed to send message');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     return (
         <div style={contactFormStyles.container}>
             <h2 style={contactFormStyles.heading}>Send us a Message</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} aria-busy={submitting}>
+                {submitError && (
+                    <div
+                        role="alert"
+                        aria-live="assertive"
+                        style={{
+                            marginBottom: '1rem',
+                            padding: '0.75rem',
+                            borderRadius: 8,
+                            border: '1px solid #fecaca',
+                            background: '#fef2f2',
+                            color: '#b91c1c',
+                            fontSize: 14,
+                        }}
+                    >
+                        {submitError}
+                    </div>
+                )}
+                {submitSuccess && (
+                    <div
+                        role="alert"
+                        aria-live="polite"
+                        style={{
+                            marginBottom: '1rem',
+                            padding: '0.75rem',
+                            borderRadius: 8,
+                            border: '1px solid #bbf7d0',
+                            background: '#f0fdf4',
+                            color: '#166534',
+                            fontSize: 14,
+                        }}
+                    >
+                        {submitSuccess}
+                    </div>
+                )}
                 <div style={contactFormStyles.formGroup}>
                     <label style={contactFormStyles.label} htmlFor="name">Name</label>
                     <input
@@ -68,7 +124,7 @@ export const ContactForm: React.FC = () => {
                         type="tel"
                         id="phone"
                         name="phone"
-                        placeholder="+1 (555) 987-6543"
+                        placeholder="+94 77 1234 567"
                         value={formData.phone}
                         onChange={handleChange}
                     />
@@ -86,8 +142,8 @@ export const ContactForm: React.FC = () => {
                         required
                     />
                 </div>
-                <button type="submit" style={contactFormStyles.submitButton}>
-                    Send Message
+                <button type="submit" style={contactFormStyles.submitButton} disabled={submitting}>
+                    {submitting ? 'Sending…' : 'Send Message'}
                 </button>
             </form>
         </div>
