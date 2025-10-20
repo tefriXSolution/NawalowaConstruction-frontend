@@ -1,10 +1,22 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
+
 @theme {
-  --color-mainTheme-color: #001f3e; 
+  /* Font families */
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Oswald', sans-serif;
+
+  --color-mainTheme-color:  #1a2b58;
+  
   --color-mainTheme-hover-color: #0a3866; 
+
+ 
+
+
+
 
   --color-mainSidebar-color: #dee0e2;
   --color-mainSidebar-link-hover-color: #0a3866;
@@ -17,18 +29,153 @@
   --color-serviceBtn-color: #001f3e;
   --color-serviceBtn-hover-color: #18528d;
 
-  --color-rentBtn-color: #a79f07;
-  --color-rentBtn-hover-color: #e9df20;
-  --color-rentCardTheme-color:#b5ad0f27;
+  --color-rentBtn-color: #001f3e;
+  --color-rentBtn-hover-color: #0a3866;
+  --color-rentCardTheme-color: #b5ad0f27;
 
-  --color-serviceCardTheme-color:#e9ebe2;
-  --color-serviceCardSubText-color:#482cc8;
+  --color-serviceCardTheme-color: #e9ebe2;
+  --color-serviceCardSubText-color: #6b7280;
+
+  /* Additional custom colors for rental page */
+  --color-secondary-text: #6b7280;
+  --color-muted-text: #9ca3af;
+  --color-light-gray: #f3f4f6;
+  --color-border-gray: #d1d5db;
+  --color-disabled-bg: #e5e7eb;
+  --color-disabled-text: #9ca3af;
+  --color-white: #ffffff;
+  --color-focus-ring: #18528d;
+
+  --color-secondary-text-hover: #18528d;
+
+  /* Login form colors */
+  --color-login-bg-gradient-from: #f9fafb;
+  --color-login-bg-gradient-via: #f3f4f6;
+  --color-login-bg-gradient-to: #e5e7eb;
+  --color-login-card-bg: #ffffff;
+  --color-login-shadow: #0000001a;
+
+  /* Text colors */
+  --color-primary-text: #1f2937;
+  --color-secondary-text-light: #6b7280;
+  --color-muted-text-light: #9ca3af;
+
+  /* Input colors */
+  --color-input-bg: #f9fafb;
+  --color-input-border: #d1d5db;
+  --color-input-focus-ring: #3b82f6;
+  --color-input-text: #111827;
+  --color-input-placeholder: #9ca3af;
+
+  /* Error colors */
+  --color-error-text: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-error-border: #fecaca;
+
+  /* Button colors */
+  --color-btn-primary-bg: var(--color-mainTheme-color);
+  --color-btn-primary-hover: var(--color-mainTheme-hover-color);
+  --color-btn-disabled: #9ca3af;
+  --color-btn-text: #ffffff;
 }
 
-.section-title{
-  @apply text-4xl align-middle flex justify-center mb-5
+.section-title {
+  @apply text-4xl align-middle flex justify-center mb-5;
 }
 
-/* :root{
-    --color-serviceCardSubText-color:#482cc8;
-} */
+/* Login Form Styles */
+.login-container {
+  background: linear-gradient(
+    to bottom right,
+    var(--color-login-bg-gradient-from),
+    var(--color-login-bg-gradient-via),
+    var(--color-login-bg-gradient-to)
+  );
+}
+
+.login-card {
+  background-color: var(--color-login-card-bg);
+  box-shadow: 0 4px 6px -1px var(--color-login-shadow);
+}
+
+.login-title {
+  color: var(--color-primary-text);
+}
+
+.login-subtitle {
+  color: var(--color-secondary-text-light);
+}
+
+.login-input {
+  background-color: var(--color-input-bg);
+  border-color: var(--color-input-border);
+  color: var(--color-input-text);
+}
+
+.login-input::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+.login-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-input-focus-ring);
+}
+
+.login-input-error {
+  border-color: var(--color-error-border);
+  box-shadow: 0 0 0 2px var(--color-error-text);
+}
+
+.login-error-message {
+  color: var(--color-error-text);
+  background-color: var(--color-error-bg);
+  border-color: var(--color-error-border);
+}
+
+.login-button-primary {
+  background-color: var(--color-btn-primary-bg);
+  color: var(--color-btn-text);
+}
+
+.login-button-primary:hover:not(:disabled) {
+  background-color: var(--color-btn-primary-hover);
+}
+
+.login-button-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-mainTheme-color);
+}
+
+.login-button-primary:disabled {
+  background-color: var(--color-btn-disabled);
+  cursor: not-allowed;
+}
+
+.login-link {
+  color: var(--color-secondary-text-light);
+}
+
+.login-link:hover {
+  color: var(--color-primary-text);
+}
+
+/* Modal styles */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Success state colors */
+.success-bg {
+  background-color: #f0fdf4;
+}
+
+.success-icon {
+  color: #16a34a;
+}
+
+.bg-navbar-gradient {
+/* background: linear-gradient(to right, #020d28 0%, #241b6f 50%, #020d28 100%);
+ */
+ background: linear-gradient(to right, #101c3b 0%, #2b3a75 50%, #101c3b 100%);
+
+}

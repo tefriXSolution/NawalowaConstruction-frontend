@@ -7,9 +7,10 @@ import { contactInfoStyles } from '@/styles/contactInfoStyle';
 const ContactInfo: React.FC = () => {
   const handleWhatsappChat = () => {
     // Replace with your WhatsApp number and message
-    const whatsappNumber = '+15551234567';
+    const whatsappNumber = '+94 77 1234 567';
     const message = 'Hello, I would like to chat with you.';
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    const sanitizedNumber = whatsappNumber.replace(/\D/g, '');
+    window.open(`https://wa.me/${sanitizedNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
@@ -20,7 +21,7 @@ const ContactInfo: React.FC = () => {
         <FaMapMarkerAlt style={contactInfoStyles.icon} />
         <div style={contactInfoStyles.textContainer}>
           <p style={contactInfoStyles.label}>Address</p>
-          <p style={contactInfoStyles.text}>123 Construction Avenue, Industrial City, IN 45678</p>
+          <p style={contactInfoStyles.text}>105, Desiland watta, kirindigalla, Ibbagamuwa</p>
         </div>
       </div>
 
@@ -28,7 +29,9 @@ const ContactInfo: React.FC = () => {
         <FaPhone style={contactInfoStyles.icon} />
         <div style={contactInfoStyles.textContainer}>
           <p style={contactInfoStyles.label}>Phone</p>
-          <p style={contactInfoStyles.text}>+1 (555) 123-4567</p>
+          <p style={contactInfoStyles.text}>077 388 8328</p>
+           <p style={contactInfoStyles.text}>071 151 8785</p>
+          <p style={contactInfoStyles.text}>070 102 2111</p>
         </div>
       </div>
 
@@ -36,7 +39,7 @@ const ContactInfo: React.FC = () => {
         <FaEnvelope style={contactInfoStyles.icon} />
         <div style={contactInfoStyles.textContainer}>
           <p style={contactInfoStyles.label}>Email</p>
-          <p style={contactInfoStyles.text}>info@nawalowaconstructions.com</p>
+          <p style={contactInfoStyles.text}>chamindapiyankara005@gmail.com</p>
         </div>
       </div>
 

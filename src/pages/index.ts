@@ -1,7 +1,14 @@
 export { HomePage } from '@/pages/homepage';
 export { AboutUsPage } from '@/pages/aboutUsPage';
-export { SettingsPage } from '@/pages/adminPages/settingsPage';
 export { ContactUsPage } from '@/pages/contactUsPage';
+export { RentalItemsPage } from '@/pages/rentalItemsPage';
+export { ServicesPage } from '@/pages/servicesPage';
 export { LoginPage } from '@/pages/loginpage';
-export { AddProduct } from '@/pages/loginpage/productMgt/Addproduct';
-export { RentalInventory } from '@/pages/loginpage/productMgt/RentalInventory';
+export {
+  ProductMgtPage,
+  ServiceManagementPage,
+  SettingsPage,
+  ManageContactsPage,
+  DashboardPage,
+} from '@/pages/adminPages';
+export { NotFoundPage } from '@/pages/notFoundPage';

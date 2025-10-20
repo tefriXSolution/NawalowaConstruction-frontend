@@ -1,83 +1,150 @@
-import logo from '@/assets/img/logo.png'
-
+import React, { useState, useEffect } from 'react';
+import {useNavigate, useSearchParams} from 'react-router-dom';
+import { Credentials } from '@/types';
+import { LoginHeader, LoginForm, ForgotPasswordModal } from './components';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/types';
+import { loginUser } from '@/redux/thunks/user.thunk';
+import { unwrapResult } from '@reduxjs/toolkit';
+import {apiClient} from "@/api/apis.config";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const { loading, message, error, refreshToken } = useSelector((state: RootState) => state.auth);
+
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false);
+  const [forgotPasswordSuccess, setForgotPasswordSuccess] = useState(false);
+  const [forgotPasswordError, setForgotPasswordError] = useState('');
+
+  const isFormValid = Boolean(email.trim() && password.trim());
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const isForgotEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail.trim());
+
+  const [searchParams] = useSearchParams();
+
+   useEffect(() => {
+    if (refreshToken) {
+      navigate('/dashboard');
+    }
+  }, [refreshToken, navigate]);
+
+    useEffect(() => {
+        const status = searchParams.get("s");
+        if(status === "1"){
+            setErrorMsg("Check your email inbox")
+        }
+    }, [searchParams]);
+
+  const handleLogin = async () => {
+    if (!isEmailValid) {
+      setErrorMsg('Please enter a valid email address');
+      return;
+    }
+    if (password.length < 8) {
+      setErrorMsg('Password must be at least 8 characters long');
+      return;
+    }
+    setErrorMsg('');
+    try {
+      const credentials: Credentials = { email: email.trim(), password };
+      const resultAction = await dispatch(loginUser(credentials));
+      unwrapResult(resultAction);
+      navigate('/dashboard');
+      if (!error) {
+        navigate('/dashboard');
+        window.location.reload();
+      }else{
+        setErrorMsg(message);
+      }
+    } catch (rejectedValue) {
+      const errorMessage = (rejectedValue as { message?: string })?.message || 'Login failed. Please try again.';
+      setErrorMsg(errorMessage);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleLogin();
+  };
+
+  const handleForgotPasswordClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowForgotPasswordModal(true);
+  };
+
+  const handleForgotPasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isForgotEmailValid) {
+      setForgotPasswordError('Please enter a valid email address');
+      return;
+    }
+    setForgotPasswordLoading(true);
+    setForgotPasswordError('');
+    try {
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await apiClient.post('/users/forgot-password', {email:forgotEmail});
+
+      console.log(response);
+      setForgotPasswordSuccess(true);
+    } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+        setForgotPasswordError(error.response?.data?.message || 'Failed to send reset email. Please try again.');
+      // setForgotPasswordError('Failed to send reset email. Please try again.');
+    } finally {
+      setForgotPasswordLoading(false);
+    }
+  };
+
+  const closeForgotPasswordModal = () => {
+    setShowForgotPasswordModal(false);
+    setForgotPasswordSuccess(false);
+    setForgotPasswordError('');
+    setForgotEmail('');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-sm w-full bg-white rounded-2xl shadow-lg p-8">
-        <div className="text-center">
-          {/* Logo - Centered at top */}
-          <div className="flex justify-center mb-4">
-  <div className="w-30 h-30 rounded-lg grid place-items-center">
-    <img src={logo} alt="Logo" className="w-full h-full object-contain" />
-  </div>
-</div>
-          
-          {/* Company Name - Below logo */}
-          <div className="text-center">
-          <h1 className="text-2xl font-semibold text-gray-800 mb-6">
-            Nawalowa Constructions
-          </h1>
-          </div>
-          
-          {/* Admin Login Title */}
-          <h2 className="text-xl font-bold text-gray-800 mb-3">
-            Admin Login
-          </h2>
-          
-          {/* Welcome Message */}
-          <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-            Welcome back! Please sign in to access your<br />
-            dashboard.
-          </p>
-        </div>
-
-        {/* Login Form */}
-        <div className="space-y-5">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email or Username
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="text"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              placeholder="admin@example.com"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <div className="text-right">
-            <a href="#" className="text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200">
-              Forgot password?
-            </a>
-          </div>
-
-          <div className="pt-2">
-            <button
-              type="button"
-              className="w-full py-3 px-4 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Log In
-            </button>
-          </div>
+    <>
+      <div className='min-h-screen login-container flex items-center justify-center py-4 px-2'>
+        <div className='max-w-sm w-full login-card rounded-xl p-5'>
+          <LoginHeader />
+          <LoginForm
+            email={email}
+            password={password}
+            errorMsg={error? message:errorMsg}
+            isLoading={loading}
+            isFormValid={isFormValid}
+            isEmailValid={isEmailValid}
+            onEmailChange={setEmail}
+            onPasswordChange={setPassword}
+            onSubmit={handleSubmit}
+            onForgotPasswordClick={handleForgotPasswordClick}
+          />
         </div>
       </div>
-    </div>
+
+      <ForgotPasswordModal
+        isOpen={showForgotPasswordModal}
+        email={forgotEmail}
+        isLoading={forgotPasswordLoading}
+        isSuccess={forgotPasswordSuccess}
+        error={forgotPasswordError}
+        isEmailValid={isForgotEmailValid}
+        onEmailChange={setForgotEmail}
+        onSubmit={handleForgotPasswordSubmit}
+        onClose={closeForgotPasswordModal}
+      />
+    </>
   );
 };
 
 export default AdminLogin;
+

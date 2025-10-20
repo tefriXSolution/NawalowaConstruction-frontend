@@ -1,0 +1,1 @@
+export { useRentalPage } from './useRentalPage';
