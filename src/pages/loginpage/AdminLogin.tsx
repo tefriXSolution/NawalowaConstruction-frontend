@@ -95,7 +95,6 @@ const AdminLogin = () => {
       console.log(response);
       setForgotPasswordSuccess(true);
     } catch (error) {
-        console.log(error);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
         setForgotPasswordError(error.response?.data?.message || 'Failed to send reset email. Please try again.');
