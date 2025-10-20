@@ -48,7 +48,7 @@ export const Footer = ({ footerLinks }: Props) => {
             href="https://tefrix.com/"
             className="hover:underline text-mainText-color"
           >
-            Develop By TefriX Solution
+            Developed By TefriX Solutions
           </a>{" "}
           | All Rights Reserved.
         </span>
