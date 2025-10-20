@@ -79,10 +79,21 @@ const AdminLogin = () => {
     setForgotPasswordLoading(true);
     setForgotPasswordError('');
     try {
+<<<<<<< Updated upstream
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setForgotPasswordSuccess(true);
     } catch (error) {
       setForgotPasswordError('Failed to send reset email. Please try again.');
+=======
+      const response = await apiClient.post('/users/forgot-password', {email:forgotEmail});
+
+      console.log(response);
+      setForgotPasswordSuccess(true);
+    } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+        setForgotPasswordError(error.response?.data?.message || 'Failed to send reset email. Please try again.');
+>>>>>>> Stashed changes
     } finally {
       setForgotPasswordLoading(false);
     }

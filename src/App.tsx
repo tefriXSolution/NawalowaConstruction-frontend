@@ -13,14 +13,10 @@ function App() {
   const { user } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    // This is the correct place to call the function
-    // because useEffect runs within the component's lifecycle.
     if (user?.email) {
-      // Call the utility and pass the dispatch and email from the Redux store
       checkAndRefreshToken(dispatch, user.email);
     }
-    
-    // You can also set up an interval to check periodically
+
     const interval = setInterval(() => {
         if (user?.email) {
             checkAndRefreshToken(dispatch, user.email);
