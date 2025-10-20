@@ -6,26 +6,26 @@ import { FooterLink, NavBarLink } from "@/types";
 export const AdminDashboardLayout = () => {
 
     const navLinks: NavBarLink[] = [
-        {
-            linkName: "Home",
-            linkUrl: "/",
-        },
-        {
-            linkName: "Services",
-            linkUrl: "/services",
-        },
-        {
-            linkName: "Equipment Rentals",
-            linkUrl: "/rentals",
-        },
-        {
-            linkName: "About Us",
-            linkUrl: "/about",
-        },
-        {
-            linkName: "Contacts",
-            linkUrl: "/contact",
-        }
+        // {
+        //     linkName: "Home",
+        //     linkUrl: "/",
+        // },
+        // {
+        //     linkName: "Services",
+        //     linkUrl: "/services",
+        // },
+        // {
+        //     linkName: "Equipment Rentals",
+        //     linkUrl: "/rentals",
+        // },
+        // {
+        //     linkName: "About Us",
+        //     linkUrl: "/about",
+        // },
+        // {
+        //     linkName: "Contacts",
+        //     linkUrl: "/contact",
+        // }
     ]
     const footerLinks: FooterLink[] = [
         {
