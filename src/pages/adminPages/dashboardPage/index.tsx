@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Contact } from '@/pages/adminPages/contactsPage/types';
 import { contactApiService } from '@/pages/adminPages/contactsPage/services/contactApiService';
 
