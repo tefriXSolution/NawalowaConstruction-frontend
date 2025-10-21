@@ -169,7 +169,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, variant = 'defaul
     <div
         className={`rounded-lg border border-gray-200 p-5 shadow-sm ${variantClasses[variant]} ${onClick ? 'cursor-pointer hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 transition-shadow' : ''}`}
         role={onClick ? 'button' : undefined}
-        tabIndex={onClick ? 0 : -1}
+        tabIndex={onClick ? 0 : undefined}
         onClick={onClick}
         onKeyDown={(e) => {
             if (!onClick) return;
