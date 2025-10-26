@@ -2,6 +2,7 @@ import { Footer, NavigationBar } from "@/components";
 import { SideBar } from "./components/SideBar";
 import { Outlet } from "react-router-dom";
 import { FooterLink, NavBarLink } from "@/types";
+import AuthWatcher from "@/hooks/AuthWatcher";
 
 export const AdminDashboardLayout = () => {
 
@@ -52,6 +53,7 @@ export const AdminDashboardLayout = () => {
 
     return (
         <div className="h-full flex flex-col">
+            <AuthWatcher />
             <NavigationBar navLinks={navLinks} />
             <div className="flex flex-1 min-h-screen">
                 <SideBar />

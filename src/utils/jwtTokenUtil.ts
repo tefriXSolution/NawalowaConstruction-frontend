@@ -1,7 +1,10 @@
 import { updateAccessToken } from '@/redux/slices/user.slice';
-import { AppDispatch, RootState } from '@/types';
-import axios from 'axios';
+import { AppDispatch } from '@/types';
 import { jwtDecode } from 'jwt-decode';
+import {apiClient} from "@/api/apis.config";
+import {logOutUser} from "@/redux/thunks/user.thunk";
+import {persistor} from "@/redux/store";
+import {NavigateFunction} from "react-router";
 
 interface DecodedToken {
   exp: number;
@@ -11,7 +14,7 @@ interface DecodedToken {
   role: string;
 }
 
-const backendUrl = import.meta.env.VITE_API_BASE_URL;
+// const backendUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const validateToken = (token: string): { message: string; error: boolean } => {
   try {
@@ -63,7 +66,8 @@ export const extractTokenDetails = (token: string): {
 
 export const checkAndRefreshToken = async (
   dispatch: AppDispatch,
-  email: string | undefined | null
+  email: string | undefined | null,
+  navigate: NavigateFunction
 ) => {
   try {
     const token = localStorage.getItem('token');
@@ -74,15 +78,22 @@ export const checkAndRefreshToken = async (
 
     if (decoded.exp - currentTime < 60) {
       const refreshToken = localStorage.getItem('refreshToken');
-      if (!refreshToken) return;
+      if (!refreshToken){
+          dispatch(logOutUser({ email }));
+          persistor.purge();
+          navigate('/');
+          window.location.reload();
+      }
 
-      const response = await axios.post(`${backendUrl}/request-token`, {
+      const response = await apiClient.post(`users/request-token`, {
         email: email,
         refreshToken: refreshToken
       });
-
-      if (response.data.status) {
-        const newAccessToken = response.data.accessToken;
+        console.log(response.data);
+      if (!response.data.error) {
+        const newAccessToken = response?.data?.token;
+        // logOutUser(newAccessToken);
+        localStorage.removeItem('token');
         localStorage.setItem('token', newAccessToken);
         dispatch(updateAccessToken(newAccessToken));
         console.log('Access token refreshed');

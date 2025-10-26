@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
-import {RentalItem} from "@/types";
+import { RentalItem } from "@/types";
 
 interface AddRentalItemProps {
-    onRentalItemAdd?: (item: Omit<RentalItem, 'id' | 'status'>) => void;
+    onRentalItemAdd?: (item: Omit<RentalItem, 'id' | 'status' | 'images'>, images: File[]) => void;
     categories: string[];
     rentalItems: RentalItem[];
-    onCategoriesUpdate: (categories: string[]) => void;
+    onCategoriesUpdate: (isDelete: boolean, category: string) => void;
 }
 
 interface ImageFile {
@@ -17,16 +17,15 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
                                                                 onRentalItemAdd,
                                                                 categories,
                                                                 rentalItems,
-                                                                onCategoriesUpdate
+                                                                onCategoriesUpdate,
                                                             }) => {
     const [showModal, setShowModal] = useState(false);
-    const [newRentalItem, setNewRentalItem] = useState<Omit<RentalItem, 'id' | 'status'>>({
+    const [newRentalItem, setNewRentalItem] = useState<Omit<RentalItem, 'id' | 'status' | 'images'>>({
         name: '',
         description: '',
         price: 0,
         category: '',
-        stock: 0,
-        images: []
+        stock: 0, // Using stock to align with frontend, will map to availability for backend
     });
 
     const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
@@ -40,9 +39,7 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
     // Handle delete category
     const handleDeleteCategory = (category: string) => {
         if (category === 'All') return;
-
-        const updatedCategories = categories.filter(cat => cat !== category);
-        onCategoriesUpdate(updatedCategories);
+        onCategoriesUpdate(true, category);
     };
 
     // Handle add new category
@@ -52,13 +49,12 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
             return;
         }
 
-        if (categories.includes(newCategory.trim())) {
+        if (categories?.includes(newCategory.trim())) {
             setCategoryError('Category already exists');
             return;
         }
 
-        const updatedCategories = [...categories.filter(cat => cat !== 'All'), newCategory.trim()];
-        onCategoriesUpdate(['All', ...updatedCategories]);
+        onCategoriesUpdate(false, newCategory.trim());
         setNewCategory('');
         setCategoryError('');
         setShowCategoryModal(false);
@@ -71,44 +67,24 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
 
     // Handle adding a new rental item
     const handleAddNewRentalItem = async () => {
-        if (!newRentalItem.name.trim() || !newRentalItem.category || newRentalItem.price <= 0) {
-            alert('Please fill in all required fields (Name, Category, Price)');
+        if (!newRentalItem.name.trim() || !newRentalItem.category || newRentalItem.price <= 0 || newRentalItem.stock <= 0) {
+            alert('Please fill in all required fields (Name, Category, Price, Available Quantity)');
             return;
         }
 
         setIsSubmitting(true);
-
         try {
-            // Convert images to base64 and add to rental item
-            const processImages = async () => {
-                const imagePromises = imageFiles.map(imageFile => {
-                    return new Promise<string>((resolve) => {
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                            resolve(reader.result as string);
-                        };
-                        reader.readAsDataURL(imageFile.file);
-                    });
-                });
-
-                const base64Images = await Promise.all(imagePromises);
-
-                const rentalItemWithImages = {
-                    ...newRentalItem,
-                    images: base64Images
-                };
-
-                if (onRentalItemAdd) {
-                    onRentalItemAdd(rentalItemWithImages);
-                }
-
-                // Reset form and close modal
-                resetForm();
-                setShowModal(false);
-                alert('Rental item added successfully!');
+            const rentalItemWithImages = {
+                ...newRentalItem,
             };
 
-            await processImages();
+            if (onRentalItemAdd) {
+                // Pass only the File objects to the parent component
+                const files = imageFiles.map(image => image.file);
+                await onRentalItemAdd(rentalItemWithImages, files);
+                setShowModal(false);
+                resetForm();
+            }
         } catch (error) {
             console.error('Error adding rental item:', error);
             alert('Error adding rental item. Please try again.');
@@ -124,7 +100,6 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
 
         setUploadError('');
 
-        // Check if adding new files would exceed maximum
         if (imageFiles.length + files.length > 4) {
             setUploadError('Maximum 4 images allowed');
             return;
@@ -135,27 +110,22 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
 
-            // Check file type
             if (!file.type.startsWith('image/')) {
                 setUploadError('Only image files are allowed (PNG, JPG, JPEG, GIF)');
                 continue;
             }
 
-            // Check file size (2MB = 2 * 1024 * 1024 bytes)
             if (file.size > 2 * 1024 * 1024) {
                 setUploadError(`Image "${file.name}" exceeds 2MB limit`);
                 continue;
             }
 
-            // Create preview
             const preview = URL.createObjectURL(file);
             newImageFiles.push({ file, preview });
         }
 
-        // Add new images to existing ones
-        setImageFiles(prev => [...prev, ...newImageFiles].slice(0, 4)); // Ensure max 4 images
+        setImageFiles(prev => [...prev, ...newImageFiles].slice(0, 4));
 
-        // Clear file input
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -182,7 +152,6 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
     const handleRemoveImage = (index: number) => {
         setImageFiles(prev => {
             const newImages = [...prev];
-            // Revoke object URL to prevent memory leaks
             URL.revokeObjectURL(newImages[index].preview);
             newImages.splice(index, 1);
             return newImages;
@@ -197,21 +166,21 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
             price: 0,
             category: '',
             stock: 0,
-            images: []
         });
-        // Clean up object URLs
         imageFiles.forEach(image => URL.revokeObjectURL(image.preview));
         setImageFiles([]);
         setUploadError('');
     };
 
     // Handle rental item input changes
-    const handleRentalItemInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const handleRentalItemInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
         const { name, value } = e.target;
 
         setNewRentalItem(prev => ({
             ...prev,
-            [name]: name === 'price' || name === 'stock' ? Number(value) : value
+            [name]: name === 'price' || name === 'stock' ? Number(value) : value,
         }));
     };
 
@@ -244,7 +213,6 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
                             </svg>
                             <span className="font-medium">Add Rental Item</span>
                         </button>
-                        {/* Manage Categories Button */}
                         <button
                             onClick={() => setShowCategoryModal(true)}
                             className="bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg flex items-center justify-center space-x-2 transition-colors duration-200"
@@ -259,8 +227,8 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
 
                 {/* Modal for Add Rental Item */}
                 {showModal && (
-                <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-2 md:p-4 z-50">
-                    <div className="bg-white rounded-lg w-full max-w-2xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto mx-2">
+                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-2 md:p-4 z-50">
+                        <div className="bg-white rounded-lg w-full max-w-2xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto mx-2">
                             {/* Modal Header */}
                             <div className="flex justify-between items-center p-4 md:p-6 border-b border-gray-200 sticky top-0 bg-white">
                                 <h2 className="text-xl md:text-2xl font-bold text-gray-900">Add New Rental Item</h2>
@@ -477,7 +445,6 @@ export const AddRentalItem: React.FC<AddRentalItemProps> = ({
 
                 {/* Category Management Modal */}
                 {showCategoryModal && (
-                    // <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 md:p-4 z-50">
                     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-2 md:p-4 z-50">
                         <div className="bg-white rounded-lg w-full max-w-md max-h-[95vh] md:max-h-[80vh] overflow-y-auto mx-2">
                             <div className="p-4 md:p-6">
