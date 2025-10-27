@@ -3,6 +3,7 @@ import { AddRentalItem } from '@/pages/adminPages/productMgtPage/components/Addp
 import { RentalInventory } from '@/pages/adminPages/productMgtPage/components/RentalInventory';
 import { RentalItem } from "@/types";
 import {apiClient, apiFileClient} from "@/api/apis.config";
+import {LoaderComponent} from "@/components";
 
 export const RentalMgtPage = () => {
     const [rentalItems, setRentalItems] = useState<RentalItem[]>([]);
@@ -63,7 +64,7 @@ export const RentalMgtPage = () => {
     useEffect(() => {
         fetchRentalItems().then(data => setRentalItems(data ?? []));
         fetchRentalCategories().then(data => {
-            const names = data?.map((c: any) => c.category) ?? [];
+            const names = data?.map((c:{category:string}) => c.category) ?? [];
             setCategories(names);
         });
     }, []);
@@ -71,7 +72,7 @@ export const RentalMgtPage = () => {
     useEffect(() => {
         fetchRentalItems().then(data => setRentalItems(data ?? []));
         fetchRentalCategories().then(data => {
-            const names = data?.map((c: any) => c.category) ?? [];
+            const names = data?.map((c:{category:string}) => c.category) ?? [];
             setCategories(names);
         });
     }, [refreshCategory]);
@@ -89,17 +90,17 @@ export const RentalMgtPage = () => {
             formData.append("availability", newItem.stock.toString());
             formData.append("category", newItem.category);
 
-            // ✅ Append all files under the same key 'images'
             images.forEach((image) => {
                 formData.append("images", image);
             });
+
+            setLoading(true);
 
             const response = await apiFileClient.post(
                 "/rent-items/create-rent-item",
                 formData
             );
-
-            console.log("API Response:", response);
+            setLoading(false);
 
             if (!response.data.error) {
                 const data = await fetchRentalItems();
@@ -108,7 +109,7 @@ export const RentalMgtPage = () => {
                 console.error("Failed to add rental item:", response.data.message);
                 alert(`Failed to add rental item: ${response.data.message}`);
             }
-        } catch (err: any) {
+        } catch (err) {
             console.error("Error adding rental item:", err || err);
             alert("Error adding rental item. Please try again.");
         }
@@ -143,7 +144,6 @@ export const RentalMgtPage = () => {
             );
 
             if (!response.data.error) {
-                // ✅ Update frontend state after successful backend update
                 setRentalItems((prev) =>
                     prev.map((item) =>
                         item._id === updatedItem._id ? response.data.data : item
@@ -155,35 +155,52 @@ export const RentalMgtPage = () => {
                 console.error("Failed to update rental item:", response.data.message);
                 alert(`Failed to update rental item: ${response.data.message}`);
             }
-        } catch (err: any) {
-            console.error("Error updating rental item:", err.message || err);
+        } catch {
+            console.error("Error updating rental item:");
             alert("Error updating rental item. Please try again.");
         }
     };
 
 
-    const handleDeleteRentalItem = (itemId: string) => {
-        setRentalItems(prev => prev.filter(item => item._id !== itemId));
+    const handleDeleteRentalItem = async(itemId: string) => {
+        try{
+            setLoading(true);
+            const response = await apiClient.delete('/rent-items/delete-rent-item', {
+                data: { itemId: itemId },
+            });
+            if (!response.data.error) {
+                setRentalItems(prev => prev.filter(item => item._id !== itemId));
+            }
+            setLoading(false);
+        }catch(err) {
+            console.error("Error deleting rental item:", err);
+            setLoading(false);
+        }
     };
-
-    // console.log(categories);
-    // console.log(rentalItems);
 
     return (
         <>
-            <AddRentalItem
-                onRentalItemAdd={handleRentalItemAdd}
-                categories={categories}
-                onCategoriesUpdate={onClickOnCategoriesUpdate}
-                rentalItems={rentalItems}
-            />
-            <RentalInventory
-                rentalItems={rentalItems}
-                onUpdateItem={handleUpdateRentalItem}
-                onDeleteItem={handleDeleteRentalItem}
-                categories={categories}
-                refreshTrigger={refreshInventory}
-            />
+            {loading ? (
+                <LoaderComponent />
+            ) : (
+                <>
+                    <AddRentalItem
+                        onRentalItemAdd={handleRentalItemAdd}
+                        categories={categories}
+                        onCategoriesUpdate={onClickOnCategoriesUpdate}
+                        rentalItems={rentalItems}
+                    />
+
+                    <RentalInventory
+                        rentalItems={rentalItems}
+                        onUpdateItem={handleUpdateRentalItem}
+                        onDeleteItem={handleDeleteRentalItem}
+                        categories={categories}
+                        refreshTrigger={refreshInventory}
+                    />
+                </>
+            )}
         </>
     );
+
 };

@@ -20,6 +20,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
     const [loading, setLoading] = useState(false);
+    const [newImages, setNewImages] = useState<File[]>([]);
     const [editingItem, setEditingItem] = useState<RentalItem | null>(null);
     const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
     const [selectedItem, setSelectedItem] = useState<RentalItem | null>(null);
@@ -595,10 +596,14 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                 {/* Edit Modal */}
                 {editingItem && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                        <div className="bg-white rounded-lg max-w-md w-full">
+                        <div className="bg-white rounded-xl max-w-md w-full shadow-lg">
                             <div className="p-6">
-                                <h3 className="text-lg font-semibold mb-4">Edit Rental Item</h3>
+                                <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                                    Edit Rental Item
+                                </h3>
+
                                 <div className="space-y-4">
+                                    {/* Item Name */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
                                             Item Name
@@ -606,21 +611,32 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                         <input
                                             type="text"
                                             value={editingItem.name}
-                                            onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
+                                            onChange={(e) =>
+                                                setEditingItem({ ...editingItem, name: e.target.value })
+                                            }
                                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
+
+                                    {/* Price */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                                            Price
+                                            Price (LKR)
                                         </label>
                                         <input
                                             type="number"
                                             value={editingItem.price}
-                                            onChange={(e) => setEditingItem({ ...editingItem, price: Number(e.target.value) })}
+                                            onChange={(e) =>
+                                                setEditingItem({
+                                                    ...editingItem,
+                                                    price: Number(e.target.value),
+                                                })
+                                            }
                                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
+
+                                    {/* Stock */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">
                                             Stock
@@ -628,14 +644,107 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                         <input
                                             type="number"
                                             value={editingItem.stock}
-                                            onChange={(e) => setEditingItem({ ...editingItem, stock: Number(e.target.value) })}
+                                            onChange={(e) =>
+                                                setEditingItem({
+                                                    ...editingItem,
+                                                    stock: Number(e.target.value),
+                                                })
+                                            }
                                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
+
+                                    {/* Description */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Description
+                                        </label>
+                                        <textarea
+                                            value={editingItem.description || ""}
+                                            onChange={(e) =>
+                                                setEditingItem({
+                                                    ...editingItem,
+                                                    description: e.target.value,
+                                                })
+                                            }
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            rows={3}
+                                        />
+                                    </div>
+
+                                    {/* Existing Images */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Current Images
+                                        </label>
+                                        <div className="flex flex-wrap gap-2">
+                                            {editingItem.images && editingItem.images.length > 0 ? (
+                                                editingItem.images.map((img, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        className="relative w-20 h-20 border rounded-lg overflow-hidden"
+                                                    >
+                                                        <img
+                                                            src={img}
+                                                            alt={`Image ${idx + 1}`}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p className="text-gray-500 text-sm">No images uploaded</p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Upload New Images */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            Add / Replace Images (max 4, ≤ 2 MB each)
+                                        </label>
+                                        <input
+                                            type="file"
+                                            multiple
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                if (e.target.files) {
+                                                    const files = Array.from(e.target.files);
+
+                                                    // ✅ Validate number of files
+                                                    if (files.length > 4) {
+                                                        alert("You can upload up to 4 images only.");
+                                                        e.target.value = "";
+                                                        return;
+                                                    }
+
+                                                    // ✅ Validate file size (2 MB = 2 * 1024 * 1024 bytes)
+                                                    const oversized = files.find((file) => file.size > 2 * 1024 * 1024);
+                                                    if (oversized) {
+                                                        alert(`"${oversized.name}" exceeds 2 MB. Please upload smaller files.`);
+                                                        e.target.value = "";
+                                                        return;
+                                                    }
+
+                                                    setNewImages(files);
+                                                }
+                                            }}
+                                            className="block w-full text-sm text-gray-600"
+                                        />
+                                        {newImages.length > 0 && (
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                {newImages.length} image(s) selected
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
+
+                                {/* Buttons */}
                                 <div className="flex justify-end space-x-3 mt-6">
                                     <button
-                                        onClick={() => setEditingItem(null)}
+                                        onClick={() => {
+                                            setEditingItem(null);
+                                            setNewImages([]);
+                                        }}
                                         className="px-4 py-2 text-gray-600 hover:text-gray-800"
                                     >
                                         Cancel
@@ -651,6 +760,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                         </div>
                     </div>
                 )}
+
 
                 {/* Delete Confirmation Modal */}
                 {deleteConfirm && (
