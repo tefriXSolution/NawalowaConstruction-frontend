@@ -7,6 +7,7 @@ import {apiClient, apiFileClient} from "@/api/apis.config";
 export const RentalMgtPage = () => {
     const [rentalItems, setRentalItems] = useState<RentalItem[]>([]);
     const [refreshInventory, setRefreshInventory] = useState(0);
+    const [refreshCategory, setRefreshCategory] = useState<boolean>(false);
     const [categories, setCategories] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -28,24 +29,19 @@ export const RentalMgtPage = () => {
         try {
             setLoading(true);
             if (!isDelete) {
-                const response = await apiClient.post('/rent-items/create-category', {
+                await apiClient.post('/rent-items/create-category', {
                     category: category,
                 });
-                if (response.data.error === false) {
-                    await fetchRentalCategories();
-                }
             } else {
-                const response = await apiClient.delete('/rent-items/delete-category', {
-                    data: { name: category },
+                await apiClient.delete('/rent-items/delete-category', {
+                    data: { category: category },
                 });
-                if (response.data.error === false) {
-                    await fetchRentalCategories();
-                }
             }
         } catch (err) {
             console.error(err);
         } finally {
             setLoading(false);
+            setRefreshCategory(!refreshCategory)
         }
     };
 
@@ -71,6 +67,14 @@ export const RentalMgtPage = () => {
             setCategories(names);
         });
     }, []);
+
+    useEffect(() => {
+        fetchRentalItems().then(data => setRentalItems(data ?? []));
+        fetchRentalCategories().then(data => {
+            const names = data?.map((c: any) => c.category) ?? [];
+            setCategories(names);
+        });
+    }, [refreshCategory]);
 
     // Updated to handle array of File objects
     const handleRentalItemAdd = async (
