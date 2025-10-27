@@ -116,7 +116,28 @@ export const RentalMgtPage = () => {
     };
 
 
-    const handleUpdateRentalItem = async (updatedItem: RentalItem, newImages?: File[]) => {
+    const handleUpdateRentalItem = async (isStatus:boolean = false, updatedItem: RentalItem, newImages?: File[]) => {
+        if(isStatus) {
+            try{
+                const statusCode =
+                    updatedItem.status === "available" ? 1 :
+                        updatedItem.status === "maintenance" ? 2 :
+                            updatedItem.status === "rented" ? 3 :
+                                0;
+                setLoading(true);
+                await apiClient.put(
+                    `/rent-items/update-rent-item-status`,{
+                        itemId:updatedItem._id,
+                        status:statusCode,
+                    });
+            }catch(error){
+                console.log(error)
+            }finally{
+                setLoading(false);
+                setRefreshCategory(!refreshCategory);
+            }
+            return
+        }
         try {
             const formData = new FormData();
             formData.append("name", updatedItem.name);
@@ -135,13 +156,7 @@ export const RentalMgtPage = () => {
             // Send PUT or PATCH request to backend
             const response = await apiFileClient.put(
                 `/rent-items/update/${updatedItem._id}`,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
+                formData);
 
             if (!response.data.error) {
                 setRentalItems((prev) =>
