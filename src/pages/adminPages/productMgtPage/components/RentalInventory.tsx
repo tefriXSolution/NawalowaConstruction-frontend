@@ -107,7 +107,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
     // Handle save edit
     const handleSaveEdit = () => {
         if (editingItem) {
-            onUpdateItem(false,editingItem);
+            onUpdateItem(false,editingItem, newImages);
             setEditingItem(null);
         }
     };
@@ -132,8 +132,15 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
             Available: { color: "bg-green-100 text-green-800", label: "Available" },
             Rented: { color: "bg-blue-100 text-blue-800", label: "Rented" },
             Maintenance: { color: "bg-yellow-100 text-yellow-800", label: "Maintenance" },
+            Unknown: { color: "bg-gray-100 text-gray-800", label: "Unknown" },
         };
-        const config = statusConfig[status as keyof typeof statusConfig];
+
+        // Normalize input (handle lowercase, undefined, or unexpected values)
+        const normalizedStatus =
+            status?.charAt(0).toUpperCase() + status?.slice(1).toLowerCase() || "Unknown";
+
+        const config = statusConfig[normalizedStatus as keyof typeof statusConfig] ?? statusConfig.Unknown;
+
         return (
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${config.color}`}>
       {config.label}
@@ -340,7 +347,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                         {/* Price */}
                                         <div className="col-span-1">
                                         <span className="text-sm font-medium text-gray-900">
-                                            ${item.price.toFixed(2)}
+                                            Rs.{Number(item?.price)?.toFixed(2) ?? "0.00"}
                                         </span>
                                         </div>
 
@@ -442,7 +449,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                                 <span className="font-medium">Category:</span> {item.category}
                                             </p>
                                             <p className="text-sm text-gray-600 mb-1">
-                                                <span className="font-medium">Price:</span> ${item.price.toFixed(2)}/day
+                                                <span className="font-medium">Price:</span> RS.{Number(item?.price)?.toFixed(2) ?? "0.00"}/day
                                             </p>
                                             <p className="text-sm text-gray-600">
                                                 <span className="font-medium">Stock:</span> {item.stock} available
@@ -555,7 +562,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">Daily Price</label>
-                                                <p className="text-sm text-gray-900">${selectedItem.price.toFixed(2)}</p>
+                                                <p className="text-sm text-gray-900">Rs.{Number(selectedItem?.price)?.toFixed(2) ?? "0.00"}</p>
                                             </div>
 
                                             <div>
@@ -709,14 +716,12 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                                 if (e.target.files) {
                                                     const files = Array.from(e.target.files);
 
-                                                    // ✅ Validate number of files
                                                     if (files.length > 4) {
                                                         alert("You can upload up to 4 images only.");
                                                         e.target.value = "";
                                                         return;
                                                     }
 
-                                                    // ✅ Validate file size (2 MB = 2 * 1024 * 1024 bytes)
                                                     const oversized = files.find((file) => file.size > 2 * 1024 * 1024);
                                                     if (oversized) {
                                                         alert(`"${oversized.name}" exceeds 2 MB. Please upload smaller files.`);

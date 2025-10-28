@@ -89,14 +89,12 @@ export const checkAndRefreshToken = async (
         email: email,
         refreshToken: refreshToken
       });
-        console.log(response.data);
       if (!response.data.error) {
         const newAccessToken = response?.data?.token;
         // logOutUser(newAccessToken);
         localStorage.removeItem('token');
         localStorage.setItem('token', newAccessToken);
         dispatch(updateAccessToken(newAccessToken));
-        console.log('Access token refreshed');
       }
     }
   } catch (err) {

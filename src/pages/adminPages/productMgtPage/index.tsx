@@ -140,6 +140,7 @@ export const RentalMgtPage = () => {
         }
         try {
             const formData = new FormData();
+            formData.append("id", updatedItem._id??"");
             formData.append("name", updatedItem.name);
             formData.append("description", updatedItem.description || "");
             formData.append("price", updatedItem.price.toString());
@@ -152,27 +153,25 @@ export const RentalMgtPage = () => {
                     formData.append("images", image);
                 });
             }
-
+            setLoading(true);
             // Send PUT or PATCH request to backend
             const response = await apiFileClient.put(
-                `/rent-items/update/${updatedItem._id}`,
+                `/rent-items/update-rent-item`,
                 formData);
-
+            setLoading(false);
             if (!response.data.error) {
                 setRentalItems((prev) =>
                     prev.map((item) =>
                         item._id === updatedItem._id ? response.data.data : item
                     )
                 );
-
-                alert("Rental item updated successfully!");
             } else {
                 console.error("Failed to update rental item:", response.data.message);
-                alert(`Failed to update rental item: ${response.data.message}`);
             }
-        } catch {
+        } catch{
             console.error("Error updating rental item:");
-            alert("Error updating rental item. Please try again.");
+        }finally {
+            setRefreshCategory(!refreshCategory);
         }
     };
 
