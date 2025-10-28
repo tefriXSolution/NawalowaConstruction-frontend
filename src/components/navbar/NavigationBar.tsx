@@ -45,7 +45,7 @@ const NavigationBar = ({ navLinks }: Props) => {
     <Navbar
       fluid
       theme={navbarStyle}
-      className="bg-navbar-gradient relative z-[1000] px-4 sm:px-6 md:px-8 lg:px-16"
+      className="bg-navbar-gradient relative z-[40] px-4 sm:px-6 md:px-8 lg:px-16"
     >
       <NavbarBrand
         href="/"
