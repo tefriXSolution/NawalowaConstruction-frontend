@@ -128,7 +128,7 @@ const NavigationBar = ({ navLinks }: Props) => {
               e.preventDefault();
               handleNavLinkClick(navLink);
             }}
-            className={`block w-full text-base sm:text-lg md:text-base lg:text-lg px-4 md:px-2 lg:px-4 rounded-2xl py-2 md:py-0 text-center md:text-left transition-colors duration-200 ${
+            className={`block w-full text-base sm:text-lg md:text-base lg:text-lg px-4 md:px-2 lg:px-4 rounded-2xl py-2 md:py-0 text-center md:text-left transition-colors duration-200 text-gray-200 ${
               currentPath === navLink.linkUrl
                 ? "!text-mainTheme-color md:scale-110 !bg-mainText-color "
                 : "hover:!bg-mainText-color hover:!text-mainTheme-color "
