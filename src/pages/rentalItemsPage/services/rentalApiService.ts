@@ -63,8 +63,8 @@ class RentalApiService {
       }
 
       // Transform backend data to frontend format
-      const allItems = (response.data || []).map((item, index) => ({
-        id: index + 1, // or use a hash of _id
+      const allItems = (response.data || []).map((item) => ({
+        id: item._id,
         title: item.name,
         description: item.description,
         pricePerDay: item.price,
