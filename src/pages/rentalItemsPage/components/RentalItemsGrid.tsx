@@ -18,8 +18,8 @@ export const RentalItemsGrid = ({
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
       {items.map((item) => (
-        <div key={item.id} className='flex justify-center'>
-          <div className='transform hover:scale-105 transition-transform duration-300'>
+        <div key={item.id} className='flex h-full'>
+          <div className='w-full transform hover:scale-105 transition-transform duration-300'>
             <RentItemCard
               imgUrl={item.image}
               cardTitle={item.title}

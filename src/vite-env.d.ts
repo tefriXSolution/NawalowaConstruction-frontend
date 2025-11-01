@@ -19,6 +19,7 @@ interface ImportMetaEnv {
   readonly VITE_ENABLE_WHATSAPP_ANALYTICS: string;
 
   // API Configuration
+  readonly VITE_API_BASE_URL: string;
   readonly VITE_WHATSAPP_API_URL: string;
 }
 
