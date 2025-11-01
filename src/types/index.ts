@@ -26,4 +26,8 @@ export type {
   WhatsAppBusinessInfo,
 } from '@/types/whatsappTypes';
 
+export type {
+    RentalItem
+} from '@/types/rentalItemTypes'
+
 export { ServiceType } from '@/types/whatsappTypes';
