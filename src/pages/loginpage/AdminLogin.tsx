@@ -89,10 +89,7 @@ const AdminLogin = () => {
     setForgotPasswordLoading(true);
     setForgotPasswordError('');
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await apiClient.post('/users/forgot-password', {email:forgotEmail});
-
-      console.log(response);
       setForgotPasswordSuccess(true);
     } catch (error) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

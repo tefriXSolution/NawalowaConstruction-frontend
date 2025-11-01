@@ -43,11 +43,11 @@ export const DashboardPage: React.FC = () => {
                 // Try multiple known paths based on backend routes and legacy endpoints.
                 const base = API_BASE_URL.replace(/\/$/, '');
                 const paths = [
-                    '/rentals',
-                    '/rentItems',
                     '/rent-items',
-                    '/rentItems/list-rent-items',
-                    '/rent-items/list-rent-items',
+                    // '/rentItems',
+                    // '/rent-items',
+                    // '/rent-Items/list-rent-items',
+                    // '/rent-items/list-rent-items',
                 ];
 
                 let rentals: Array<{ availability?: boolean }> = [];
