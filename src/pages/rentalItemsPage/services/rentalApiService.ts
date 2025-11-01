@@ -90,7 +90,7 @@ class RentalApiService {
       
       if (filters.minPrice !== undefined) {
         filteredItems = filteredItems.filter(
-          item => item.pricePerDay >= filters.minPrice!
+          item => item.pricePerDay >= filters.minPrice
         );
       }
       
