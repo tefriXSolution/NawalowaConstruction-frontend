@@ -1,6 +1,6 @@
 import { ApiResponse, Contact, PaginatedResponse } from '../types';
 
-const RAW_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:3001/api';
+const RAW_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:5001/api';
 const API_BASE_URL = RAW_BASE
     .replace(/\/$/, '');
 

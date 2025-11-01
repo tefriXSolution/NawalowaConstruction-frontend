@@ -12,4 +12,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"), // @ maps to src folder
     },
   },
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+  },
 })
