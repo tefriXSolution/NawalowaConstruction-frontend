@@ -9,9 +9,11 @@ export enum Role {
 }
 
 export interface User{
+    id?: string;
     fname: string;
     lname: string;
     email: string;
+    phone?: string;
     role: Role;
 }
 
@@ -20,6 +22,7 @@ export interface NewUser {
     lname: string, 
     email:string, 
     role:Role,
+    phone?: string;
     password:string
 }
 
