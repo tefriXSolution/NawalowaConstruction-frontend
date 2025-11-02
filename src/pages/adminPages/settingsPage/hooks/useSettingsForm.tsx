@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
@@ -7,12 +7,27 @@ import {
   settingsSchema,
   SettingsFormData,
 } from '@/pages/adminPages/settingsPage/validation/settingsSchema';
+import {useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/types";
+import {apiClient} from "@/api/apis.config";
+import {updateUserData} from "@/redux/slices/user.slice";
 
-export const useSettingsForm = () => {
+
+export const useSettingsForm = (dispatch:AppDispatch) => {
   const [profileImage, setProfileImage] = useState<string>(
     '/placeholder-profile.jpg',
   );
-  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+  // const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+
+  const {user} = useSelector((state: RootState) => state.auth);
+
+  // const retriveUserDetails = async () => {
+  //     try{
+  //         const result = apiClient.get(`/users/user-details/${user?.id??""}`);
+  //     }catch(err){
+  //         console.log(err)
+  //     }
+  // }
 
   const {
     control,
@@ -23,47 +38,32 @@ export const useSettingsForm = () => {
     resolver: zodResolver(settingsSchema),
     mode: 'onChange',
     defaultValues: {
-      name: 'John Doe',
-      phoneNumber: '+94771234567',
-      email: 'john.doe@example.com',
+      name: user?.fname+" "+user?.lname,
+      phoneNumber: user?.phone,
+      email: user?.email,
       mapUrl: 'https://maps.google.com/?q=your-location',
       newPassword: '',
       confirmPassword: '',
       address: 'Street Address, City, Postal Code',
     },
   });
-
-  // TODO: Fetch admin profile data on component mount
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setProfileImage(reader.result as string);
-      reader.readAsDataURL(file);
-      setProfileImageFile(file);
-
-      // TODO: Image upload API integration
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setProfileImage('/placeholder-profile.jpg');
-    setProfileImageFile(null);
-
-    // TODO: Image removal API integration
-  };
-
   const onSubmit = async (data: SettingsFormData) => {
+      const fullName = data.name;
+      const [firstName, lastName] = fullName.split(' ');
     try {
-      // TODO: Profile update API integration
-
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      console.log('Form data to send to backend:', {
-        ...data,
-        profileImageFile: profileImageFile ? profileImageFile.name : null,
-      });
-
+        console.log(firstName)
+        console.log(lastName)
+        const result = await apiClient.post('/users/change-user-details',{
+            fname:firstName,
+            lname:lastName,
+            email:data.email,
+        })
+        const newUser = {
+            ...user,
+            fname:result.data.data.fname,
+            lname:result.data.data.lname,
+        }
+        dispatch(updateUserData(newUser))
       toast.success('Settings saved successfully!');
     } catch (err) {
       toast.error('Failed to save settings. Please try again.');
@@ -74,7 +74,6 @@ export const useSettingsForm = () => {
   const resetForm = () => {
     reset();
     setProfileImage('/placeholder-profile.jpg');
-    setProfileImageFile(null);
   };
 
   return {
@@ -83,9 +82,6 @@ export const useSettingsForm = () => {
     errors,
     isSubmitting,
     profileImage,
-    profileImageFile,
-    handleImageUpload,
-    handleRemoveImage,
     onSubmit,
     resetForm,
   };

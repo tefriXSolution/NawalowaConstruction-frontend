@@ -9,21 +9,19 @@ import { SecurityForm } from '@/pages/adminPages/settingsPage/components/Securit
 import { AddressForm } from '@/pages/adminPages/settingsPage/components/AddressForm';
 import { FormButtons } from '@/pages/adminPages/settingsPage/components/FormButtons';
 import { useSettingsForm } from '@/pages/adminPages/settingsPage/hooks/useSettingsForm';
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/types";
 
 export function SettingsPage() {
+    const dispatch = useDispatch<AppDispatch>();
   const {
     control,
     handleSubmit,
     errors,
     isSubmitting,
-    profileImage,
-    handleImageUpload,
-    handleRemoveImage,
     onSubmit,
     resetForm,
-  } = useSettingsForm();
-
-  // TODO: Handle loading state
+  } = useSettingsForm(dispatch);
 
   return (
     <div className='container mx-auto px-4 py-6 min-h-screen'>
@@ -49,12 +47,6 @@ export function SettingsPage() {
 
       <Card className='max-w-4xl mx-auto shadow-md !bg-gray-100 border !border-gray-200'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <ProfileImage
-            profileImage={profileImage}
-            handleImageUpload={handleImageUpload}
-            handleRemoveImage={handleRemoveImage}
-          />
-
           <div className='grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5'>
             {/* Left column: Personal Information */}
             <div>
