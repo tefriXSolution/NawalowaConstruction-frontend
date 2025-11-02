@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
@@ -8,26 +8,16 @@ import {
   SettingsFormData,
 } from '@/pages/adminPages/settingsPage/validation/settingsSchema';
 import {useSelector} from "react-redux";
-import {AppDispatch, RootState} from "@/types";
+import {AppDispatch, ContactInfo, RootState} from "@/types";
 import {apiClient} from "@/api/apis.config";
-import {updateUserData} from "@/redux/slices/user.slice";
-
+import {updateContactInfo, updateUserData} from "@/redux/slices/user.slice";
 
 export const useSettingsForm = (dispatch:AppDispatch) => {
   const [profileImage, setProfileImage] = useState<string>(
     '/placeholder-profile.jpg',
   );
-  // const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
 
-  const {user} = useSelector((state: RootState) => state.auth);
-
-  // const retriveUserDetails = async () => {
-  //     try{
-  //         const result = apiClient.get(`/users/user-details/${user?.id??""}`);
-  //     }catch(err){
-  //         console.log(err)
-  //     }
-  // }
+  const {user, contactInfo} = useSelector((state: RootState) => state.auth);
 
   const {
     control,
@@ -39,30 +29,35 @@ export const useSettingsForm = (dispatch:AppDispatch) => {
     mode: 'onChange',
     defaultValues: {
       name: user?.fname+" "+user?.lname,
-      phoneNumber: user?.phone,
+      phoneNumber: contactInfo?.phone,
       email: user?.email,
-      mapUrl: 'https://maps.google.com/?q=your-location',
+      mapUrl: contactInfo?.location,
       newPassword: '',
       confirmPassword: '',
-      address: 'Street Address, City, Postal Code',
+      address: contactInfo?.address,
     },
   });
-  const onSubmit = async (data: SettingsFormData) => {
+
+    const onSubmit = async (data: SettingsFormData) => {
       const fullName = data.name;
       const [firstName, lastName] = fullName.split(' ');
     try {
-        console.log(firstName)
-        console.log(lastName)
-        const result = await apiClient.post('/users/change-user-details',{
+        const result1 = await apiClient.post('/users/change-user-details',{
             fname:firstName,
             lname:lastName,
             email:data.email,
         })
+        const result2 = await apiClient.post('/users/change-contact-details',{
+            location:data.mapUrl,
+            phone:data.phoneNumber,
+            address:data.address,
+        })
         const newUser = {
             ...user,
-            fname:result.data.data.fname,
-            lname:result.data.data.lname,
+            fname:result1.data.data.fname,
+            lname:result1.data.data.lname,
         }
+        dispatch(updateContactInfo(result2.data.data))
         dispatch(updateUserData(newUser))
       toast.success('Settings saved successfully!');
     } catch (err) {

@@ -1,9 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginResponse, User } from "@/types";
+import { createSlice } from "@reduxjs/toolkit";
+import {ContactInfo, User} from "@/types";
 import { loginUser, logOutUser } from "../thunks/user.thunk";
 
 interface AuthState {
   user: User | null;
+  contactInfo?: ContactInfo;
   token: string | null;
   refreshToken: string | null;
   loading: boolean;
@@ -24,11 +25,14 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    updateAccessToken: (state, action) => {
-      state.token = action.payload
-    },
+      updateAccessToken: (state, action) => {
+         state.token = action.payload
+      },
       updateUserData: (state, action) => {
         state.user = action.payload
+      },
+      updateContactInfo: (state, action) => {
+          state.contactInfo = action.payload
       }
   },
   extraReducers: (builder) => {
@@ -66,7 +70,7 @@ export const authSlice = createSlice({
         state.loading = true;
         state.error = false;
       })
-      .addCase(logOutUser.fulfilled, (state, action)=>{
+      .addCase(logOutUser.fulfilled, (state)=>{
         state.loading = false;
         state.error = false;
         state.user = null;
@@ -80,5 +84,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { updateAccessToken, updateUserData } = authSlice.actions;
+export const { updateAccessToken, updateUserData, updateContactInfo } = authSlice.actions;
 export default authSlice.reducer;

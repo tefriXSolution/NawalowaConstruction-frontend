@@ -2,6 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Contact } from '@/pages/adminPages/contactsPage/types';
 import { contactApiService } from '@/pages/adminPages/contactsPage/services/contactApiService';
+import {SettingsFormData} from "@/pages/adminPages/settingsPage/validation/settingsSchema";
+import {apiClient} from "@/api/apis.config";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/types";
+import {updateContactInfo} from "@/redux/slices/user.slice";
 
 type DashboardMetrics = {
     contacts: {
@@ -26,6 +31,31 @@ export const DashboardPage: React.FC = () => {
 
     const token = useMemo(() => localStorage.getItem('token'), []);
     const navigate = useNavigate();
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const retrieveContactInfo=async ()=>{
+        try {
+            const res = await apiClient.get("users/getContactInfo");
+            return res.data.data;
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            const r = await retrieveContactInfo();
+            if (r) {
+                dispatch(updateContactInfo({
+                    address: r.address,
+                    phone: r.phone,
+                    location: r.location
+                }));
+            }
+        };
+        fetchContactInfo();
+    }, []);
 
     useEffect(() => {
         let isMounted = true;
