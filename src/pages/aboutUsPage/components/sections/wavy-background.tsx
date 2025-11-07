@@ -91,7 +91,7 @@ export const WavyBackground = ({
     "#38bdf8",
     "#818cf8",
     "#c1c5ee",
-    "#f1f74a",
+    "#114bf0",
     "#22d3ee",
   ];
   
