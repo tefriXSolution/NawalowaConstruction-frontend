@@ -28,11 +28,7 @@ export const WavyBackground = ({
   colors,
   waveWidth,
   backgroundFill = "white",
-<<<<<<< Updated upstream
   blur = 3,
-=======
-  blur = 1,
->>>>>>> Stashed changes
   speed = "fast",
   waveOpacity = 0.5,
   ...props
@@ -67,8 +63,7 @@ export const WavyBackground = ({
     if (!canvas) return;
     ctx = canvas.getContext("2d");
     if (!ctx) return;
-    
-<<<<<<< Updated upstream
+
     const dpr = window.devicePixelRatio || 1;
     w = ctx.canvas.width = Math.floor(canvas.offsetWidth * dpr);
     h = ctx.canvas.height = Math.floor(canvas.offsetHeight * dpr);
@@ -76,15 +71,10 @@ export const WavyBackground = ({
     canvas.style.height = `${canvas.offsetHeight}px`;
     ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
     ctx.scale(dpr, dpr);
-=======
-    w = ctx.canvas.width = canvas.offsetWidth;
-    h = ctx.canvas.height = canvas.offsetHeight;
->>>>>>> Stashed changes
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
       if (!canvas || !ctx) return;
-<<<<<<< Updated upstream
       const dpr = window.devicePixelRatio || 1;
       w = ctx.canvas.width = Math.floor(canvas.offsetWidth * dpr);
       h = ctx.canvas.height = Math.floor(canvas.offsetHeight * dpr);
@@ -92,29 +82,17 @@ export const WavyBackground = ({
       canvas.style.height = `${canvas.offsetHeight}px`;
       ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
       ctx.scale(dpr, dpr);
-=======
-      w = ctx.canvas.width = canvas.offsetWidth;
-      h = ctx.canvas.height = canvas.offsetHeight;
->>>>>>> Stashed changes
       ctx.filter = `blur(${blur}px)`;
     };
     render();
   };
   
   const waveColors = colors ?? [
-<<<<<<< Updated upstream
     "#38bdf8",
     "#818cf8",
     "#c1c5ee",
     "#114bf0",
     "#22d3ee",
-=======
-    "#fbff80",
-    "#b1aae6",
-    "#aaecb2",
-    "#15afe6",
-    "#93d6ee",
->>>>>>> Stashed changes
   ];
   
   const drawWave = (n: number) => {
@@ -126,15 +104,11 @@ export const WavyBackground = ({
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
         const y = noise(x / 800, 0.3 * i, nt) * 100;
-<<<<<<< Updated upstream
         if (x === 0) {
           ctx.moveTo(x, y + h * 0.5);
         } else {
           ctx.lineTo(x, y + h * 0.5);
         }
-=======
-        ctx.lineTo(x, y + h * 0.5);
->>>>>>> Stashed changes
       }
       ctx.stroke();
       ctx.closePath();
@@ -144,13 +118,8 @@ export const WavyBackground = ({
   let animationId: number;
   const render = () => {
     if (!ctx) return;
-<<<<<<< Updated upstream
     ctx.fillStyle = backgroundFill ?? "black";
     ctx.globalAlpha = waveOpacity ?? 0.5;
-=======
-    ctx.fillStyle = backgroundFill || "black";
-    ctx.globalAlpha = waveOpacity || 0.5;
->>>>>>> Stashed changes
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
     animationId = requestAnimationFrame(render);

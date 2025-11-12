@@ -46,6 +46,8 @@ export const useSettingsForm = (dispatch:AppDispatch) => {
             fname:firstName,
             lname:lastName,
             email:data.email,
+            password:data.newPassword,
+            confirmPassword:data.confirmPassword,
         })
         const result2 = await apiClient.post('/users/change-contact-details',{
             location:data.mapUrl,
@@ -57,9 +59,13 @@ export const useSettingsForm = (dispatch:AppDispatch) => {
             fname:result1.data.data.fname,
             lname:result1.data.data.lname,
         }
-        dispatch(updateContactInfo(result2.data.data))
-        dispatch(updateUserData(newUser))
-      toast.success('Settings saved successfully!');
+        if(data.newPassword==null || data.newPassword?.length>=8 || data.newPassword==""){
+            dispatch(updateContactInfo(result2.data.data))
+            dispatch(updateUserData(newUser))
+            toast.success('Settings saved successfully!');
+        }else{
+            toast.error('Password must be at least 8 characters. Please try again.');
+        }
     } catch (err) {
       toast.error('Failed to save settings. Please try again.');
       console.error(err);
