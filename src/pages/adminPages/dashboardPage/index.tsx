@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Contact } from '@/pages/adminPages/contactsPage/types';
 import { contactApiService } from '@/pages/adminPages/contactsPage/services/contactApiService';
+import {SettingsFormData} from "@/pages/adminPages/settingsPage/validation/settingsSchema";
+import {apiClient} from "@/api/apis.config";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/types";
+import {updateContactInfo} from "@/redux/slices/user.slice";
 
 type DashboardMetrics = {
     contacts: {
@@ -13,7 +19,7 @@ type DashboardMetrics = {
     };
 };
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:3001/api';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:5001/api';
 
 export const DashboardPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -24,6 +30,32 @@ export const DashboardPage: React.FC = () => {
     });
 
     const token = useMemo(() => localStorage.getItem('token'), []);
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const retrieveContactInfo=async ()=>{
+        try {
+            const res = await apiClient.get("users/getContactInfo");
+            return res.data.data;
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        const fetchContactInfo = async () => {
+            const r = await retrieveContactInfo();
+            if (r) {
+                dispatch(updateContactInfo({
+                    address: r.address,
+                    phone: r.phone,
+                    location: r.location
+                }));
+            }
+        };
+        fetchContactInfo();
+    }, []);
 
     useEffect(() => {
         let isMounted = true;
@@ -41,11 +73,11 @@ export const DashboardPage: React.FC = () => {
                 // Try multiple known paths based on backend routes and legacy endpoints.
                 const base = API_BASE_URL.replace(/\/$/, '');
                 const paths = [
-                    '/rentals',
-                    '/rentItems',
                     '/rent-items',
-                    '/rentItems/list-rent-items',
-                    '/rent-items/list-rent-items',
+                    // '/rentItems',
+                    // '/rent-items',
+                    // '/rent-Items/list-rent-items',
+                    // '/rent-items/list-rent-items',
                 ];
 
                 let rentals: Array<{ availability?: boolean }> = [];
@@ -72,9 +104,10 @@ export const DashboardPage: React.FC = () => {
                     const result = await Promise.any(fetchPromises);
                     rentals = result.rentals;
                     lastStatus = result.status;
-                } catch (aggregateError) {
+                } catch (error) {
                     // All requests failed; get last status if available
-                    if (aggregateError && aggregateError.errors && aggregateError.errors.length > 0) {
+                    const aggregateError = error as AggregateError;
+                    if (aggregateError && 'errors' in aggregateError && Array.isArray(aggregateError.errors) && aggregateError.errors.length > 0) {
                         const lastErr = aggregateError.errors[aggregateError.errors.length - 1];
                         lastStatus = lastErr.status;
                     }
@@ -120,10 +153,28 @@ export const DashboardPage: React.FC = () => {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                    <MetricCard title="Unread Messages" value={metrics.contacts.unread} variant="warning" />
-                    <MetricCard title="Total Messages" value={metrics.contacts.total} />
-                    <MetricCard title="Available Items" value={metrics.rentals.available} variant="success" />
-                    <MetricCard title="Total Items" value={metrics.rentals.total} />
+                    <MetricCard
+                        title="Unread Messages"
+                        value={metrics.contacts.unread}
+                        variant="warning"
+                        onClick={() => navigate('/dashboard/contacts')}
+                    />
+                    <MetricCard
+                        title="Total Messages"
+                        value={metrics.contacts.total}
+                        onClick={() => navigate('/dashboard/contacts')}
+                    />
+                    <MetricCard
+                        title="Available Items"
+                        value={metrics.rentals.available}
+                        variant="success"
+                        onClick={() => navigate('/dashboard/product-manage')}
+                    />
+                    <MetricCard
+                        title="Total Items"
+                        value={metrics.rentals.total}
+                        onClick={() => navigate('/dashboard/product-manage')}
+                    />
                 </div>
             )}
         </div>
@@ -134,6 +185,7 @@ type MetricCardProps = {
     title: string;
     value: number | string;
     variant?: 'default' | 'success' | 'warning' | 'danger';
+    onClick?: () => void;
 };
 
 const variantClasses: Record<NonNullable<MetricCardProps['variant']>, string> = {
@@ -143,8 +195,21 @@ const variantClasses: Record<NonNullable<MetricCardProps['variant']>, string> = 
     danger: 'bg-red-50 text-red-800',
 };
 
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, variant = 'default' }) => (
-    <div className={`rounded-lg border border-gray-200 p-5 shadow-sm ${variantClasses[variant]}`}>
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, variant = 'default', onClick }) => (
+    <div
+        className={`rounded-lg border border-gray-200 p-5 shadow-sm ${variantClasses[variant]} ${onClick ? 'cursor-pointer hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 transition-shadow' : ''}`}
+        role={onClick ? 'button' : undefined}
+        tabIndex={onClick ? 0 : undefined}
+        onClick={onClick}
+        onKeyDown={(e) => {
+            if (!onClick) return;
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick();
+            }
+        }}
+        aria-label={onClick ? `${title} - view details` : undefined}
+    >
         <div className="text-sm font-medium opacity-80">{title}</div>
         <div className="mt-2 text-3xl font-bold">{value}</div>
     </div>

@@ -46,7 +46,7 @@ export const SideBar = () => {
       <button
         type="button"
         aria-label="Open menu"
-        className="fixed left-4 top-4 z-[60] rounded-lg bg-mainTheme-color p-2 text-white shadow md:hidden"
+        className="fixed left-4 top-14 z-[60] rounded-lg bg-mainTheme-color p-2 text-white shadow md:hidden"
         onClick={() => setMobileOpen(true)}
       >
         <HiMenu className="h-6 w-6" />
@@ -69,7 +69,7 @@ export const SideBar = () => {
         <Sidebar aria-label="Admin Dashboard Sidebar" theme={dashboardTheme}>
           {/* Mobile header with close */}
           <div className="flex items-center justify-between md:hidden">
-            <span className="px-2 py-2 text-base font-semibold text-mainTheme-color">Menu</span>
+            <span className="px-16 py-2 text-base font-semibold text-mainTheme-color">Menu</span>
             <button
               type="button"
               aria-label="Close menu"

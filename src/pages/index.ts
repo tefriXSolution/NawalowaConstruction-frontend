@@ -5,10 +5,10 @@ export { RentalItemsPage } from '@/pages/rentalItemsPage';
 export { ServicesPage } from '@/pages/servicesPage';
 export { LoginPage } from '@/pages/loginpage';
 export {
-  ProductMgtPage,
-  ServiceManagementPage,
-  SettingsPage,
-  ManageContactsPage,
-  DashboardPage,
+      RentalMgtPage,
+      ServiceManagementPage,
+      SettingsPage,
+      ManageContactsPage,
+      DashboardPage,
 } from '@/pages/adminPages';
 export { NotFoundPage } from '@/pages/notFoundPage';

@@ -63,7 +63,7 @@ export const WavyBackground = ({
     if (!canvas) return;
     ctx = canvas.getContext("2d");
     if (!ctx) return;
-    
+
     const dpr = window.devicePixelRatio || 1;
     w = ctx.canvas.width = Math.floor(canvas.offsetWidth * dpr);
     h = ctx.canvas.height = Math.floor(canvas.offsetHeight * dpr);
@@ -91,7 +91,7 @@ export const WavyBackground = ({
     "#38bdf8",
     "#818cf8",
     "#c1c5ee",
-    "#f1f74a",
+    "#114bf0",
     "#22d3ee",
   ];
   

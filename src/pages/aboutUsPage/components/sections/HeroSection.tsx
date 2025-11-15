@@ -44,7 +44,7 @@ export const HeroSection = ({ isVisible }: HeroSectionProps) => {
           <div className={heroStyles.textSection}>
             <div className={heroStyles.textContent}>
               <div className={heroStyles.badge}>
-                <span className={heroStyles.badgeText}>Since 2005</span>
+                <span className={heroStyles.badgeText}>Since 2016</span>
               </div>
               <h1 className={heroStyles.title}>
                 Building the Future,

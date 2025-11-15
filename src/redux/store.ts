@@ -11,7 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import authReducer from '@/redux/slices/user.slice'; // ✅ make sure this file doesn’t import from store
+import authReducer from '@/redux/slices/user.slice'; //
 
 const persistConfig = {
   key: 'auth',

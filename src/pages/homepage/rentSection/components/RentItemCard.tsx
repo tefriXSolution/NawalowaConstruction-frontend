@@ -49,11 +49,11 @@ export const RentItemCard = ({
   return (
     <>
       <article
-        className='flex flex-col w-full max-w-sm mx-auto bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 focus-within:ring-2 focus-within:ring-mainTheme-color relative md:bg-transparent'
+        className='flex flex-col w-full max-w-sm h-full mx-auto bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 focus-within:ring-2 focus-within:ring-mainTheme-color relative md:bg-transparent'
         itemScope
         itemType='https://schema.org/Product'
       >
-        <div className='w-full h-48 sm:h-56 lg:h-60 overflow-hidden rounded-t-lg hidden md:block'>
+        <div className='w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0'>
           <img
             className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
             src={imgUrl}
@@ -75,16 +75,16 @@ export const RentItemCard = ({
           <div className='absolute inset-0 bg-black opacity-60'></div>
         </div>
 
-        <div className='relative z-10 p-4 sm:p-5 lg:p-6 flex flex-col flex-grow'>
+        <div className='relative z-10 p-4 sm:p-5 lg:p-6 flex flex-col flex-grow min-h-0'>
           <h3
-            className='mb-2 text-lg sm:text-xl lg:text-2xl font-bold tracking-tight text-center text-white md:text-mainTheme-color line-clamp-2 hover:text-opacity-80 transition-colors'
+            className='mb-2 text-lg sm:text-xl lg:text-2xl font-bold tracking-tight text-center text-white md:text-mainTheme-color line-clamp-1 hover:text-opacity-80 transition-colors'
             itemProp='name'
           >
             {cardTitle}
           </h3>
 
           <p
-            className='mb-3 text-sm sm:text-base font-normal text-white md:text-serviceCardSubText-color flex-grow line-clamp-3 leading-relaxed'
+            className='mb-3 text-sm sm:text-base font-normal text-white md:text-serviceCardSubText-color line-clamp-2 leading-relaxed min-h-[3rem]'
             itemProp='description'
           >
             {CardSubTitle}
