@@ -6,14 +6,13 @@ export const RentSection = () => {
   const navigate = useNavigate();
 
   const handleBrowseMoreClick = () => {
-    // Navigate to rentals page and pass state to indicate scroll to top
     navigate('/rentals', {
       state: { scrollToTop: true },
     });
   };
 
   return (
-    <section className='w-full px-4 sm:px-6 lg:px-8 py-10'>
+    <section id="rentSection" className='w-full px-4 sm:px-6 lg:px-8 py-10'>
       {/* Section Title */}
       <div className='text-center mb-10'>
         <h1 className='text-3xl sm:text-4xl font-bold text-mainTheme-color section-title'>

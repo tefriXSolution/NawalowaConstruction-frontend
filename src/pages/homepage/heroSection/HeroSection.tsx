@@ -5,7 +5,7 @@ import { BiSolidMessageDetail } from 'react-icons/bi';
 
 export const HeroSection = () => {
   return (
-    <section className='relative min-h-[80vh] sm:min-h-[90vh] md:min-h-screen flex items-center justify-center bg-gray-900 overflow-hidden'>
+    <section id="heroSection" className='relative min-h-[80vh] sm:min-h-[90vh] md:min-h-screen flex items-center justify-center bg-gray-900 overflow-hidden'>
       <div
         className='absolute inset-0 bg-cover bg-center bg-no-repeat z-0'
         style={{ backgroundImage: `url(${heroCoverImg})` }}
@@ -49,20 +49,22 @@ export const HeroSection = () => {
 
           <div className='mt-12 sm:mt-16 md:mt-20 animate-bounce'>
             <div className='flex justify-center'>
-              <svg
-                className='w-5 h-5 sm:w-6 sm:h-6 text-white'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='2'
-                  d='M19 14l-7 7m0 0l-7-7m7 7V3'
-                ></path>
-              </svg>
+                <a href="/#serviceSection">
+                    <svg
+                        className='w-5 h-5 sm:w-6 sm:h-6 text-white'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                        xmlns='http://www.w3.org/2000/svg'
+                    >
+                        <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='M19 14l-7 7m0 0l-7-7m7 7V3'
+                        ></path>
+                    </svg>
+                </a>
             </div>
           </div>
         </div>
