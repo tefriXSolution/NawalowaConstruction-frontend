@@ -11,6 +11,8 @@ export const RentSection = () => {
     });
   };
 
+  const images = [testImg,testImg,testImg]
+
   return (
     <section id="rentSection" className='w-full px-4 sm:px-6 lg:px-8 py-10'>
       {/* Section Title */}
@@ -27,7 +29,7 @@ export const RentSection = () => {
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
         <div className='flex justify-center'>
           <RentItemCard
-            imgUrl={testImg}
+            imgUrl={images}
             cardTitle='Painting Machine'
             CardSubTitle='High-efficiency painting machines for rent, perfect for large-scale projects and achieving a smooth, even finish.'
             rentPerDay={2500}
@@ -36,7 +38,7 @@ export const RentSection = () => {
         </div>
         <div className='flex justify-center'>
           <RentItemCard
-            imgUrl={testImg}
+            imgUrl={images}
             cardTitle='Sand Blasting Equipment'
             CardSubTitle='Professional sand blasting equipment for surface preparation and cleaning. Complete with safety gear and operation instructions.'
             rentPerDay={3500}
@@ -45,7 +47,7 @@ export const RentSection = () => {
         </div>
         <div className='flex justify-center'>
           <RentItemCard
-            imgUrl={testImg}
+            imgUrl={images}
             cardTitle='Scaffolding'
             CardSubTitle='Sturdy scaffolding systems for construction and maintenance work. Various heights available with safety accessories.'
             rentPerDay={1800}

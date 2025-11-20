@@ -8,7 +8,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'High-efficiency painting machines for rent, perfect for large-scale projects and achieving a smooth, even finish.',
     pricePerDay: 2500,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'painting',
   },
   {
@@ -17,7 +17,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Professional sand blasting equipment for surface preparation and cleaning applications.',
     pricePerDay: 3500,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'cleaning',
   },
   {
@@ -26,7 +26,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Specialized tools for steel structure painting and coating applications.',
     pricePerDay: 2800,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'painting',
   },
   {
@@ -35,7 +35,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Heavy-duty pressure washers for cleaning and surface preparation work.',
     pricePerDay: 1500,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'cleaning',
   },
   {
@@ -44,7 +44,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Professional paint spraying equipment for efficient and uniform coating application.',
     pricePerDay: 2200,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'painting',
   },
   {
@@ -53,7 +53,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Complete scaffolding systems for safe access to elevated work areas.',
     pricePerDay: 1800,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'construction',
   },
   {
@@ -62,7 +62,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Industrial air compressors for powering pneumatic tools and equipment.',
     pricePerDay: 2000,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'power',
   },
   {
@@ -71,7 +71,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Heavy-duty surface grinding equipment for metal preparation and finishing.',
     pricePerDay: 4000,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'grinding',
   },
   {
@@ -80,7 +80,7 @@ export const rentalItemsData: RentalItem[] = [
     description:
       'Precision coating application tools for industrial and commercial projects.',
     pricePerDay: 3200,
-    image: testImg,
+    image: [testImg, testImg, testImg],
     category: 'painting',
   },
 ];

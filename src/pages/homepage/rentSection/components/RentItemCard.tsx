@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { RentalRequestModal } from '@/components/RentalRequestModal';
 import { RentalType } from '@/types/whatsappTypes';
+import {ImageSlider} from "@/pages/homepage/rentSection/components/ImageSlider";
 
 interface Props {
   cardTitle: string;
   CardSubTitle: string;
   buttonLabel: string;
-  imgUrl: string;
+  imgUrl: string[];
   rentPerDay: number;
   onClickBtn?: () => void;
 }
@@ -53,22 +54,26 @@ export const RentItemCard = ({
         itemScope
         itemType='https://schema.org/Product'
       >
-        <div className='w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0'>
-          <img
-            className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
-            src={imgUrl}
-            alt={`${cardTitle} - Professional equipment rental`}
-            itemProp='image'
-            loading='lazy'
-            width='300'
-            height='200'
-          />
-        </div>
+        {/*<div className='w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0'>*/}
+        {/*  <img*/}
+        {/*    className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'*/}
+        {/*    src={imgUrl[0]}*/}
+        {/*    alt={`${cardTitle} - Professional equipment rental`}*/}
+        {/*    itemProp='image'*/}
+        {/*    loading='lazy'*/}
+        {/*    width='300'*/}
+        {/*    height='200'*/}
+        {/*  />*/}
+        {/*</div>*/}
+          <div className="w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0">
+              <ImageSlider images={imgUrl} />
+          </div>
 
-        <div className='md:hidden absolute inset-0 z-0 rounded-lg overflow-hidden'>
+
+          <div className='md:hidden absolute inset-0 z-0 rounded-lg overflow-hidden'>
           <img
             className='w-full h-full object-cover'
-            src={imgUrl}
+            src={imgUrl[0]}
             alt={`${cardTitle} - Professional equipment rental`}
             loading='lazy'
           />
