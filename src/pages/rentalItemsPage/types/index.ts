@@ -3,7 +3,7 @@ export interface RentalItem {
   title: string;
   description: string;
   pricePerDay: number;
-  image: string;
+  image: string[];
   category: string;
   availability?: boolean;
   createdAt?: string;
