@@ -1,5 +1,5 @@
 export interface RentalItem {
-  id: number;
+  id: string;
   title: string;
   description: string;
   pricePerDay: number;
@@ -71,7 +71,7 @@ export interface PaginationProps {
 
 export interface RentalItemsGridProps {
   items: RentalItem[];
-  onRentItem: (itemId: number) => void;
+  onRentItem: (itemId: string) => void;
   loading?: boolean;
 }
 

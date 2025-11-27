@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RentalRequestModal } from '@/components/RentalRequestModal';
 import { RentalType } from '@/types/whatsappTypes';
-import {ImageSlider} from "@/pages/homepage/rentSection/components/ImageSlider";
+import { ImageSlider } from "@/pages/homepage/rentSection/components/ImageSlider";
 
 interface Props {
   cardTitle: string;
@@ -65,15 +65,15 @@ export const RentItemCard = ({
         {/*    height='200'*/}
         {/*  />*/}
         {/*</div>*/}
-          <div className="w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0">
-              <ImageSlider images={imgUrl} />
-          </div>
+        <div className="w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0">
+          <ImageSlider images={imgUrl} />
+        </div>
 
 
-          <div className='md:hidden absolute inset-0 z-0 rounded-lg overflow-hidden'>
+        <div className='md:hidden absolute inset-0 z-0 rounded-lg overflow-hidden'>
           <img
             className='w-full h-full object-cover'
-            src={imgUrl[0]}
+            src={imgUrl.length > 0 ? imgUrl[0] : ''}
             alt={`${cardTitle} - Professional equipment rental`}
             loading='lazy'
           />
