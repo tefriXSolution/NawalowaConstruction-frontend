@@ -8,8 +8,17 @@ export const loginApi = async (
   return response.data;
 };
 export const logOutApi = async (
-  email:string
+  email: string
 ): Promise<LogOutResponse> => {
-  const response = await apiClient.post('/users/signout', {email});
+  const response = await apiClient.post('/users/signout', { email });
   return response.data;
+};
+
+export const getContactDetailsApi = async () => {
+  try {
+    const response = await apiClient.get('/users/contact-details');
+    return response.data;
+  } catch (err: any) {
+    return { error: true, message: err.response?.data?.message || "Failed to fetch contact details" };
+  }
 };

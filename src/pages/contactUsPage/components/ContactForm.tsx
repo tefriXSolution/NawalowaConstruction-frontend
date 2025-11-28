@@ -124,7 +124,7 @@ export const ContactForm: React.FC = () => {
                         type="tel"
                         id="phone"
                         name="phone"
-                        placeholder="+94 77 1234 567"
+                        placeholder="071 234 5678"
                         value={formData.phone}
                         onChange={handleChange}
                     />

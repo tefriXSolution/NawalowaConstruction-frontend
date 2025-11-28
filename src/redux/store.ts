@@ -16,7 +16,7 @@ import authReducer from '@/redux/slices/user.slice'; //
 const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['user', 'token', 'refreshToken'],
+  whitelist: ['user', 'token', 'refreshToken', 'contactInfo'],
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);

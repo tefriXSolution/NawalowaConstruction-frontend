@@ -21,8 +21,21 @@ export const settingsSchema = z
     email: z.string().email('Please enter a valid email address'),
     mapUrl: z
       .string()
-      .url('Please enter a valid URL')
-      .or(z.string().length(0))
+      .refine(
+        (val) => {
+          if (!val) return true; // Allow empty
+          if (val.trim().startsWith('<iframe')) return true; // Allow iframe tag
+          try {
+            new URL(val); // Check if it's a valid URL
+            return true;
+          } catch {
+            return false;
+          }
+        },
+        {
+          message: 'Please enter a valid URL or the full iframe code',
+        },
+      )
       .optional(),
     address: z.string().min(1, 'Address is required'),
     newPassword: z.string().optional(),

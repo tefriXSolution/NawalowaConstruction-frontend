@@ -281,9 +281,8 @@ ${MESSAGE_TEMPLATES.COMPANY_FOOTER}`;
 *Daily Rate:* Rs.${dailyRate}/day
 *Request ID:* ${requestId}
 *Date:* ${new Date().toLocaleDateString()}
-*Time:* ${new Date().toLocaleTimeString()}${
-      rentalDuration ? `\n*Estimated Duration:* ${rentalDuration}` : ''
-    }`;
+*Time:* ${new Date().toLocaleTimeString()}${rentalDuration ? `\n*Estimated Duration:* ${rentalDuration}` : ''
+      }`;
 
     const customerInfo =
       customerName || customerPhone || customerEmail
@@ -467,6 +466,13 @@ Quality Equipment | Competitive Rates | Expert Support`;
    */
   public updateBusinessInfo(newInfo: Partial<WhatsAppBusinessInfo>): void {
     this.businessInfo = { ...this.businessInfo, ...newInfo };
+  }
+
+  /**
+   * Update service configuration dynamically
+   */
+  public updateConfig(newConfig: Partial<WhatsAppConfig>): void {
+    this.config = { ...this.config, ...newConfig };
   }
 }
 

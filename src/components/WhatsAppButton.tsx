@@ -100,8 +100,8 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
         serviceType,
         customMessage
           ? {
-              additionalMessage: customMessage,
-            }
+            additionalMessage: customMessage,
+          }
           : undefined,
       );
 
@@ -217,7 +217,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
                       }))
                     }
                     className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500'
-                    placeholder='+1 (555) 123-4567'
+                    placeholder='071 234 5678'
                   />
                 </div>
 

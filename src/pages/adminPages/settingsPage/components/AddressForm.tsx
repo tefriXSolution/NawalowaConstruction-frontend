@@ -78,7 +78,7 @@ export const AddressForm: React.FC<FormComponentProps> = ({
             )}
           />
           <p className='mt-1 text-xs text-gray-500'>
-            This URL will be used to show your business location on the website
+            This URL will be used to show your business location on the website. Please use the "Embed a map" URL from Google Maps (Share -&gt; Embed a map).
           </p>
         </div>
       </div>

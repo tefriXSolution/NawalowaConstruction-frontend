@@ -2,15 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import {
   RentalItem,
   RentalPageState,
-  PaginatedResponse,
 } from '@/pages/rentalItemsPage/types';
 import { rentalApiService } from '@/pages/rentalItemsPage/services/rentalApiService';
-import {
-  rentalItemsData,
-  getUniqueCategories,
-} from '@/pages/rentalItemsPage/data/rentalData';
-
-const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
 export const useRentalPage = () => {
   const [state, setState] = useState<RentalPageState>({
@@ -53,10 +46,6 @@ export const useRentalPage = () => {
   }, []);
 
   const fetchRentalItems = useCallback(async () => {
-    if (USE_MOCK_DATA) {
-      return;
-    }
-
     try {
       setLoading(true);
       setError(null);
@@ -79,13 +68,9 @@ export const useRentalPage = () => {
         error instanceof Error ? error.message : 'Unknown error occurred';
       setError(errorMessage);
       console.error('Failed to fetch rental items:', error);
-
-      // Fallback to mock data when API fails
-      console.log('Falling back to mock data...');
-      setItems(rentalItemsData);
-      setCategories(getUniqueCategories(rentalItemsData));
-      setTotalPages(Math.ceil(rentalItemsData.length / state.itemsPerPage));
-      setTotalItems(rentalItemsData.length);
+      setItems([]);
+      setTotalPages(0);
+      setTotalItems(0);
     } finally {
       setLoading(false);
     }
@@ -98,11 +83,6 @@ export const useRentalPage = () => {
   ]);
 
   const fetchCategories = useCallback(async () => {
-    if (USE_MOCK_DATA) {
-      setCategories(getUniqueCategories(rentalItemsData));
-      return;
-    }
-
     try {
       const response = await rentalApiService.getRentalCategories();
       if (response.success) {
@@ -110,22 +90,14 @@ export const useRentalPage = () => {
       }
     } catch (error) {
       console.error('Failed to fetch categories:', error);
-      // Fallback to mock data categories
-      setCategories(getUniqueCategories(rentalItemsData));
+      setCategories(['all']);
     }
   }, []);
 
   useEffect(() => {
-    if (USE_MOCK_DATA) {
-      setItems(rentalItemsData);
-      setCategories(getUniqueCategories(rentalItemsData));
-      setTotalPages(Math.ceil(rentalItemsData.length / state.itemsPerPage));
-      setTotalItems(rentalItemsData.length);
-    } else {
-      fetchCategories();
-      fetchRentalItems();
-    }
-  }, [fetchRentalItems, fetchCategories, state.itemsPerPage]);
+    fetchCategories();
+    fetchRentalItems();
+  }, [fetchRentalItems, fetchCategories]);
 
   const handleCategoryChange = useCallback((category: string) => {
     setState((prev) => ({
@@ -148,12 +120,7 @@ export const useRentalPage = () => {
   }, []);
 
   const handleRentItem = useCallback(
-    async (itemId: number) => {
-      if (USE_MOCK_DATA) {
-        console.log(`Renting item with ID: ${itemId}`);
-        return;
-      }
-
+    async (itemId: string) => {
       try {
         setLoading(false, true);
         const rentalDetails = {
@@ -183,47 +150,22 @@ export const useRentalPage = () => {
   );
 
   const refreshData = useCallback(() => {
-    if (!USE_MOCK_DATA) {
-      fetchRentalItems();
-      fetchCategories();
-    }
+    fetchRentalItems();
+    fetchCategories();
   }, [fetchRentalItems, fetchCategories]);
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  const displayedItems = USE_MOCK_DATA
-    ? items
-        .filter(
-          (item) =>
-            state.selectedCategory === 'all' ||
-            item.category === state.selectedCategory,
-        )
-        .slice(
-          (state.currentPage - 1) * state.itemsPerPage,
-          state.currentPage * state.itemsPerPage,
-        )
-    : items;
-
-  const filteredItemsCount = USE_MOCK_DATA
-    ? items.filter(
-        (item) =>
-          state.selectedCategory === 'all' ||
-          item.category === state.selectedCategory,
-      ).length
-    : totalItems;
-
   return {
     selectedCategory: state.selectedCategory,
     currentPage: state.currentPage,
     itemsPerPage: state.itemsPerPage,
     categories,
-    displayedItems,
-    totalPages: USE_MOCK_DATA
-      ? Math.ceil(filteredItemsCount / state.itemsPerPage)
-      : totalPages,
-    totalItems: filteredItemsCount,
+    displayedItems: items,
+    totalPages,
+    totalItems,
     loading: state.loading,
     error: state.error,
     handleCategoryChange,
