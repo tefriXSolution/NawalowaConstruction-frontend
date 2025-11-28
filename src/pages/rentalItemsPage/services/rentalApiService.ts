@@ -68,38 +68,38 @@ class RentalApiService {
         title: item.name,
         description: item.description,
         pricePerDay: item.price,
-        image: item.images && item.images.length > 0 ? item.images[0] : '',
+        image: Array.isArray(item.images) ? item.images : [],
         category: item.category,
         availability: item.availability,
       }));
 
       // Apply frontend filters
       let filteredItems = allItems;
-      
+
       if (filters.category && filters.category !== 'all') {
         filteredItems = filteredItems.filter(
           item => item.category.toLowerCase() === filters.category?.toLowerCase()
         );
       }
-      
+
       if (filters.availability !== undefined) {
         filteredItems = filteredItems.filter(
           item => item.availability === filters.availability
         );
       }
-      
+
       if (filters.minPrice !== undefined) {
         filteredItems = filteredItems.filter(
           item => item.pricePerDay >= (filters.minPrice ?? 0)
         );
       }
-      
+
       if (filters.maxPrice !== undefined) {
         filteredItems = filteredItems.filter(
           item => item.pricePerDay <= filters.maxPrice!
         );
       }
-      
+
       if (filters.search) {
         const searchLower = filters.search.toLowerCase();
         filteredItems = filteredItems.filter(
@@ -162,12 +162,12 @@ class RentalApiService {
     }
   }
 
-  async getRentalItem(id: number): Promise<ApiResponse<RentalItem>> {
+  async getRentalItem(id: string): Promise<ApiResponse<RentalItem>> {
     return this.makeRequest<ApiResponse<RentalItem>>(`/rent-items/${id}`);
   }
 
   async rentItem(
-    itemId: number,
+    itemId: string,
     rentalDetails: any,
   ): Promise<ApiResponse<any>> {
     return this.makeRequest<ApiResponse<any>>(`/rent-items/${itemId}/rent`, {
@@ -177,7 +177,7 @@ class RentalApiService {
   }
 
   async checkAvailability(
-    itemId: number,
+    itemId: string,
     dates: { startDate: string; endDate: string },
   ): Promise<ApiResponse<boolean>> {
     return this.makeRequest<ApiResponse<boolean>>(

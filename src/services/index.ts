@@ -1,6 +1,6 @@
 export {
-    loginService,
-    logOutService
+  loginService,
+  logOutService
 } from '@/services/user.service'
 export {
   whatsappService,

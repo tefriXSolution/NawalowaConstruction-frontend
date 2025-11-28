@@ -5,7 +5,7 @@ import housePaintingImg from "@/assets/img/housePainting.png";
 
 export const OurServices = () => {
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-10">
+    <section id="serviceSection" className="w-full px-4 sm:px-6 lg:px-8 py-10">
       <div className="text-center mb-10">
         <h2 className="text-3xl sm:text-4xl font-bold text-mainTheme-color section-title">
           Our Services

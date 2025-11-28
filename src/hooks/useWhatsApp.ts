@@ -1,10 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { whatsappService } from '@/services/whatsapp.service';
 import {
   ServiceType,
   RentalType,
   WhatsAppResponse,
 } from '@/types/whatsappTypes';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/types';
+import { WHATSAPP_BUSINESS_CONFIG } from '@/config/whatsapp.config';
 
 interface UseWhatsAppReturn {
   isLoading: boolean;
@@ -49,6 +52,28 @@ export const useWhatsApp = (): UseWhatsAppReturn => {
     null,
   );
 
+  // Get contact info from Redux store
+  const { contactInfo, user } = useSelector((state: RootState) => state.auth);
+
+  // Update WhatsApp service configuration when contact info changes
+  useEffect(() => {
+    if (contactInfo) {
+      whatsappService.updateBusinessInfo({
+        phoneNumber: contactInfo.phone,
+        email: contactInfo.email || user?.email || WHATSAPP_BUSINESS_CONFIG.COMPANY_EMAIL,
+        address: contactInfo.address,
+        // If location is mapUrl, we might not use it directly in business info text but good to have
+      });
+
+      // Update the config for the phone number used for sending messages
+      if (contactInfo.phone) {
+        whatsappService.updateConfig({
+          businessPhoneNumber: contactInfo.phone
+        });
+      }
+    }
+  }, [contactInfo, user]);
+
   const sendServiceRequest = useCallback(
     async (
       serviceType: ServiceType | string,
@@ -63,6 +88,8 @@ export const useWhatsApp = (): UseWhatsAppReturn => {
       setError(null);
 
       try {
+        // Ensure we are using the latest contact info from the service
+        // (which was updated by the useEffect above)
         const response = await whatsappService.sendServiceRequest(
           serviceType,
           customerInfo,

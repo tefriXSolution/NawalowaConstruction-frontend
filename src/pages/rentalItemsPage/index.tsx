@@ -60,7 +60,7 @@ export const RentalItemsPage = () => {
   };
 
   // New WhatsApp-enabled rent item handler
-  const handleRentItem = (itemId: number) => {
+  const handleRentItem = (itemId: string) => {
     const item = displayedItems.find((item) => item.id === itemId);
     if (item) {
       setSelectedRentalItem(item);
