@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const backendUrl =
-  import.meta.env.VITE_API_BASE_URL;
+  import.meta.env.VITE_API_BASE_URL || (isLocal ? 'http://localhost:5001/api' : 'https://nawalowa-backend.onrender.com/api');
 
 export const apiClient = axios.create({
   baseURL: backendUrl,

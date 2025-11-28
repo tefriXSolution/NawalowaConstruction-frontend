@@ -5,8 +5,9 @@ import {
   RentalFilters,
 } from '@/pages/rentalItemsPage/types';
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const API_BASE_URL =
-  (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:5001/api';
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) || (isLocal ? 'http://localhost:5001/api' : 'https://nawalowa-backend.onrender.com/api');
 
 class RentalApiService {
   private async makeRequest<T>(
