@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {ContactInfo, User} from "@/types";
-import { loginUser, logOutUser } from "../thunks/user.thunk";
+import { ContactInfo, User } from "@/types";
+import { loginUser, logOutUser, fetchContactInfo } from "../thunks/user.thunk";
 
 interface AuthState {
   user: User | null;
@@ -9,7 +9,7 @@ interface AuthState {
   refreshToken: string | null;
   loading: boolean;
   error: boolean;
-  message:string;
+  message: string;
 }
 
 const initialState: AuthState = {
@@ -18,22 +18,22 @@ const initialState: AuthState = {
   refreshToken: null,
   loading: false,
   error: false,
-  message:"",
+  message: "",
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-      updateAccessToken: (state, action) => {
-         state.token = action.payload
-      },
-      updateUserData: (state, action) => {
-        state.user = action.payload
-      },
-      updateContactInfo: (state, action) => {
-          state.contactInfo = action.payload
-      }
+    updateAccessToken: (state, action) => {
+      state.token = action.payload
+    },
+    updateUserData: (state, action) => {
+      state.user = action.payload
+    },
+    updateContactInfo: (state, action) => {
+      state.contactInfo = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -45,11 +45,11 @@ export const authSlice = createSlice({
         state.loading = false;
         state.error = false;
 
-        state.user = action.payload.data?.user??null;
-        state.token = action.payload.data?.token??null;
-        state.refreshToken = action.payload.data?.refreshToken??null;
+        state.user = action.payload.data?.user ?? null;
+        state.token = action.payload.data?.token ?? null;
+        state.refreshToken = action.payload.data?.refreshToken ?? null;
         state.message = action.payload.message;
-        
+
         if (action.payload.data?.user && action.payload.data?.token) {
           localStorage.setItem("user", JSON.stringify(action.payload.data?.user));
           localStorage.setItem("token", action.payload.data?.token);
@@ -66,21 +66,24 @@ export const authSlice = createSlice({
         state.token = null;
         state.refreshToken = null;
       })
-      .addCase(logOutUser.pending, (state)=>{
+      .addCase(logOutUser.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addCase(logOutUser.fulfilled, (state)=>{
+      .addCase(logOutUser.fulfilled, (state) => {
         state.loading = false;
         state.error = false;
         state.user = null;
         state.token = null;
         state.refreshToken = null;
       })
-      .addCase(logOutUser.rejected, (state)=>{
+      .addCase(logOutUser.rejected, (state) => {
         state.loading = false;
         state.error = true;
       })
+      .addCase(fetchContactInfo.fulfilled, (state, action) => {
+        state.contactInfo = action.payload;
+      });
   },
 });
 

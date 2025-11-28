@@ -7,14 +7,15 @@ export type { OurStory, CoreValue } from '@/types/aboutUsTypes';
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export interface ContactInfo{
-    id?:"string";
-    address?:string;
-    phone?:string;
-    location?:string;
+export interface ContactInfo {
+    id?: "string";
+    address?: string;
+    phone?: string;
+    location?: string;
+    email?: string;
 }
 
-export type{
+export type {
     Credentials,
     User,
     NewUser,
@@ -25,12 +26,12 @@ export type{
 } from '@/types/userTypes'
 
 export type {
-  WhatsAppConfig,
-  ServiceRequest,
-  WhatsAppMessage,
-  WhatsAppResponse,
-  MessageTemplate,
-  WhatsAppBusinessInfo,
+    WhatsAppConfig,
+    ServiceRequest,
+    WhatsAppMessage,
+    WhatsAppResponse,
+    MessageTemplate,
+    WhatsAppBusinessInfo,
 } from '@/types/whatsappTypes';
 
 export type {

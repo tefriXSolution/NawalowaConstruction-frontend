@@ -8,7 +8,7 @@
 export const WHATSAPP_BUSINESS_CONFIG = {
   // Your WhatsApp Business number (without + or spaces)
   // Example: If your number is +1-555-123-4567, enter: "15551234567"
-  BUSINESS_PHONE: import.meta.env.VITE_WHATSAPP_BUSINESS_PHONE || '1234567890',
+  BUSINESS_PHONE: '1234567890',
 
   // Your country code (with +)
   COUNTRY_CODE: import.meta.env.VITE_WHATSAPP_COUNTRY_CODE || '+1',
