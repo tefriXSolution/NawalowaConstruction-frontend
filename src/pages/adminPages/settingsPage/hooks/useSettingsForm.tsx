@@ -63,8 +63,17 @@ export const useSettingsForm = (dispatch: AppDispatch) => {
         password: data.newPassword,
         confirmPassword: data.confirmPassword,
       })
+
+      let locationUrl = data.mapUrl;
+      if (locationUrl && locationUrl.trim().startsWith('<iframe')) {
+        const srcMatch = locationUrl.match(/src="([^"]+)"/);
+        if (srcMatch && srcMatch[1]) {
+          locationUrl = srcMatch[1];
+        }
+      }
+
       const result2 = await apiClient.post('/users/change-contact-details', {
-        location: data.mapUrl,
+        location: locationUrl,
         phone: data.phoneNumber,
         address: data.address,
       })
