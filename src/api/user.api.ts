@@ -16,7 +16,7 @@ export const logOutApi = async (
 
 export const getContactDetailsApi = async () => {
   try {
-    const response = await apiClient.get('/users/contact-details');
+    const response = await apiClient.get('/users/getContactInfo');
     return response.data;
   } catch (err: any) {
     return { error: true, message: err.response?.data?.message || "Failed to fetch contact details" };

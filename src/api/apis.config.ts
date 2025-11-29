@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const backendUrl =
-  import.meta.env.VITE_API_BASE_URL;
+  import.meta.env.VITE_API_BASE_URL || (isLocal ? 'http://localhost:5001/api' : 'https://nawalowaconstruction-backend.onrender.com/api');
 
 export const apiClient = axios.create({
   baseURL: backendUrl,
@@ -11,9 +12,13 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.warn("Access to storage is not allowed", error);
     }
     return config;
   },
@@ -28,9 +33,13 @@ export const apiFileClient = axios.create({
 
 apiFileClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    try {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.warn("Access to storage is not allowed", error);
     }
     return config;
   },

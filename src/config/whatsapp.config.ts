@@ -11,7 +11,7 @@ export const WHATSAPP_BUSINESS_CONFIG = {
   BUSINESS_PHONE: '1234567890',
 
   // Your country code (with +)
-  COUNTRY_CODE: import.meta.env.VITE_WHATSAPP_COUNTRY_CODE || '+1',
+  COUNTRY_CODE: import.meta.env.VITE_WHATSAPP_COUNTRY_CODE || '+94',
 
   // Company Information
   COMPANY_NAME: import.meta.env.VITE_COMPANY_NAME || 'Nawalowa Construction',
