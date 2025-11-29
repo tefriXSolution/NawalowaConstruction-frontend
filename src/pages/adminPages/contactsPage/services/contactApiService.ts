@@ -1,6 +1,6 @@
 import { ApiResponse, Contact, PaginatedResponse } from '../types';
 
-const RAW_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:5001/api';
+const RAW_BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'https://nawalowaconstruction-backend.onrender.com/api';
 const API_BASE_URL = RAW_BASE
     .replace(/\/$/, '');
 
@@ -13,9 +13,14 @@ class ContactApiService {
             headers: {
                 'Content-Type': 'application/json',
                 ...(options.headers || {}),
-                ...(localStorage.getItem('token')
-                    ? { Authorization: `Bearer ${localStorage.getItem('token')}` }
-                    : {}),
+                ...(() => {
+                    try {
+                        const token = localStorage.getItem('token');
+                        return token ? { Authorization: `Bearer ${token}` } : {};
+                    } catch (e) {
+                        return {};
+                    }
+                })(),
             },
             ...options,
         });

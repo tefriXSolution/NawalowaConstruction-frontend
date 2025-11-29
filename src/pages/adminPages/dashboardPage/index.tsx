@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Contact } from '@/pages/adminPages/contactsPage/types';
 import { contactApiService } from '@/pages/adminPages/contactsPage/services/contactApiService';
-import {SettingsFormData} from "@/pages/adminPages/settingsPage/validation/settingsSchema";
-import {apiClient} from "@/api/apis.config";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "@/types";
-import {updateContactInfo} from "@/redux/slices/user.slice";
+import { SettingsFormData } from "@/pages/adminPages/settingsPage/validation/settingsSchema";
+import { apiClient } from "@/api/apis.config";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/types";
+import { updateContactInfo } from "@/redux/slices/user.slice";
 
 type DashboardMetrics = {
     contacts: {
@@ -19,7 +19,7 @@ type DashboardMetrics = {
     };
 };
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'http://localhost:5001/api';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) || 'https://nawalowaconstruction-backend.onrender.com/api';
 
 export const DashboardPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -34,11 +34,11 @@ export const DashboardPage: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const retrieveContactInfo=async ()=>{
+    const retrieveContactInfo = async () => {
         try {
             const res = await apiClient.get("users/getContactInfo");
             return res.data.data;
-        }catch(error){
+        } catch (error) {
             console.log(error);
         }
     }
