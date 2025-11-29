@@ -384,7 +384,7 @@ export const ManageContacts: React.FC = () => {
                                     className="w-full sm:w-auto rounded-lg px-5 sm:px-6 lg:px-7 py-2.5 sm:py-3 text-sm sm:text-base lg:text-lg font-semibold text-gray-700 bg-white border-2 border-gray-300 hover:bg-gray-100 transition-all shadow-sm hover:shadow-md"
                                     onClick={() => setSelected(null)}
                                 >
-                                    Close  
+                                    Close
                                 </button>
                                 {!selected.isRead && (
                                     <button
