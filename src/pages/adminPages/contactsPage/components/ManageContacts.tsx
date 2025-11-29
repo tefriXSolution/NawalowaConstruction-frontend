@@ -169,6 +169,7 @@ export const ManageContacts: React.FC = () => {
                                         setMarkError(null);
                                     }
                                 }}
+                            >
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg text-gray-600 font-semibold whitespace-nowrap align-middle">{idx + 1}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg font-bold text-gray-900 whitespace-nowrap align-middle">{c.name}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 min-w-[200px] align-middle">
@@ -386,7 +387,12 @@ export const ManageContacts: React.FC = () => {
                                 >
                                     Close
                                 </button>
-                                {!selected.isRead && (
+                                {selected.isRead ? (
+                                    <span className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-lg bg-gray-100 px-5 sm:px-6 lg:px-7 py-2.5 sm:py-3 text-sm sm:text-base lg:text-lg font-semibold text-gray-500 border-2 border-gray-200">
+                                        <FaCheck className="text-sm sm:text-base text-green-500" />
+                                        <span>Already Read</span>
+                                    </span>
+                                ) : (
                                     <button
                                         className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-lg bg-green-600 px-5 sm:px-6 lg:px-7 py-2.5 sm:py-3 text-sm sm:text-base lg:text-lg font-semibold text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md"
                                         disabled={marking}
