@@ -21,7 +21,7 @@ class ContactApiService {
                         return {};
                     }
                 })(),
-            },
+            } as HeadersInit,
             ...options,
         });
 
