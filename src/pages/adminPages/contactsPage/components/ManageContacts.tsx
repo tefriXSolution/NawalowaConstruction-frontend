@@ -169,6 +169,7 @@ export const ManageContacts: React.FC = () => {
                                         setMarkError(null);
                                     }
                                 }}
+                            >
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg text-gray-600 font-semibold whitespace-nowrap align-middle">{idx + 1}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg font-bold text-gray-900 whitespace-nowrap align-middle">{c.name}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 min-w-[200px] align-middle">
@@ -212,12 +213,12 @@ export const ManageContacts: React.FC = () => {
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 whitespace-nowrap align-middle">
                                     {c.createdAt ? (
                                         <div className="space-y-1">
-                                            <div className="font-semibold text-sm lg:text-base text-gray-900">{new Date(c.createdAt).toLocaleDateString('en-US', { 
+                                            <div className="font-semibold text-sm lg:text-base text-gray-900">{new Date(c.createdAt).toLocaleDateString(undefined, { 
                                                 year: 'numeric', 
                                                 month: 'short', 
                                                 day: 'numeric' 
                                             })}</div>
-                                            <div className="text-sm lg:text-base text-gray-600">{new Date(c.createdAt).toLocaleTimeString('en-US', {
+                                            <div className="text-sm lg:text-base text-gray-600">{new Date(c.createdAt).toLocaleTimeString(undefined, {
                                                 hour: '2-digit',
                                                 minute: '2-digit'
                                             })}</div>
@@ -359,12 +360,12 @@ export const ManageContacts: React.FC = () => {
                             </div>
                             {selected.createdAt && (
                                 <p className="text-xs sm:text-sm lg:text-base text-gray-600 mt-4 lg:mt-5 font-medium">
-                                    Received on {new Date(selected.createdAt).toLocaleDateString('en-US', {
+                                    Received on {new Date(selected.createdAt).toLocaleDateString(undefined, {
                                         weekday: 'long',
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric'
-                                    })} at {new Date(selected.createdAt).toLocaleTimeString('en-US', {
+                                    })} at {new Date(selected.createdAt).toLocaleTimeString(undefined, {
                                         hour: '2-digit',
                                         minute: '2-digit'
                                     })}
