@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { createNoise3D } from "simplex-noise";
 
 // Simple cn function to replace the missing utility
@@ -87,13 +87,13 @@ export const WavyBackground = ({
     render();
   };
   
-  const waveColors = colors ?? [
+  const waveColors = useMemo(() => colors ?? [
     "#38bdf8",
     "#818cf8",
     "#c1c5ee",
     "#114bf0",
     "#22d3ee",
-  ];
+  ], [colors]);
   
   const drawWave = (n: number) => {
     if (!ctx) return;
