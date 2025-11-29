@@ -159,8 +159,16 @@ export const ManageContacts: React.FC = () => {
                             <tr
                                 key={c._id || String(c.id)}
                                 className="hover:bg-blue-50 cursor-pointer transition-all duration-200"
+                                role="button"
+                                tabIndex={0}
                                 onClick={() => { setSelected(c); setMarkError(null); }}
-                            >
+                                onKeyDown={e => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setSelected(c);
+                                        setMarkError(null);
+                                    }
+                                }}
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg text-gray-600 font-semibold whitespace-nowrap align-middle">{idx + 1}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg font-bold text-gray-900 whitespace-nowrap align-middle">{c.name}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 min-w-[200px] align-middle">
