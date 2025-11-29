@@ -5,4 +5,5 @@ export { WhatsAppWidget } from './WhatsAppWidget';
 export { WhatsAppContactSection } from './WhatsAppContactSection';
 export { NavigationBar } from './navbar';
 export { Footer } from './footer';
-export { LoaderComponent } from './Loading'
+export { LoaderComponent } from './Loading';
+export { LoadingSpinner } from './LoadingSpinner';
