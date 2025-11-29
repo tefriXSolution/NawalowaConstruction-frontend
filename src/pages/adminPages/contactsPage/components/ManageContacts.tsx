@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { FaCheck, FaEnvelope, FaPhone, FaTimes } from 'react-icons/fa';
 import { contactApiService } from '../services';
 import type { Contact } from '../types';
+import { LoadingSpinner } from '../../../../components';
 
 export const ManageContacts: React.FC = () => {
     const [contacts, setContacts] = useState<Contact[]>([]);
@@ -16,7 +17,7 @@ export const ManageContacts: React.FC = () => {
         let mounted = true;
         (async () => {
             try {
-                setLoading(true);  
+                setLoading(true);
                 setError(null);
                 const res = await contactApiService.getContacts();
                 if (!mounted) return;
@@ -85,7 +86,7 @@ export const ManageContacts: React.FC = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px] p-4 sm:p-6">
-                <div className="h-6 w-6 animate-spin rounded-full border-2 border-mainTheme-color border-t-transparent" aria-label="Loading contacts" />
+                <LoadingSpinner size="lg" ariaLabel="Loading contacts" />
                 <span className="ml-3 text-xs sm:text-sm text-gray-600">Loading contacts…</span>
             </div>
         );
@@ -169,6 +170,7 @@ export const ManageContacts: React.FC = () => {
                                         setMarkError(null);
                                     }
                                 }}
+                            >
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg text-gray-600 font-semibold whitespace-nowrap align-middle">{idx + 1}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg font-bold text-gray-900 whitespace-nowrap align-middle">{c.name}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 min-w-[200px] align-middle">
@@ -394,7 +396,7 @@ export const ManageContacts: React.FC = () => {
                                     >
                                         {marking ? (
                                             <>
-                                                <div className="h-4 w-4 sm:h-5 sm:w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                                                <LoadingSpinner size="sm" borderColor="border-white" ariaLabel="Marking as read" />
                                                 <span>Marking…</span>
                                             </>
                                         ) : (
