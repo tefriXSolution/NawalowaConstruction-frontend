@@ -159,16 +159,8 @@ export const ManageContacts: React.FC = () => {
                             <tr
                                 key={c._id || String(c.id)}
                                 className="hover:bg-blue-50 cursor-pointer transition-all duration-200"
-                                role="button"
-                                tabIndex={0}
                                 onClick={() => { setSelected(c); setMarkError(null); }}
-                                onKeyDown={e => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        setSelected(c);
-                                        setMarkError(null);
-                                    }
-                                }}
+                            >
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg text-gray-600 font-semibold whitespace-nowrap align-middle">{idx + 1}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 text-base lg:text-lg font-bold text-gray-900 whitespace-nowrap align-middle">{c.name}</td>
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 min-w-[200px] align-middle">
@@ -212,12 +204,12 @@ export const ManageContacts: React.FC = () => {
                                 <td className="px-4 lg:px-6 py-5 lg:py-6 whitespace-nowrap align-middle">
                                     {c.createdAt ? (
                                         <div className="space-y-1">
-                                            <div className="font-semibold text-sm lg:text-base text-gray-900">{new Date(c.createdAt).toLocaleDateString('en-US', { 
+                                            <div className="font-semibold text-sm lg:text-base text-gray-900">{new Date(c.createdAt).toLocaleDateString(navigator.language, { 
                                                 year: 'numeric', 
                                                 month: 'short', 
                                                 day: 'numeric' 
                                             })}</div>
-                                            <div className="text-sm lg:text-base text-gray-600">{new Date(c.createdAt).toLocaleTimeString('en-US', {
+                                            <div className="text-sm lg:text-base text-gray-600">{new Date(c.createdAt).toLocaleTimeString(navigator.language, {
                                                 hour: '2-digit',
                                                 minute: '2-digit'
                                             })}</div>
@@ -359,12 +351,12 @@ export const ManageContacts: React.FC = () => {
                             </div>
                             {selected.createdAt && (
                                 <p className="text-xs sm:text-sm lg:text-base text-gray-600 mt-4 lg:mt-5 font-medium">
-                                    Received on {new Date(selected.createdAt).toLocaleDateString('en-US', {
+                                    Received on {new Date(selected.createdAt).toLocaleDateString(navigator.language, {
                                         weekday: 'long',
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric'
-                                    })} at {new Date(selected.createdAt).toLocaleTimeString('en-US', {
+                                    })} at {new Date(selected.createdAt).toLocaleTimeString(navigator.language, {
                                         hour: '2-digit',
                                         minute: '2-digit'
                                     })}
@@ -384,7 +376,7 @@ export const ManageContacts: React.FC = () => {
                                     className="w-full sm:w-auto rounded-lg px-5 sm:px-6 lg:px-7 py-2.5 sm:py-3 text-sm sm:text-base lg:text-lg font-semibold text-gray-700 bg-white border-2 border-gray-300 hover:bg-gray-100 transition-all shadow-sm hover:shadow-md"
                                     onClick={() => setSelected(null)}
                                 >
-                                    Close
+                                    Close  
                                 </button>
                                 {!selected.isRead && (
                                     <button
