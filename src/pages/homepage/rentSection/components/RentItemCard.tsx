@@ -3,7 +3,7 @@ import { RentalRequestModal } from '@/components/RentalRequestModal';
 import { RentalType } from '@/types/whatsappTypes';
 import { ImageSlider } from "@/pages/homepage/rentSection/components/ImageSlider";
 import { IoIosImages } from "react-icons/io";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
+import { Modal, ModalBody, ModalHeader } from "flowbite-react";
 
 interface Props {
   cardTitle: string;
@@ -84,7 +84,7 @@ export const RentItemCard = ({
         </div>
 
         <div className='relative z-10 p-4 sm:p-5 lg:p-6 flex flex-col flex-grow min-h-0'>
-            <div className="relative animate-pulse">
+            <div className="relative animate-pulse md:hidden">
                 <IoIosImages
                     color="#ffffff"
                     size="50px"
