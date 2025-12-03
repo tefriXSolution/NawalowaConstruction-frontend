@@ -21,7 +21,7 @@ export const MainLayout = () => {
 
   return (
     <div className='flex flex-col min-h-screen bg-white'>
-      <header className='relative z-[1000]'>
+      <header className='relative z-[10]'>
         <NavigationBar navLinks={navLinks} />
       </header>
 
@@ -29,7 +29,7 @@ export const MainLayout = () => {
         <Outlet />
       </main>
 
-      <footer className='mt-auto z-[500]'>
+      <footer className='mt-auto z-[10]'>
         <Footer footerLinks={footerLinks} />
       </footer>
 
