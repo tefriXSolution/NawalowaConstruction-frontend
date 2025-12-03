@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { RentalRequestModal } from '@/components/RentalRequestModal';
 import { RentalType } from '@/types/whatsappTypes';
 import { ImageSlider } from "@/pages/homepage/rentSection/components/ImageSlider";
+import { IoIosImages } from "react-icons/io";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 
 interface Props {
   cardTitle: string;
@@ -21,6 +23,7 @@ export const RentItemCard = ({
   onClickBtn,
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+    const [openImageModal, setOpenImageModal] = useState(false);
 
   // Map card titles to RentalType enum
   const getRentalType = (title: string): RentalType => {
@@ -52,7 +55,7 @@ export const RentItemCard = ({
       <article
         className='flex flex-col w-full max-w-sm h-full mx-auto bg-rentCardTheme-color border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 focus-within:ring-2 focus-within:ring-mainTheme-color relative md:bg-transparent'
         itemScope
-        itemType='https://schema.org/Product'
+        itemType=''
       >
         {/*<div className='w-full aspect-[4/3] overflow-hidden rounded-t-lg hidden md:block flex-shrink-0'>*/}
         {/*  <img*/}
@@ -81,12 +84,21 @@ export const RentItemCard = ({
         </div>
 
         <div className='relative z-10 p-4 sm:p-5 lg:p-6 flex flex-col flex-grow min-h-0'>
-          <h3
+            <div className="relative animate-pulse">
+                <IoIosImages
+                    color="#ffffff"
+                    size="50px"
+                    className="absolute top-0 right-0 "
+                    onClick={() => setOpenImageModal(true)}
+                />
+            </div>
+            <h3
             className='mb-2 text-lg sm:text-xl lg:text-2xl font-bold tracking-tight text-center text-white md:text-mainTheme-color line-clamp-1 hover:text-opacity-80 transition-colors'
             itemProp='name'
           >
-            {cardTitle}
+              {cardTitle}
           </h3>
+
 
           <p
             className='mb-3 text-sm sm:text-base font-normal text-white md:text-serviceCardSubText-color line-clamp-2 leading-relaxed min-h-[3rem]'
@@ -131,6 +143,20 @@ export const RentItemCard = ({
         itemName={cardTitle}
         dailyRate={rentPerDay}
       />
+        {/*Image Slider model in mobile view*/}
+        <Modal
+            show={openImageModal}
+            onClose={() => setOpenImageModal(false)}
+        >
+            <ModalHeader
+                className="bg-navbar-gradient"
+            >
+                {cardTitle}
+            </ModalHeader>
+            <ModalBody>
+                <ImageSlider images={imgUrl} />
+            </ModalBody>
+        </Modal>
     </>
   );
 };
