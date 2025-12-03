@@ -144,8 +144,15 @@ export const RentItemCard = ({
         dailyRate={rentPerDay}
       />
         {/*Image Slider model in mobile view*/}
-        <Modal show={openImageModal} onClose={() => setOpenImageModal(false)}>
-            <ModalHeader>{cardTitle}</ModalHeader>
+        <Modal
+            show={openImageModal}
+            onClose={() => setOpenImageModal(false)}
+        >
+            <ModalHeader
+                className="bg-navbar-gradient"
+            >
+                {cardTitle}
+            </ModalHeader>
             <ModalBody>
                 <ImageSlider images={imgUrl} />
             </ModalBody>
