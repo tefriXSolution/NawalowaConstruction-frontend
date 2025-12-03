@@ -152,7 +152,7 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 z-50 overflow-y-auto bg-gray-200 bg-opacity-50'>
+    <div className='fixed inset-0 z-[500] overflow-y-auto bg-gray-200 bg-opacity-50'>
       <div className='flex min-h-full items-center justify-center p-4'>
         <div className='bg-white rounded-lg shadow-xl max-w-md w-full'>
           {/* Header */}
