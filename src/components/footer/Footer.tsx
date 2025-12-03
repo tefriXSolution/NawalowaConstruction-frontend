@@ -20,7 +20,7 @@ export const Footer = ({ footerLinks }: Props) => {
               alt="Logo"
             />
             <span className="self-center text-lg sm:text-xl md:text-2xl font-semibold whitespace-nowrap text-mainText-color italic">
-              NawalowaConstruction
+              Nawalowa Constructions
             </span>
           </a>
 

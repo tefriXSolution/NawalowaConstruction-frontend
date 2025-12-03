@@ -152,7 +152,7 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 z-50 overflow-y-auto bg-gray-200 bg-opacity-50'>
+    <div className='fixed inset-0 z-[9999] overflow-y-auto bg-black/50 backdrop-blur-sm'>
       <div className='flex min-h-full items-center justify-center p-4'>
         <div className='bg-white rounded-lg shadow-xl max-w-md w-full'>
           {/* Header */}
@@ -180,8 +180,8 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
                 onClick={handleQuickRequest}
                 disabled={isLoading}
                 className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${isLoading
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-green-600 hover:bg-green-700 text-white'
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700 text-white'
                   }`}
               >
                 {isLoading ? 'Sending...' : 'Quick Rental Request'}
@@ -309,8 +309,8 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
                 type='submit'
                 disabled={isLoading}
                 className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${isLoading
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white'
                   }`}
               >
                 {isLoading ? 'Sending Request...' : 'Send Detailed Request'}

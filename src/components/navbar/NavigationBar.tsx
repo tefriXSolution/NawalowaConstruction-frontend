@@ -20,7 +20,7 @@ const NavigationBar = ({ navLinks }: Props) => {
   const { user, refreshToken } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
 
-  const isAuthenticated = useMemo(() => 
+  const isAuthenticated = useMemo(() =>
     !validateToken(refreshToken ?? "").error,
     [refreshToken]
   );
@@ -57,7 +57,7 @@ const NavigationBar = ({ navLinks }: Props) => {
           alt="Logo"
         />
         <span className="self-center whitespace-nowrap text-lg sm:text-xl md:text-2xl font-semibold text-mainText-color italic">
-          NawalowaConstruction
+          Nawalowa Constructions
         </span>
       </NavbarBrand>
 
@@ -98,7 +98,7 @@ const NavigationBar = ({ navLinks }: Props) => {
               <ul className="py-2 text-gray-700 dark:text-gray-200" aria-labelledby="user-menu-button">
                 <li>
                   <button
-                    onClick={()=>navigate('/dashboard')}
+                    onClick={() => navigate('/dashboard')}
                     className="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Dashboard
@@ -128,11 +128,10 @@ const NavigationBar = ({ navLinks }: Props) => {
               e.preventDefault();
               handleNavLinkClick(navLink);
             }}
-            className={`block w-full text-base sm:text-lg md:text-base lg:text-lg px-4 md:px-2 lg:px-4 rounded-lg py-2 md:py-0 text-center md:text-left transition-colors duration-200 text-gray-200 ${
-              currentPath === navLink.linkUrl
+            className={`block w-full text-base sm:text-lg md:text-base lg:text-lg px-4 md:px-2 lg:px-4 rounded-lg py-2 md:py-0 text-center md:text-left transition-colors duration-200 text-gray-200 ${currentPath === navLink.linkUrl
                 ? "!text-mainTheme-color md:scale-110 !bg-mainText-color "
                 : "hover:!bg-mainText-color hover:!text-mainTheme-color "
-            }`}
+              }`}
           >
             {navLink.linkName}
           </NavbarLink>
