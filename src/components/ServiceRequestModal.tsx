@@ -128,7 +128,7 @@ export const ServiceRequestModal: React.FC<ServiceRequestModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 z-50 overflow-y-auto bg-gray-200 bg-opacity-50'>
+    <div className='fixed inset-0 z-[9999] overflow-y-auto bg-black/50 backdrop-blur-sm'>
       <div className='flex min-h-full items-center justify-center p-4'>
         <div className='bg-white rounded-lg shadow-xl max-w-md w-full'>
           {/* Header */}

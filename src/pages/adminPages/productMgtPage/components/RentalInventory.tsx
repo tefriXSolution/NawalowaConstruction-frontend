@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import {RentalItem} from "@/types";
+import { RentalItem } from "@/types";
 
 interface RentalInventoryProps {
     rentalItems: RentalItem[];
-    onUpdateItem: (isStatus:boolean, item: RentalItem, newImages?: File[]) => void;
+    onUpdateItem: (isStatus: boolean, item: RentalItem, newImages?: File[]) => void;
     onDeleteItem: (itemId: string) => void;
     categories: string[];
     refreshTrigger?: number;
 }
 
 export const RentalInventory: React.FC<RentalInventoryProps> = ({
-                                                                    rentalItems,
-                                                                    onUpdateItem,
-                                                                    onDeleteItem,
-                                                                    categories,
-                                                                    refreshTrigger = 0
-                                                                }) => {
+    rentalItems,
+    onUpdateItem,
+    onDeleteItem,
+    categories,
+    refreshTrigger = 0
+}) => {
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
@@ -94,7 +94,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
         if (item) {
             const newStatus = item.status.toLowerCase() === 'available' ? 'rented' :
                 item.status.toLowerCase() === 'rented' ? 'maintenance' : 'available';
-            onUpdateItem(true,{ ...item, status: newStatus });
+            onUpdateItem(true, { ...item, status: newStatus });
             console.log("item.status:", item._id);
         }
     };
@@ -107,7 +107,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
     // Handle save edit
     const handleSaveEdit = () => {
         if (editingItem) {
-            onUpdateItem(false,editingItem, newImages);
+            onUpdateItem(false, editingItem, newImages);
             setEditingItem(null);
         }
     };
@@ -143,8 +143,8 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
 
         return (
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${config.color}`}>
-      {config.label}
-    </span>
+                {config.label}
+            </span>
         );
     };
 
@@ -245,9 +245,9 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                 {selectedItems.length > 0 && (
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                         <div className="flex items-center justify-between">
-                        <span className="text-blue-800">
-                            {selectedItems.length} item(s) selected
-                        </span>
+                            <span className="text-blue-800">
+                                {selectedItems.length} item(s) selected
+                            </span>
                             <div className="flex space-x-3">
                                 <button
                                     onClick={handleBulkDelete}
@@ -313,8 +313,8 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                         <div className="col-span-1">
                                             <input
                                                 type="checkbox"
-                                                checked={selectedItems.includes(item._id??"")}
-                                                onChange={() => handleSelectItem(item._id??"")}
+                                                checked={selectedItems.includes(item._id ?? "")}
+                                                onChange={() => handleSelectItem(item._id ?? "")}
                                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                                             />
                                         </div>
@@ -346,9 +346,9 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
 
                                         {/* Price */}
                                         <div className="col-span-1">
-                                        <span className="text-sm font-medium text-gray-900">
-                                            Rs.{Number(item?.price)?.toFixed(2) ?? "0.00"}
-                                        </span>
+                                            <span className="text-sm font-medium text-gray-900">
+                                                Rs.{Number(item?.price)?.toFixed(2) ?? "0.00"}
+                                            </span>
                                         </div>
 
                                         {/* Stock */}
@@ -375,7 +375,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                                 </button>
 
                                                 <button
-                                                    onClick={() => handleToggleStatus(item._id??"")}
+                                                    onClick={() => handleToggleStatus(item._id ?? "")}
                                                     className="text-green-600 hover:text-green-900 focus:outline-none transition-colors duration-200"
                                                     title="Toggle Status"
                                                 >
@@ -385,7 +385,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                                 </button>
 
                                                 <button
-                                                    onClick={() => setDeleteConfirm(item._id??"")}
+                                                    onClick={() => setDeleteConfirm(item._id ?? "")}
                                                     className="text-red-600 hover:text-red-900 focus:outline-none transition-colors duration-200"
                                                     title="Delete"
                                                 >
@@ -413,12 +413,12 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                 <div className="md:hidden space-y-4">
                     {currentItems.length > 0 ? (
                         currentItems.map((item) => (
-                            <div key={item._id??""} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                            <div key={item._id ?? ""} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
                                 <div className="flex items-center justify-between mb-3">
                                     <input
                                         type="checkbox"
-                                        checked={selectedItems.includes(item._id??"")}
-                                        onChange={() => handleSelectItem(item._id??"")}
+                                        checked={selectedItems.includes(item._id ?? "")}
+                                        onChange={() => handleSelectItem(item._id ?? "")}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                                     />
                                     <StatusBadge status={item.status} />
@@ -471,7 +471,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                     </button>
 
                                     <button
-                                        onClick={() => handleToggleStatus(item._id??"")}
+                                        onClick={() => handleToggleStatus(item._id ?? "")}
                                         className="flex items-center space-x-1 text-green-600 hover:text-green-800 transition-colors duration-200"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -481,7 +481,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                     </button>
 
                                     <button
-                                        onClick={() => setDeleteConfirm(item._id??"")}
+                                        onClick={() => setDeleteConfirm(item._id ?? "")}
                                         className="flex items-center space-x-1 text-red-600 hover:text-red-800 transition-colors duration-200"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -504,14 +504,14 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
 
                 {/* Item Details Modal for Mobile */}
                 {selectedItem && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 md:hidden">
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 md:hidden">
                         <div className="bg-white rounded-lg max-w-sm w-full max-h-[80vh] overflow-y-auto">
                             <div className="p-6">
                                 <div className="flex justify-between items-center mb-4">
                                     <h3 className="text-lg font-semibold text-gray-900">Item Details</h3>
                                     <button
                                         onClick={() => setSelectedItem(null)}
-                                        className="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                                        className="text-gray-400 hover:text-gray-600 transition-colors duration-200 cursor-pointer"
                                     >
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -579,16 +579,16 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                                 handleEdit(selectedItem);
                                                 setSelectedItem(null);
                                             }}
-                                            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm"
+                                            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm cursor-pointer"
                                         >
                                             Edit
                                         </button>
                                         <button
                                             onClick={() => {
-                                                handleToggleStatus(selectedItem._id??"");
+                                                handleToggleStatus(selectedItem._id ?? "");
                                                 setSelectedItem(null);
                                             }}
-                                            className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm"
+                                            className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm cursor-pointer"
                                         >
                                             Change Status
                                         </button>
@@ -601,7 +601,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
 
                 {/* Edit Modal */}
                 {editingItem && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
                         <div className="bg-white rounded-xl max-w-md w-full shadow-lg">
                             <div className="p-6">
                                 <h3 className="text-lg font-semibold mb-4 text-gray-800">
@@ -749,13 +749,13 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                             setEditingItem(null);
                                             setNewImages([]);
                                         }}
-                                        className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                                        className="px-4 py-2 text-gray-600 hover:text-gray-800 cursor-pointer"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         onClick={handleSaveEdit}
-                                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
                                     >
                                         Save
                                     </button>
@@ -768,7 +768,7 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
 
                 {/* Delete Confirmation Modal */}
                 {deleteConfirm && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
                         <div className="bg-white rounded-lg max-w-sm w-full">
                             <div className="p-6">
                                 <h3 className="text-lg font-semibold mb-2">Confirm Delete</h3>
@@ -776,13 +776,13 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                                 <div className="flex justify-end space-x-3">
                                     <button
                                         onClick={() => setDeleteConfirm(null)}
-                                        className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                                        className="px-4 py-2 text-gray-600 hover:text-gray-800 cursor-pointer"
                                     >
                                         Cancel
                                     </button>
                                     <button
                                         onClick={() => handleDelete(deleteConfirm)}
-                                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                                        className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer"
                                     >
                                         Delete
                                     </button>
@@ -795,9 +795,9 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                 {/* Pagination */}
                 {totalPages > 1 && (
                     <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm text-gray-700">
-                        Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredItems.length)} of {filteredItems.length} items
-                    </span>
+                        <span className="text-sm text-gray-700">
+                            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredItems.length)} of {filteredItems.length} items
+                        </span>
 
                         <div className="flex items-center space-x-4">
                             <button
@@ -809,8 +809,8 @@ export const RentalInventory: React.FC<RentalInventoryProps> = ({
                             </button>
 
                             <span className="text-sm text-gray-700">
-                            Page {currentPage} of {totalPages}
-                        </span>
+                                Page {currentPage} of {totalPages}
+                            </span>
 
                             <button
                                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
