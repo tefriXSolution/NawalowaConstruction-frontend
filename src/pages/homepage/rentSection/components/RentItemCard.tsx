@@ -114,10 +114,11 @@ export const RentItemCard = ({
               itemScope
               itemType='https://schema.org/Offer'
             >
-              <span itemProp='price'>Rs.{rentPerDay}</span>
-              <span itemProp='priceCurrency' content='LKR'>
-                /day
-              </span>
+                
+              {/*<span itemProp='price'>Rs.{rentPerDay}</span>*/}
+              {/*<span itemProp='priceCurrency' content='LKR'>*/}
+              {/*  /day*/}
+              {/*</span>*/}
               <meta
                 itemProp='availability'
                 content='https://schema.org/InStock'
