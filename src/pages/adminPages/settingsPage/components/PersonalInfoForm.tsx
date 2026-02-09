@@ -97,6 +97,7 @@ export const PersonalInfoForm: React.FC<FormComponentProps> = ({
                   placeholder='Enter your email address'
                   theme={inputTheme}
                   color={errors.email ? 'failure' : undefined}
+                  disabled
                 />
                 {errors.email && (
                   <p className='mt-1 text-sm text-red-600'>
