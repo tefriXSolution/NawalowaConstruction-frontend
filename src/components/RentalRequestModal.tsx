@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { RentalType } from '@/types/whatsappTypes';
 import { useWhatsApp } from '@/hooks/useWhatsApp';
 
@@ -149,14 +150,25 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
     onClose();
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  return (
-    <div className='fixed inset-0 z-[9999] overflow-y-auto bg-black/50 backdrop-blur-sm'>
-      <div className='flex min-h-full items-center justify-center p-4'>
-        <div className='bg-white rounded-lg shadow-xl max-w-md w-full'>
+  return createPortal(
+    <div className='fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm'>
+      <div className='flex min-h-dvh items-center justify-center p-2 sm:p-4 overflow-y-auto'>
+        <div className='bg-white rounded-lg shadow-xl max-w-md w-full max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] flex flex-col overflow-hidden'>
           {/* Header */}
-          <div className='bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-t-lg'>
+          <div className='bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 sm:p-6 rounded-t-lg shrink-0'>
             <div className='flex justify-between items-center'>
               <div>
                 <h2 className='text-xl font-bold'>Rent {itemName}</h2>
@@ -173,7 +185,7 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
           </div>
 
           {/* Body */}
-          <div className='p-6'>
+          <div className='p-4 sm:p-6 overflow-y-auto flex-1 min-h-0'>
             {/* Quick Request Option */}
             <div className='mb-6'>
               <button
@@ -319,7 +331,7 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className='bg-gray-50 px-6 py-4 rounded-b-lg'>
+          <div className='bg-gray-50 px-4 sm:px-6 py-4 rounded-b-lg shrink-0'>
             <p className='text-xs text-gray-600 text-center'>
               By submitting this request, you agree to be contacted via WhatsApp
               regarding this rental inquiry.
@@ -327,6 +339,7 @@ export const RentalRequestModal: React.FC<RentalRequestModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };

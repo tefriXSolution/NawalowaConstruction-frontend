@@ -49,28 +49,31 @@ const NavigationBar = ({ navLinks }: Props) => {
     >
       <NavbarBrand
         href="/"
-        className="flex items-center gap-2 sm:gap-3 md:gap-4"
+        className="flex items-center gap-2 sm:gap-3 lg:gap-4"
       >
         <img
           src={Logo}
           className="h-8 sm:h-10 md:h-12 lg:h-14 transition-transform duration-300 scale-110 hover:scale-125"
           alt="Logo"
         />
-        <span className="self-center whitespace-nowrap text-lg sm:text-xl md:text-2xl font-semibold text-mainText-color italic">
+        <span className="self-center text-lg sm:text-xl lg:text-2xl font-semibold text-mainText-color italic sm:hidden">
+          Nawalowa
+        </span>
+        <span className="self-center whitespace-nowrap text-lg sm:text-xl lg:text-2xl font-semibold text-mainText-color italic hidden sm:inline">
           Nawalowa Constructions
         </span>
       </NavbarBrand>
 
-      <div className="flex items-center gap-2 md:gap-4 md:order-2">
+      <div className="flex items-center gap-2 lg:gap-4 lg:order-2">
         {!isAuthenticated ? (
           <Button
-            className="hidden md:inline-block !bg-gray-300 text-mainTheme-color text-sm sm:text-base md:text-lg px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 transition-transform duration-300 hover:scale-105"
+            className="hidden lg:inline-block !bg-gray-300 text-mainTheme-color text-sm sm:text-base lg:text-lg px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 transition-transform duration-300 hover:scale-105"
             onClick={() => navigate("/login")}
           >
             Login
           </Button>
         ) : (
-          <div className="flex items-center md:order-2">
+          <div className="flex items-center lg:order-2">
             <button
               id="user-menu-button"
               data-dropdown-toggle="user-dropdown"
@@ -119,7 +122,7 @@ const NavigationBar = ({ navLinks }: Props) => {
         <NavbarToggle />
       </div>
 
-      <NavbarCollapse className="absolute top-full left-0 w-full bg-mainTheme-color   md:bg-transparent shadow-lg md:static md:shadow-none md:w-auto">
+      <NavbarCollapse className="absolute top-full left-0 w-full bg-mainTheme-color lg:bg-transparent shadow-lg lg:static lg:shadow-none lg:w-auto">
         {navLinks.map((navLink) => (
           <NavbarLink
             key={navLink.linkUrl}
@@ -128,8 +131,8 @@ const NavigationBar = ({ navLinks }: Props) => {
               e.preventDefault();
               handleNavLinkClick(navLink);
             }}
-            className={`block w-full text-base sm:text-lg md:text-base lg:text-lg px-4 md:px-2 lg:px-4 rounded-lg py-2 md:py-0 text-center md:text-left transition-colors duration-200 text-gray-200 ${currentPath === navLink.linkUrl
-                ? "!text-mainTheme-color md:scale-110 !bg-mainText-color "
+            className={`block w-full text-base sm:text-lg lg:text-base xl:text-lg px-4 lg:px-2 xl:px-4 rounded-lg py-2 lg:py-0 text-center lg:text-left transition-colors duration-200 text-gray-200 ${currentPath === navLink.linkUrl
+                ? "!text-mainTheme-color lg:scale-110 !bg-mainText-color "
                 : "hover:!bg-mainText-color hover:!text-mainTheme-color "
               }`}
           >
@@ -139,7 +142,7 @@ const NavigationBar = ({ navLinks }: Props) => {
 
         {/* Mobile login button - only show when not authenticated */}
         {!isAuthenticated && (
-          <div className="md:hidden mt-2 px-4 mb-10">
+          <div className="lg:hidden mt-2 px-4 mb-10">
             <Button
               className="w-full !bg-gray-300 text-mainTheme-color text-base py-2 transition-transform duration-300 hover:scale-105"
               onClick={() => navigate("/login")}
